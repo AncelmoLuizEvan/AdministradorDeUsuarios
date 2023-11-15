@@ -1,0 +1,63 @@
+﻿@page "/usuariodetails"
+@page "/usuariodetails/{id}"
+
+@if (string.IsNullOrEmpty(Id))
+{
+    <PageTitle>Adicionar Usuario</PageTitle>
+    <h3>Novo Usuário</h3>
+}
+else
+{
+    <PageTitle>Gerenciar Usuário</PageTitle>
+    <h3>Gerenciar usuário</h3>
+}
+
+<div class="row">
+    <EditForm Model="@UsuarioViewModel" OnValidSubmit="@HandleValidRequest" OnInvalidSubmit="@HandleFailedRequest">
+        <div class="mb-3">
+            <label for="nome" class="form-label"><em>*</em>Nome</label>
+            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Nome"></InputText>
+            <ValidationMessage For="@(() => UsuarioViewModel.Nome)" />
+        </div>
+        <div class="mb-3">
+            <label for="cnpjcpf" class="form-label"><em>*</em>CPF</label>
+            <InputText class="form-control" @bind-Value="@UsuarioViewModel.CnpjCpf"></InputText>
+        </div>
+        <div class="mb-3">
+            <label for="celular" class="form-label">Telefone Celular</label>
+            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Celular"></InputText>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label"><em>*</em>Email</label>
+            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Email"></InputText>
+        </div>
+        <div class="mb-3">
+            <label for="login" class="form-label"><em>*</em>Login</label>
+            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Login"></InputText>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <div class="row">
+                    <div class="col">
+                        <a @onclick="@GoToUsuarios" class="btn btn-outline-primary">Voltar</a>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-outline-success">Salvar</button>
+                    </div>
+                    <div class="col">
+                        @if (!string.IsNullOrEmpty(Id))
+                        {
+                            <a @onclick="@ExcluirUsuario" class="btn btn-danger">Excluir</a>
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <p style="color: red">@Mensagem</p>
+            </div>
+        </div>
+    </EditForm>
+</div>

@@ -1,0 +1,44 @@
+﻿@page "/usuarios"
+
+<PageTitle>Usuários</PageTitle>
+<h3>Administrar Usuarios</h3>
+
+<a href="@($"UsuarioDetails")" class="btn btn-success">Novo Usuário</a>
+<br />
+<div class="row">
+    <div class="col">
+        @if (UsuariosCadastrados.Count() == 0)
+        {
+            <div class="row">
+                <span><b>Não há usuários cadastrados!</b></span>
+            </div>
+        }
+        else
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Login</th>
+                        <th scope="col">Email</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in UsuariosCadastrados)
+                    {
+                        <tr>
+                            <td>@item.Nome</td>
+                            <td>@item.Login</td>
+                            <td>@item.Email</td>
+                            <td>
+                                <a href="@($"usuariodetails/{item.Id}")" class="btn btn-outline-primary">Editar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>
