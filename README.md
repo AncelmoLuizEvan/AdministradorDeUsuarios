@@ -15,7 +15,14 @@ Arquitetura
 
 <br>
 Funcionalidades
-- Manter Usuários
-- Manter Perfis
-- Manter Permissões
-- Controlar acessos de usuário conforme perfil atribuído.
+<br>
+<ol>
+  <li>Manter Usuários</li>
+   <li>Manter Perfis</li>
+   <li>Manter Permissões</li>
+   <li>Controlar acessos de usuário conforme perfil atribuído.</li>
+</ol>
+ 
+ 
+
+
