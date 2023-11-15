@@ -17,7 +17,7 @@ namespace RpcCalc.API.Controllers
 
             var result = await useCase.Execute(viewModel);
 
-            return Ok(result); //
+            return Ok(result);
         }
 
         [HttpPut]
