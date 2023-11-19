@@ -10,7 +10,6 @@ namespace RpcCalc.APP.Pages.UsuarioPages
         protected string Mensagem = string.Empty;
 
         protected UsuarioViewModel UsuarioViewModel { get; set; } = new UsuarioViewModel();
-        protected UsuarioDto UsuarioDto { get; set; } = new UsuarioDto();
 
         [Parameter]
         public string? Id { get; set; }
@@ -33,9 +32,10 @@ namespace RpcCalc.APP.Pages.UsuarioPages
             }
         }
 
-        protected void GoToUsuarios() => _navigationManager.NavigateTo("/usuarios");
+        protected void GoToUsuarios() => _navigationManager.NavigateTo("/usuario/list");
+        protected void GoToUpdate() => _navigationManager.NavigateTo($"/usuario/update/{Id}");
 
-        protected async Task ExcluirUsuario()
+        protected async Task Delete()
         {
             if (!string.IsNullOrEmpty(Id))
             {
@@ -43,32 +43,10 @@ namespace RpcCalc.APP.Pages.UsuarioPages
                 var resulte = await UsuarioService.Excluir(usuarioId);
 
                 if (resulte)
-                    _navigationManager.NavigateTo("/usuarios");
+                    _navigationManager.NavigateTo("/usuario/list");
                 else
                     Mensagem = "Ocorreu um erro, o usuário não foi excluído. ";
 
-            }
-        }
-
-        protected async Task HandleValidRequest()
-        {
-            if (string.IsNullOrEmpty(Id))
-            {
-                var result = await UsuarioService.Gravar(UsuarioViewModel);
-
-                if (result is not null)
-                    _navigationManager.NavigateTo("/usuarios");
-                else
-                    Mensagem = "Ocorreu um erro, o usuário não foi adicionado";
-            }
-            else
-            {
-                var result = await UsuarioService.Alterar(Guid.Parse(Id), UsuarioViewModel);
-
-                if (result is not null)
-                    _navigationManager.NavigateTo("/usuarios");
-                else
-                    Mensagem = "Ocorreu um erro, o usuário não foi atualizado";
             }
         }
 

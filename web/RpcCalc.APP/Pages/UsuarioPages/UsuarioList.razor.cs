@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
-using RpcCalc.APP.Services.Usuario;
 using RpcCalc.APP.Interop.Usuario;
+using RpcCalc.APP.Services.Usuario;
 
 namespace RpcCalc.APP.Pages.UsuarioPages
 {
-    public partial class Usuarios
+    public partial class UsuarioList
     {
         [Inject]
         private IUsuarioService Service { get; set; } = null!;
