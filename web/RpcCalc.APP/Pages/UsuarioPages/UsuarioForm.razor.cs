@@ -14,7 +14,7 @@ namespace RpcCalc.APP.Pages.UsuarioPages
 
         [EditorRequired]
         [Parameter]
-        public UsuarioViewModel UsuarioViewModel { get; set; } = null!;
+        public UsuarioViewModel Usuario { get; set; } = null!;
 
         [EditorRequired]
         [Parameter]

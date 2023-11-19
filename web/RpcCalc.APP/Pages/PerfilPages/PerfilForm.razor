@@ -1,0 +1,29 @@
+﻿
+<div class="row">
+    <EditForm Model="@Perfil" OnValidSubmit="OnValidateSubmit">
+        <DataAnnotationsValidator />
+        <div class="mb-3">
+            <label for="nome" class="form-label"><em>*</em>Nome</label>
+            <InputText class="form-control" @bind-Value="@Perfil.Nome"></InputText>
+            <ValidationMessage For="@(() => Perfil.Nome)" />
+        </div>
+        <div class="mb-3">
+            <label for="cnpjcpf" class="form-label">Descrição</label>
+            <InputText class="form-control" @bind-Value="@Perfil.Descricao"></InputText>
+            <ValidationMessage For="@(() => Perfil.Descricao)" />
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <a @onclick="@GoToPerfis" class="btn btn-outline-primary">Voltar</a>
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-outline-success">Salvar</button>
+            </div>
+        </div>
+    </EditForm>
+    <div class="row">
+        <div class="col">
+            <p style="color: red">@Mensagem</p>
+        </div>
+    </div>
+</div>

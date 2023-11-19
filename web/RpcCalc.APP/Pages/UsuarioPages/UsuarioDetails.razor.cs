@@ -9,7 +9,7 @@ namespace RpcCalc.APP.Pages.UsuarioPages
     {
         protected string Mensagem = string.Empty;
 
-        protected UsuarioViewModel UsuarioViewModel { get; set; } = new UsuarioViewModel();
+        protected UsuarioViewModel Usuario { get; set; } = new UsuarioViewModel();
 
         [Parameter]
         public string? Id { get; set; }
@@ -17,7 +17,7 @@ namespace RpcCalc.APP.Pages.UsuarioPages
         [Inject]
         private IUsuarioService UsuarioService { get; set; } = null!;
         [Inject]
-        private NavigationManager _navigationManager { get; set; } = null!;
+        private NavigationManager NavigationManager { get; set; } = null!;
 
 
         protected override async Task OnInitializedAsync()
@@ -28,12 +28,9 @@ namespace RpcCalc.APP.Pages.UsuarioPages
                 var result = await UsuarioService.Capturar(usuarioId);
 
                 if (result != null)
-                    UsuarioViewModel = result.DtoForViewModel();
+                    Usuario = result.DtoForViewModel();
             }
         }
-
-        protected void GoToUsuarios() => _navigationManager.NavigateTo("/usuario/list");
-        protected void GoToUpdate() => _navigationManager.NavigateTo($"/usuario/update/{Id}");
 
         protected async Task Delete()
         {
@@ -43,13 +40,15 @@ namespace RpcCalc.APP.Pages.UsuarioPages
                 var resulte = await UsuarioService.Excluir(usuarioId);
 
                 if (resulte)
-                    _navigationManager.NavigateTo("/usuario/list");
+                    NavigationManager.NavigateTo("/usuario/list");
                 else
                     Mensagem = "Ocorreu um erro, o usuário não foi excluído. ";
 
             }
         }
 
+        protected void GoToUsuarios() => NavigationManager.NavigateTo("/usuario/list");
+        protected void GoToUpdate() => NavigationManager.NavigateTo($"/usuario/update/{Id}");
         protected void HandleFailedRequest() => Mensagem = "Ocorreu um erro, os dados do usuário não foram enviados.";
 
     }

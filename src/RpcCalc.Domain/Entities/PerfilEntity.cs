@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RpcCalc.Domain.Entities
+﻿namespace RpcCalc.Domain.Entities
 {
     public class PerfilEntity : BaseEntity
     {
@@ -22,6 +16,10 @@ namespace RpcCalc.Domain.Entities
         public ICollection<PermissaoEntity> Permissoes { get; private set; } = new HashSet<PermissaoEntity>();
         public ICollection<UsuarioPerfilEntity> UsuariosPerfis { get; private set; } = new HashSet<UsuarioPerfilEntity>();
 
-
+        public void AtualizarDados(string nome, string? descricao)
+        {
+            Nome = nome;
+            Descricao = descricao ?? string.Empty;
+        }
     }
 }

@@ -1,44 +1,36 @@
 ﻿@page "/usuario/details/{id}"
 
-@if (string.IsNullOrEmpty(Id))
-{
-    <PageTitle>Adicionar Usuario</PageTitle>
-    <h3>Novo Usuário</h3>
-}
-else
-{
-    <PageTitle>Detalhamento do Usuário</PageTitle>
-    <h3>Detalhamento do Usuário</h3>
-}
+<PageTitle>Detalhamento do Usuário</PageTitle>
+<h3>Detalhamento do Usuário</h3>
 
 <div class="row">
     <div class="col">
         <label for="nome" class="form-label">Nome: </label>
-        <span>@UsuarioViewModel.Nome</span>
+        <span>@Usuario.Nome</span>
     </div>
 </div>
 <div class="row">
     <div class="col">
         <label for="cnpjcpf" class="form-label">CPF</label>
-        <span>@UsuarioViewModel.CnpjCpf</span>
+        <span>@Usuario.CnpjCpf</span>
     </div>
 </div>
 <div class="row">
     <div class="col">
         <label for="celular" class="form-label">Telefone Celular</label>
-        <span>@UsuarioViewModel.Celular</span>
+        <span>@Usuario.Celular</span>
     </div>
 </div>
 <div class="row">
     <div class="col">
         <label for="email" class="form-label">Email</label>
-        <span>@UsuarioViewModel.Email</span>
+        <span>@Usuario.Email</span>
     </div>
 </div>
 <div class="row">
     <div class="col">
         <label for="login" class="form-label">Login</label>
-        <span>@UsuarioViewModel.Login</span>
+        <span>@Usuario.Login</span>
     </div>
 </div>
 <div class="row">
