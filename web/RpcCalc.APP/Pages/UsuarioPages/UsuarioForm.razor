@@ -1,30 +1,30 @@
 ﻿
 <div class="row">
-    <EditForm Model="@UsuarioViewModel" OnValidSubmit="OnValidateSubmit">
+    <EditForm Model="@Usuario" OnValidSubmit="OnValidateSubmit">
         <DataAnnotationsValidator />
         <div class="mb-3">
             <label for="nome" class="form-label"><em>*</em>Nome</label>
-            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Nome"></InputText>
-            <ValidationMessage For="@(() => UsuarioViewModel.Nome)" />
+            <InputText class="form-control" @bind-Value="@Usuario.Nome"></InputText>
+            <ValidationMessage For="@(() => Usuario.Nome)" />
         </div>
         <div class="mb-3">
             <label for="cnpjcpf" class="form-label"><em>*</em>CPF</label>
-            <InputText class="form-control" @bind-Value="@UsuarioViewModel.CnpjCpf"></InputText>
-            <ValidationMessage For="@(() => UsuarioViewModel.CnpjCpf)" />
+            <InputText class="form-control" @bind-Value="@Usuario.CnpjCpf"></InputText>
+            <ValidationMessage For="@(() => Usuario.CnpjCpf)" />
         </div>
         <div class="mb-3">
             <label for="celular" class="form-label">Telefone Celular</label>
-            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Celular"></InputText>
+            <InputText class="form-control" @bind-Value="@Usuario.Celular"></InputText>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label"><em>*</em>Email</label>
-            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Email"></InputText>
-            <ValidationMessage For="@(() => UsuarioViewModel.Email)" />
+            <InputText class="form-control" @bind-Value="@Usuario.Email"></InputText>
+            <ValidationMessage For="@(() => Usuario.Email)" />
         </div>
         <div class="mb-3">
             <label for="login" class="form-label"><em>*</em>Login</label>
-            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Login"></InputText>
-            <ValidationMessage For="@(() => UsuarioViewModel.Login)" />
+            <InputText class="form-control" @bind-Value="@Usuario.Login"></InputText>
+            <ValidationMessage For="@(() => Usuario.Login)" />
         </div>
         <div class="row">
             <div class="col-2">

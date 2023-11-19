@@ -11,7 +11,7 @@ namespace RpcCalc.APP.Pages.UsuarioPages
         private IUsuarioService UsuarioService { get; set; } = null!;
         [Inject]
         private NavigationManager NavigationManager { get; set; } = null!;
-        protected UsuarioViewModel UsuarioViewModel { get; set; } = new UsuarioViewModel();
+        protected UsuarioViewModel Usuario { get; set; } = new UsuarioViewModel();
 
         protected string Mensagem = string.Empty;
 
@@ -26,13 +26,13 @@ namespace RpcCalc.APP.Pages.UsuarioPages
                 var result = await UsuarioService.Capturar(usuarioId);
 
                 if (result != null)
-                    UsuarioViewModel = result.DtoForViewModel();
+                    Usuario = result.DtoForViewModel();
             }
         }
 
         private async Task Update()
         {
-            var result = await UsuarioService.Alterar(Guid.Parse(Id), UsuarioViewModel);
+            var result = await UsuarioService.Alterar(Guid.Parse(Id), Usuario);
 
             if (result is not null)
                 NavigationManager.NavigateTo("/usuario/list");

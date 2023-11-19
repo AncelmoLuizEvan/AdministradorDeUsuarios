@@ -9,14 +9,14 @@ namespace RpcCalc.APP.Pages.UsuarioPages
         [Inject]
         private IUsuarioService Service { get; set; } = null!;
 
-        public IEnumerable<UsuarioDto> UsuariosCadastrados { get; set; } = new List<UsuarioDto>();
+        public IEnumerable<UsuarioDto> Usuarios { get; set; } = new List<UsuarioDto>();
 
         protected override async Task OnInitializedAsync()
         {
             var usuarios = await Service.ObterTodos();
 
             if (usuarios is not null && usuarios.Any())
-                UsuariosCadastrados = usuarios;
+                Usuarios = usuarios;
         }
     }
 }

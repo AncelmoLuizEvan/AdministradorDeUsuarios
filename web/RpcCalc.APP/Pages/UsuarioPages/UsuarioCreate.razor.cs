@@ -13,11 +13,11 @@ namespace RpcCalc.APP.Pages.UsuarioPages
 
         protected string Mensagem = string.Empty;
 
-        public UsuarioViewModel UsuarioViewModel { get; set; } = new UsuarioViewModel();
+        public UsuarioViewModel Usuario { get; set; } = new UsuarioViewModel();
 
         private async Task Create()
         {
-            var result = await UsuarioService.Gravar(UsuarioViewModel);
+            var result = await UsuarioService.Gravar(Usuario);
 
             if (result is not null)
                 NavigationManager.NavigateTo("/usuario/list");
