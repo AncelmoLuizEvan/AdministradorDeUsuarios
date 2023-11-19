@@ -1,0 +1,43 @@
+﻿
+<div class="row">
+    <EditForm Model="@UsuarioViewModel" OnValidSubmit="OnValidateSubmit">
+        <DataAnnotationsValidator />
+        <div class="mb-3">
+            <label for="nome" class="form-label"><em>*</em>Nome</label>
+            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Nome"></InputText>
+            <ValidationMessage For="@(() => UsuarioViewModel.Nome)" />
+        </div>
+        <div class="mb-3">
+            <label for="cnpjcpf" class="form-label"><em>*</em>CPF</label>
+            <InputText class="form-control" @bind-Value="@UsuarioViewModel.CnpjCpf"></InputText>
+            <ValidationMessage For="@(() => UsuarioViewModel.CnpjCpf)" />
+        </div>
+        <div class="mb-3">
+            <label for="celular" class="form-label">Telefone Celular</label>
+            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Celular"></InputText>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label"><em>*</em>Email</label>
+            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Email"></InputText>
+            <ValidationMessage For="@(() => UsuarioViewModel.Email)" />
+        </div>
+        <div class="mb-3">
+            <label for="login" class="form-label"><em>*</em>Login</label>
+            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Login"></InputText>
+            <ValidationMessage For="@(() => UsuarioViewModel.Login)" />
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <a @onclick="@GoToUsuarios" class="btn btn-outline-primary">Voltar</a>
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-outline-success">Salvar</button>
+            </div>
+        </div>
+    </EditForm>
+    <div class="row">
+        <div class="col">
+            <p style="color: red">@Mensagem</p>
+        </div>
+    </div>
+</div>

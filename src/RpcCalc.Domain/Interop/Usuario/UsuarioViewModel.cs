@@ -11,10 +11,10 @@ namespace RpcCalc.Domain.Interop.Usuario
         [Required(ErrorMessage = "O Nome é obrigatório")]
         public string Nome { get; set; } = null!;
 
-        [EmailAddress(ErrorMessage = "E-mail inválido!")]
         [Required(ErrorMessage = "O Login é obrigatório")]
         public string Login { get; set; } = null!;
 
+        [EmailAddress(ErrorMessage = "E-mail inválido!")]
         [Required(ErrorMessage = "O Email é obrigatório")]
         public string Email { get; set; } = null!;
 

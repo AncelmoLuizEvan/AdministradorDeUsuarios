@@ -1,5 +1,4 @@
-﻿@page "/usuariodetails"
-@page "/usuariodetails/{id}"
+﻿@page "/usuario/details/{id}"
 
 @if (string.IsNullOrEmpty(Id))
 {
@@ -8,56 +7,53 @@
 }
 else
 {
-    <PageTitle>Gerenciar Usuário</PageTitle>
-    <h3>Gerenciar usuário</h3>
+    <PageTitle>Detalhamento do Usuário</PageTitle>
+    <h3>Detalhamento do Usuário</h3>
 }
 
 <div class="row">
-    <EditForm Model="@UsuarioViewModel" OnValidSubmit="@HandleValidRequest" OnInvalidSubmit="@HandleFailedRequest">
-        <div class="mb-3">
-            <label for="nome" class="form-label"><em>*</em>Nome</label>
-            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Nome"></InputText>
-            <ValidationMessage For="@(() => UsuarioViewModel.Nome)" />
-        </div>
-        <div class="mb-3">
-            <label for="cnpjcpf" class="form-label"><em>*</em>CPF</label>
-            <InputText class="form-control" @bind-Value="@UsuarioViewModel.CnpjCpf"></InputText>
-        </div>
-        <div class="mb-3">
-            <label for="celular" class="form-label">Telefone Celular</label>
-            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Celular"></InputText>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label"><em>*</em>Email</label>
-            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Email"></InputText>
-        </div>
-        <div class="mb-3">
-            <label for="login" class="form-label"><em>*</em>Login</label>
-            <InputText class="form-control" @bind-Value="@UsuarioViewModel.Login"></InputText>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <div class="row">
-                    <div class="col">
-                        <a @onclick="@GoToUsuarios" class="btn btn-outline-primary">Voltar</a>
-                    </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-outline-success">Salvar</button>
-                    </div>
-                    <div class="col">
-                        @if (!string.IsNullOrEmpty(Id))
-                        {
-                            <a @onclick="@ExcluirUsuario" class="btn btn-danger">Excluir</a>
-                        }
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col">
-                <p style="color: red">@Mensagem</p>
-            </div>
-        </div>
-    </EditForm>
+    <div class="col">
+        <label for="nome" class="form-label">Nome: </label>
+        <span>@UsuarioViewModel.Nome</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <label for="cnpjcpf" class="form-label">CPF</label>
+        <span>@UsuarioViewModel.CnpjCpf</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <label for="celular" class="form-label">Telefone Celular</label>
+        <span>@UsuarioViewModel.Celular</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <label for="email" class="form-label">Email</label>
+        <span>@UsuarioViewModel.Email</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <label for="login" class="form-label">Login</label>
+        <span>@UsuarioViewModel.Login</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <a @onclick="@GoToUsuarios" class="btn btn-outline-primary">Voltar</a>
+    </div>
+    <div class="col-2">
+        <a @onclick="@GoToUpdate" class="btn btn-info">Alterar</a>
+    </div>
+    <div class="col-2">
+        <a @onclick="@Delete" class="btn btn-danger">Excluir</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <p style="color: red">@Mensagem</p>
+    </div>
 </div>
