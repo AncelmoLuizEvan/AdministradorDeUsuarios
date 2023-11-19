@@ -9,7 +9,7 @@ namespace RpcCalc.APP.Pages.PerfilPages
         [Inject]
         private IPerfilService Service { get; set; } = null!;
 
-        public IEnumerable<PerfilDto> Perfis { get; set; } = new List<PerfilDto>();
+        public IEnumerable<PerfilDto>? Perfis { get; set; } = new List<PerfilDto>();
 
         protected override async Task OnInitializedAsync()
         {
@@ -17,6 +17,8 @@ namespace RpcCalc.APP.Pages.PerfilPages
 
             if (perfis is not null && perfis.Any())
                 Perfis = perfis;
+            else
+                Perfis = null;
         }
     }
 }

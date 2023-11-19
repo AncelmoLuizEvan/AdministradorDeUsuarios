@@ -23,7 +23,7 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             return null;
         }
 
-        public async Task<IEnumerable<UsuarioDto>> Listar()
+        public async Task<IEnumerable<UsuarioDto>?> Listar()
         {
             var result = await _repositoryReadOnly.Listar();
 

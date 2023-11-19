@@ -7,10 +7,24 @@
 <br />
 <div class="row">
     <div class="col">
-        @if (Usuarios.Count() == 0)
+        @if (Usuarios is null)
         {
             <div class="row">
-                <span><b>Não há usuários cadastrados!</b></span>
+                <div class="col">
+                    <span><b>Não há usuários cadastrados!</b></span>
+                </div>
+            </div>
+        }
+        else if (Usuarios.Count() == 0)
+        {
+            <div class="row">
+                <div class="col">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         }
         else
