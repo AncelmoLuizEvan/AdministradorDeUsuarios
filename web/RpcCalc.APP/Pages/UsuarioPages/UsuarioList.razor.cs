@@ -9,7 +9,7 @@ namespace RpcCalc.APP.Pages.UsuarioPages
         [Inject]
         private IUsuarioService Service { get; set; } = null!;
 
-        public IEnumerable<UsuarioDto> Usuarios { get; set; } = new List<UsuarioDto>();
+        public IEnumerable<UsuarioDto>? Usuarios { get; set; } = new List<UsuarioDto>();
 
         protected override async Task OnInitializedAsync()
         {
@@ -17,6 +17,8 @@ namespace RpcCalc.APP.Pages.UsuarioPages
 
             if (usuarios is not null && usuarios.Any())
                 Usuarios = usuarios;
+            else
+                Usuarios = null;
         }
     }
 }
