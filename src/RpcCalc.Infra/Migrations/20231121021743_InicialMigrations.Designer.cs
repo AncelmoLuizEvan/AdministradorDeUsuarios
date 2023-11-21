@@ -11,8 +11,8 @@ using RpcCalc.Infra.Context;
 namespace RpcCalc.Infra.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20231115041519_InicialMigration")]
-    partial class InicialMigration
+    [Migration("20231121021743_InicialMigrations")]
+    partial class InicialMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
