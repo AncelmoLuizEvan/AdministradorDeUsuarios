@@ -34,6 +34,10 @@ namespace RpcCalc.Infra.Mappings
 
             builder.Property(p => p.DataAtualizacao)
                 .HasColumnType("DATETIME");
+
+            builder.HasOne(f => f.Perfil)
+                .WithMany(p => p.Permissoes)
+                .HasForeignKey(p => p.PerfilId);
         }
     }
 }

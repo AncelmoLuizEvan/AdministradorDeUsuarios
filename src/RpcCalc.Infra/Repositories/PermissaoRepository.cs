@@ -8,6 +8,6 @@ namespace RpcCalc.Infra.Repositories
     {
         public PermissaoRepository(DataBaseContext context) : base(context)
         {
-        }
+        }        
     }
 }
