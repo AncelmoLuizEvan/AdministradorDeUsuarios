@@ -11,7 +11,7 @@ namespace RpcCalc.Infra.Context
 
         }
 
-        public DbSet<MotivoInativacaoEntity>? MotivoInativacao { get; set; }
+        public DbSet<MotivoInativacaoEntity> MotivoInativacao { get; set; }
         public DbSet<PerfilEntity>? Perfil { get; set; }
         public DbSet<PermissaoEntity>? Permissao { get; set; }
         public DbSet<UsuarioEntity>? Usuario { get; set; }

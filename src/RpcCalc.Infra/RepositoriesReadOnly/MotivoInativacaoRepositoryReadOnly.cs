@@ -11,10 +11,13 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
         {
         }
 
-        public async Task<IEnumerable<MotivoInativacaoEntity>> CapturarPorDescricao(string descricao)
+        public async Task<IEnumerable<MotivoInativacaoEntity>> ListarPorUsuario(Guid usuarioId)
         {
-            return await _context.Set<MotivoInativacaoEntity>()
-                .Where(x => x.Descricao.Contains(descricao)).ToListAsync();
+            var result = await _context.Set<MotivoInativacaoEntity>()
+                .AsNoTracking()
+                .Where(x => x.UsuarioId == usuarioId).ToListAsync();
+
+            return result;
         }
     }
 }
