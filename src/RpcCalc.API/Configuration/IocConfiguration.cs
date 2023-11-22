@@ -1,11 +1,13 @@
 ﻿using RpcCalc.Domain.Interfaces.Repositories;
 using RpcCalc.Domain.Interfaces.RepositoriesReadOnly;
+using RpcCalc.Domain.Interfaces.UseCases.MotivoInativacaoUseCase;
 using RpcCalc.Domain.Interfaces.UseCases.PerfilUseCase;
 using RpcCalc.Domain.Interfaces.UseCases.PermissaoUseCase;
 using RpcCalc.Domain.Interfaces.UseCases.UsuarioUseCase;
 using RpcCalc.Infra.Context;
 using RpcCalc.Infra.Repositories;
 using RpcCalc.Infra.RepositoriesReadOnly;
+using RpcCalc.UseCases.MotivoInativacaoUseCases;
 using RpcCalc.UseCases.PerfilUseCases;
 using RpcCalc.UseCases.PermissaoUseCases;
 using RpcCalc.UseCases.UsuarioUseCases;
@@ -44,6 +46,9 @@ namespace RpcCalc.API.Configuration
             services.AddScoped<IPermissaoCreate, PermissaoCreate>();
             services.AddScoped<IPermissaoSearch, PermissaoSearch>();
             services.AddScoped<IPermissaoDelete, PermissaoDelete>();
+
+            services.AddScoped<IMotivoInativacaoCreate, MotivoInativacaoCreate>();
+            services.AddScoped<IMotivoInativacaoSearch, MotivoInativacaoSearch>();
         }
     }
 }

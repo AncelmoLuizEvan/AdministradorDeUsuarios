@@ -6,5 +6,7 @@ namespace RpcCalc.Domain.Interop.MotivoInativacao
     {
         [Required]
         public string Descricao { get; set; }
+
+        public Guid Usuario { get; set; }
     }
 }

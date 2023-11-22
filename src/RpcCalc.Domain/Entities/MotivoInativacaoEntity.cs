@@ -12,6 +12,6 @@
 
         public string Descricao { get; private set; } = null!;
         public Guid UsuarioId { get; private set; }
-        public UsuarioEntity Usuario { get; set; } = new UsuarioEntity();
+        public UsuarioEntity Usuario { get; set; }
     }
 }
