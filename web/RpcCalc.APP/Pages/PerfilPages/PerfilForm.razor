@@ -21,11 +21,14 @@
             </div>
         </div>
     </EditForm>
-    <div class="row">
-        <div class="col">
-            <div class="alert alert-danger" role="alert">
-                @Mensagem
+    @if (!string.IsNullOrEmpty(Mensagem))
+    {
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-danger" role="alert">
+                    @Mensagem
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>

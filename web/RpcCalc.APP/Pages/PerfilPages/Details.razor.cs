@@ -5,7 +5,7 @@ using RpcCalc.APP.Services.Perfil;
 
 namespace RpcCalc.APP.Pages.PerfilPages
 {
-    public partial class PerfilDetails
+    public partial class Details
     {
         protected string Mensagem = string.Empty;
 

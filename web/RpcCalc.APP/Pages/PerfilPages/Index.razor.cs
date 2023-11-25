@@ -4,7 +4,7 @@ using RpcCalc.APP.Services.Perfil;
 
 namespace RpcCalc.APP.Pages.PerfilPages
 {
-    public partial class PerfilList
+    public partial class Index
     {
         [Inject]
         private IPerfilService Service { get; set; } = null!;

@@ -4,7 +4,7 @@ using RpcCalc.APP.Services.Usuario;
 
 namespace RpcCalc.APP.Pages.UsuarioPages
 {
-    public partial class UsuarioList
+    public partial class Index
     {
         [Inject]
         private IUsuarioService Service { get; set; } = null!;

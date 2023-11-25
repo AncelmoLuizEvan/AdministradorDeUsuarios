@@ -5,7 +5,7 @@ using RpcCalc.APP.Services.Usuario;
 
 namespace RpcCalc.APP.Pages.UsuarioPages
 {
-    public partial class UsuarioUpdate
+    public partial class Update
     {
         [Inject]
         private IUsuarioService UsuarioService { get; set; } = null!;
@@ -30,7 +30,7 @@ namespace RpcCalc.APP.Pages.UsuarioPages
             }
         }
 
-        private async Task Update()
+        private async Task Save()
         {
             var result = await UsuarioService.Alterar(Guid.Parse(Id), Usuario);
 
