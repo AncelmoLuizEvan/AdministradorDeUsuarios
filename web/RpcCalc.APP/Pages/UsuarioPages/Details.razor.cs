@@ -5,7 +5,7 @@ using RpcCalc.APP.Interop.Usuario;
 
 namespace RpcCalc.APP.Pages.UsuarioPages
 {
-    public partial class UsuarioDetails
+    public partial class Details
     {
         protected string Mensagem = string.Empty;
 

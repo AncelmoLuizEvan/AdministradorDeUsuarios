@@ -4,7 +4,7 @@ using RpcCalc.APP.Services.Usuario;
 
 namespace RpcCalc.APP.Pages.UsuarioPages
 {
-    public partial class UsuarioCreate
+    public partial class Create
     {
         [Inject]
         private IUsuarioService UsuarioService { get; set; } = null!;
@@ -15,7 +15,7 @@ namespace RpcCalc.APP.Pages.UsuarioPages
 
         public UsuarioViewModel Usuario { get; set; } = new UsuarioViewModel();
 
-        private async Task Create()
+        private async Task Save()
         {
             var result = await UsuarioService.Gravar(Usuario);
 

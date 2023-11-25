@@ -5,7 +5,7 @@ using RpcCalc.APP.Services.Perfil;
 
 namespace RpcCalc.APP.Pages.PerfilPages
 {
-    public partial class PerfilUpdate
+    public partial class Update
     {
         [Inject]
         private IPerfilService PerfilService { get; set; } = null!;
@@ -30,7 +30,7 @@ namespace RpcCalc.APP.Pages.PerfilPages
             }
         }
 
-        private async Task Update()
+        private async Task Save()
         {
             var result = await PerfilService.Alterar(Guid.Parse(Id), Perfil);
 

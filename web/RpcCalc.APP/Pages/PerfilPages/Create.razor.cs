@@ -4,7 +4,7 @@ using RpcCalc.APP.Services.Perfil;
 
 namespace RpcCalc.APP.Pages.PerfilPages
 {
-    public partial class PerfilCreate
+    public partial class Create
     {
         [Inject]
         private IPerfilService UsuarioService { get; set; } = null!;
@@ -15,7 +15,7 @@ namespace RpcCalc.APP.Pages.PerfilPages
 
         public PerfilViewModel Perfil { get; set; } = new PerfilViewModel();
 
-        private async Task Create()
+        private async Task Save()
         {
             var result = await UsuarioService.Gravar(Perfil);
 
