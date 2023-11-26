@@ -30,7 +30,7 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             if (result!.Any() && result!.Count() > 0)
                 return result!.EntityForDtoList();
 
-            return new List<UsuarioDto>();
+            return Enumerable.Empty<UsuarioDto>();
         }
     }
 }

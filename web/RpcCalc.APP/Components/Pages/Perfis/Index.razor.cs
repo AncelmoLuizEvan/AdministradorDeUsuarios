@@ -9,7 +9,7 @@ namespace RpcCalc.APP.Components.Pages.Perfis
         [Inject]
         private IPerfilService Service { get; set; } = null!;
 
-        public IEnumerable<PerfilDto>? Perfis { get; set; } = new List<PerfilDto>();
+        public IEnumerable<PerfilDto>? Perfis { get; set; } = Enumerable.Empty<PerfilDto>();
 
         protected override async Task OnInitializedAsync()
         {

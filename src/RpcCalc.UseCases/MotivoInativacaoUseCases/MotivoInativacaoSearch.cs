@@ -21,7 +21,7 @@ namespace RpcCalc.UseCases.MotivoInativacaoUseCases
             if (result!.Any() && result!.Count() > 0)
                 return result!.EntityForDtoList();
 
-            return new List<MotivoInativacaoDto>();
+            return Enumerable.Empty<MotivoInativacaoDto>();
         }
     }
 }
