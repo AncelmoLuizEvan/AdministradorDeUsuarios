@@ -30,7 +30,7 @@ namespace RpcCalc.UseCases.PerfilUseCases
             if (result!.Any() && result!.Count() > 0)
                 return result!.EntityForDtoList();
 
-            return new List<PerfilDto>();
+            return Enumerable.Empty<PerfilDto>();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace RpcCalc.UseCases.PermissaoUseCases
             if (result!.Any() && result!.Count() > 0)
                 return result!.EntityForDtoList();
 
-            return new List<PermissaoDto>();
+            return Enumerable.Empty<PermissaoDto>();
         }
     }
 }
