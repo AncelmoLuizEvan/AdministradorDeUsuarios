@@ -1,0 +1,60 @@
+﻿@page "/usuario/list"
+@rendermode InteractiveServer
+@attribute [StreamRendering(true)]
+
+<PageTitle>Usuários</PageTitle>
+<h3>Administrar Usuarios</h3>
+
+<a href="@($"/usuario/create")" class="btn btn-success">Novo Usuário</a>
+<br />
+<div class="row">
+    <div class="col">
+        @if (Usuarios is null)
+        {
+            <div class="row">
+                <div class="col">
+                    <span><b>Não há usuários cadastrados!</b></span>
+                </div>
+            </div>
+        }
+        else if (Usuarios.Count() == 0)
+        {
+            <div class="row">
+                <div class="col">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Login</th>
+                        <th scope="col">Email</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Usuarios)
+                    {
+                        <tr>
+                            <td>@item.Nome</td>
+                            <td>@item.Login</td>
+                            <td>@item.Email</td>
+                            <td>
+                                <a href="@($"usuario/details/{item.Id}")" class="btn btn-outline-primary">Detalhar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>
