@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RpcCalc.Domain.Interop.Permissao
+namespace RpcCalc.APP.Interop.Permissoes
 {
     public class PermissaoViewModel
     {
