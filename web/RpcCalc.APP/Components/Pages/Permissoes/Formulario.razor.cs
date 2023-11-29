@@ -12,6 +12,9 @@ namespace RpcCalc.APP.Components.Pages.Permissoes
         private IPermissaoService Service { get; set; } = null!;
 
         [Inject]
+        private IPerfilService ServicePerfil { get; set; } = null!;
+
+        [Inject]
         private NavigationManager NavigationManager { get; set; } = null!;
 
         [Parameter]
@@ -25,12 +28,11 @@ namespace RpcCalc.APP.Components.Pages.Permissoes
         [Parameter]
         public EventCallback OnValidateSubmit { get; set; }
 
-        [Parameter]
         public IEnumerable<PerfilDto>? Perfis { get; set; } = Enumerable.Empty<PerfilDto>();
 
         protected override async void OnInitialized()
         {
-            Perfis = await Service.ObterPerfis();
+            Perfis = await ServicePerfil.ObterTodos();
         }
         protected void GoToPermissoes() => NavigationManager.NavigateTo("/permissao/list");
     }

@@ -8,7 +8,19 @@
     </div>
     <div class="mb-3">
         <div class="form-check m3-2">
-            <input type="checkbox" class="form-control" @bind-value="@Model.Acessar" />
+            <label for="sistema" class="form-label">Sistema</label>
+            <InputSelect @bind-Value="Model.PerfilId">
+                <option value="0">Selecione...</option>
+                @foreach (var item in Perfis)
+                {
+                    <option value="@item.Id">@item.Descricao</option>
+                }
+            </InputSelect>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="form-check m3-2">
+            <InputCheckbox @bind-Value="Model.Acessar"></InputCheckbox>
             <label for="acessar" class="form-check-label">Ativo</label>
         </div>
     </div>

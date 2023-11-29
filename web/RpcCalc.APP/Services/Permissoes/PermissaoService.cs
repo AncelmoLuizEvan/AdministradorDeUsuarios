@@ -1,5 +1,4 @@
-﻿using RpcCalc.APP.Interop.Perfis;
-using RpcCalc.APP.Interop.Permissoes;
+﻿using RpcCalc.APP.Interop.Permissoes;
 
 namespace RpcCalc.APP.Services.Permissoes
 {
@@ -43,19 +42,6 @@ namespace RpcCalc.APP.Services.Permissoes
         public async Task<PermissaoDto?> Gravar(PermissaoViewModel viewModel)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<PerfilDto>?> ObterPerfis()
-        {
-            try
-            {
-                return await _httpClient.GetFromJsonAsync<IEnumerable<PerfilDto>?>("api/perfil/ObterTodos");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-                throw;
-            }
         }
 
         public async Task<IEnumerable<PermissaoDto>?> ObterTodos()

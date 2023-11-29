@@ -1,5 +1,4 @@
-﻿using RpcCalc.APP.Interop.Perfis;
-using RpcCalc.APP.Interop.Permissoes;
+﻿using RpcCalc.APP.Interop.Permissoes;
 
 namespace RpcCalc.APP.Services.Permissoes
 {
@@ -9,6 +8,5 @@ namespace RpcCalc.APP.Services.Permissoes
         Task<bool> Excluir(Guid id);
         Task<PermissaoDto?> Capturar(Guid id);
         Task<IEnumerable<PermissaoDto>?> ObterTodos();
-        Task<IEnumerable<PerfilDto>?> ObterPerfis();
     }
 }
