@@ -5,18 +5,19 @@ namespace RpcCalc.APP.Services.Usuarios
 {
     public class UsuarioService : IUsuarioService
     {
-        public HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public UsuarioService(HttpClient httpClient)
+        public UsuarioService(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<UsuarioDto?> Alterar(Guid id, UsuarioViewModel viewModel)
         {
             try
             {
-                var response = await _httpClient.PutAsJsonAsync($"api/Usuario/alterar/{id}", viewModel);
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.PutAsJsonAsync($"api/Usuario/alterar/{id}", viewModel);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -39,7 +40,8 @@ namespace RpcCalc.APP.Services.Usuarios
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<UsuarioDto>($"api/Usuario/{id}");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                return await httpClient.GetFromJsonAsync<UsuarioDto>($"api/Usuario/{id}");
             }
             catch (Exception ex)
             {
@@ -52,7 +54,8 @@ namespace RpcCalc.APP.Services.Usuarios
         {
             try
             {
-                var response = await _httpClient.DeleteFromJsonAsync<bool>($"api/Usuario/excluir/{id}");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.DeleteFromJsonAsync<bool>($"api/Usuario/excluir/{id}");
 
                 return response;
             }
@@ -67,7 +70,8 @@ namespace RpcCalc.APP.Services.Usuarios
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("api/Usuario/gravar", viewModel);
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.PostAsJsonAsync("api/Usuario/gravar", viewModel);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -90,7 +94,8 @@ namespace RpcCalc.APP.Services.Usuarios
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<IEnumerable<UsuarioDto>?>("api/Usuario/ObterTodos");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                return await httpClient.GetFromJsonAsync<IEnumerable<UsuarioDto>?>("api/Usuario/ObterTodos");
             }
             catch (Exception ex)
             {

@@ -4,18 +4,19 @@ namespace RpcCalc.APP.Services.Permissoes
 {
     public class PermissaoService : IPermissaoService
     {
-        public HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public PermissaoService(HttpClient httpClient)
+        public PermissaoService(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<PermissaoDto?> Capturar(Guid id)
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<PermissaoDto>($"api/permissao/{id}");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                return await httpClient.GetFromJsonAsync<PermissaoDto>($"api/permissao/{id}");
             }
             catch (Exception ex)
             {
@@ -28,7 +29,8 @@ namespace RpcCalc.APP.Services.Permissoes
         {
             try
             {
-                var response = await _httpClient.DeleteFromJsonAsync<bool>($"api/permissao/excluir/{id}");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.DeleteFromJsonAsync<bool>($"api/permissao/excluir/{id}");
 
                 return response;
             }
@@ -48,7 +50,8 @@ namespace RpcCalc.APP.Services.Permissoes
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<IEnumerable<PermissaoDto>?>("api/permissao/ObterTodos");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                return await httpClient.GetFromJsonAsync<IEnumerable<PermissaoDto>?>("api/permissao/ObterTodos");
             }
             catch (Exception ex)
             {

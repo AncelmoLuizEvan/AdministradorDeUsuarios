@@ -12,7 +12,21 @@ builder.Services.AddRazorComponents()
 
 var baseUrl = "https://localhost:7154/";
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseUrl) });
+//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseUrl) });
+
+//builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient("API", httpClient =>
+{
+    httpClient.BaseAddress = new Uri(baseUrl);
+
+    // using Microsoft.Net.Http.Headers;
+    // The GitHub API requires two headers.
+    //httpClient.DefaultRequestHeaders.Add(
+    //    HeaderNames.Accept, "application/vnd.github.v3+json");
+    //httpClient.DefaultRequestHeaders.Add(
+    //    HeaderNames.UserAgent, "HttpRequestsSample");
+});
 
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IPerfilService, PerfilService>();
