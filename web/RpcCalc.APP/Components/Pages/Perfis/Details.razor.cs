@@ -24,8 +24,8 @@ namespace RpcCalc.APP.Components.Pages.Perfis
         {
             if (!string.IsNullOrEmpty(Id))
             {
-                var usuarioId = Guid.Parse(Id);
-                var result = await Service.Capturar(usuarioId);
+                var perfilId = Guid.Parse(Id);
+                var result = await Service.Capturar(perfilId);
 
                 if (result != null)
                     Perfil = result.DtoForViewModel();
@@ -37,9 +37,9 @@ namespace RpcCalc.APP.Components.Pages.Perfis
             if (!string.IsNullOrEmpty(Id))
             {
                 var perfilId = Guid.Parse(Id);
-                var resulte = await Service.Excluir(perfilId);
+                var result = await Service.Excluir(perfilId);
 
-                if (resulte)
+                if (result)
                     Navigation.NavigateTo("/perfil/list");
                 else
                     _mensagem = "Ocorreu um erro, o perfil não foi excluído. ";

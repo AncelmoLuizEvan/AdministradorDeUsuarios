@@ -1,21 +1,23 @@
 ﻿using RpcCalc.APP.Interop.Permissoes;
+using System.Text.Json;
 
 namespace RpcCalc.APP.Services.Permissoes
 {
     public class PermissaoService : IPermissaoService
     {
-        public HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public PermissaoService(HttpClient httpClient)
+        public PermissaoService(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<PermissaoDto?> Capturar(Guid id)
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<PermissaoDto>($"api/permissao/{id}");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                return await httpClient.GetFromJsonAsync<PermissaoDto>($"api/permissao/{id}");
             }
             catch (Exception ex)
             {
@@ -28,7 +30,8 @@ namespace RpcCalc.APP.Services.Permissoes
         {
             try
             {
-                var response = await _httpClient.DeleteFromJsonAsync<bool>($"api/permissao/excluir/{id}");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.DeleteFromJsonAsync<bool>($"api/permissao/excluir/{id}");
 
                 return response;
             }
@@ -41,14 +44,34 @@ namespace RpcCalc.APP.Services.Permissoes
 
         public async Task<PermissaoDto?> Gravar(PermissaoViewModel viewModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.PostAsJsonAsync("api/permissao/gravar", viewModel);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseBody = await response.Content.ReadAsStreamAsync();
+                    var permissaoAdd = await JsonSerializer.DeserializeAsync<PermissaoDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    return permissaoAdd;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
         }
 
         public async Task<IEnumerable<PermissaoDto>?> ObterTodos()
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<IEnumerable<PermissaoDto>?>("api/permissao/ObterTodos");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                return await httpClient.GetFromJsonAsync<IEnumerable<PermissaoDto>?>("api/permissao/ObterTodos");
             }
             catch (Exception ex)
             {

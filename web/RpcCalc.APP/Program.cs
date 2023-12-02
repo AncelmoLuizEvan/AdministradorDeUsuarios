@@ -12,7 +12,10 @@ builder.Services.AddRazorComponents()
 
 var baseUrl = "https://localhost:7154/";
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseUrl) });
+builder.Services.AddHttpClient("API", httpClient =>
+{
+    httpClient.BaseAddress = new Uri(baseUrl);
+});
 
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IPerfilService, PerfilService>();

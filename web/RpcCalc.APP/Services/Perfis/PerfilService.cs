@@ -5,18 +5,19 @@ namespace RpcCalc.APP.Services.Perfis
 {
     public class PerfilService : IPerfilService
     {
-        public HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public PerfilService(HttpClient httpClient)
+        public PerfilService(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<PerfilDto?> Alterar(Guid id, PerfilViewModel viewModel)
         {
             try
             {
-                var response = await _httpClient.PutAsJsonAsync($"api/perfil/alterar/{id}", viewModel);
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.PutAsJsonAsync($"api/perfil/alterar/{id}", viewModel);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -39,7 +40,8 @@ namespace RpcCalc.APP.Services.Perfis
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<PerfilDto>($"api/perfil/{id}");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                return await httpClient.GetFromJsonAsync<PerfilDto>($"api/perfil/{id}");
             }
             catch (Exception ex)
             {
@@ -52,7 +54,8 @@ namespace RpcCalc.APP.Services.Perfis
         {
             try
             {
-                var response = await _httpClient.DeleteFromJsonAsync<bool>($"api/perfil/excluir/{id}");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.DeleteFromJsonAsync<bool>($"api/perfil/excluir/{id}");
 
                 return response;
             }
@@ -67,7 +70,8 @@ namespace RpcCalc.APP.Services.Perfis
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("api/perfil/gravar", viewModel);
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.PostAsJsonAsync("api/perfil/gravar", viewModel);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -90,7 +94,8 @@ namespace RpcCalc.APP.Services.Perfis
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<IEnumerable<PerfilDto>?>("api/perfil/ObterTodos");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                return await httpClient.GetFromJsonAsync<IEnumerable<PerfilDto>?>("api/perfil/ObterTodos");
             }
             catch (Exception ex)
             {

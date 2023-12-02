@@ -11,5 +11,7 @@ namespace RpcCalc.APP.Interop.Permissoes
 
         [Required(ErrorMessage = "Um perfil vinculado a permissão é obrigatório")]
         public Guid PerfilId { get; set; }
+
+        public string Perfil { get; set; } = null!;
     }
 }

@@ -19,7 +19,8 @@ namespace RpcCalc.Domain.Mappers
                 Id = entity.Id,
                 Sistema = entity.Sistema,
                 Acessar = entity.Acessar == 1 ? true : false,
-                PerfilId = entity.PerfilId
+                PerfilId = entity.PerfilId,
+                Perfil = entity.Perfil!.EntityForDto()
             };
         }
 

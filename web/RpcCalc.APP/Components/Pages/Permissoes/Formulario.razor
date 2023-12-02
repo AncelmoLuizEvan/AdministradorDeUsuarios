@@ -7,23 +7,22 @@
         <ValidationMessage For="@(() => Model.Sistema)" />
     </div>
     <div class="mb-3">
-        <div class="form-check m3-2">
-            <label for="sistema" class="form-label">Sistema</label>
-            <InputSelect @bind-Value="Model.PerfilId">
-                <option value="0">Selecione...</option>
-                @foreach (var item in Perfis)
-                {
-                    <option value="@item.Id">@item.Descricao</option>
-                }
-            </InputSelect>
-        </div>
+        <label class="form-label">Perfil</label>
+        <InputSelect @bind-Value="Model.PerfilId" class="form-control">
+            <option value="0">Selecione...</option>
+            @foreach (var item in Perfis!)
+            {
+                <option value="@item.Id">@item.Descricao</option>
+            }
+        </InputSelect>
     </div>
     <div class="mb-3">
-        <div class="form-check m3-2">
+        <div class="form-check">
             <InputCheckbox @bind-Value="Model.Acessar"></InputCheckbox>
             <label for="acessar" class="form-check-label">Ativo</label>
         </div>
     </div>
+
     <div class="row">
         <div class="col-2">
             <a @onclick="@GoToPermissoes" class="btn btn-outline-primary">Voltar</a>
