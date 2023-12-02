@@ -1,4 +1,4 @@
-﻿using RpcCalc.APP.Interop.Usuario;
+﻿using RpcCalc.APP.Interop.Usuarios;
 
 namespace RpcCalc.APP.Mappers
 {

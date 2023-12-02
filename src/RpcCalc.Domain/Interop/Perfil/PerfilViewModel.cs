@@ -4,8 +4,9 @@ namespace RpcCalc.Domain.Interop.Perfil
 {
     public class PerfilViewModel
     {
-        [Required]
-        public string Nome { get; set; }
+        [Required(ErrorMessage = "O Nome do perfil é obrigatório")]
+        public string Nome { get; set; } = null!;
+
         public string? Descricao { get; set; }
     }
 }

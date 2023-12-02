@@ -22,7 +22,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(policy =>
-    policy.WithOrigins("https://localhost:7014", "http://localhost:5127")
+    policy.WithOrigins("https://localhost:7226", "http://localhost:5188")
     .AllowAnyMethod()
     .AllowAnyHeader()
     .WithHeaders(HeaderNames.ContentType)

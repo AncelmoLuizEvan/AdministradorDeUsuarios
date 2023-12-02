@@ -4,8 +4,12 @@ namespace RpcCalc.Domain.Interop.Permissao
 {
     public class PermissaoViewModel
     {
-        [Required]
-        public string Sistema { get; set; }
-        public int Acessar { get; set; } = 0;
+        [Required(ErrorMessage = "O Nome do sistema é obrigatório")]
+        public string Sistema { get; set; } = null!;
+
+        public bool Acessar { get; set; } = false;
+
+        [Required(ErrorMessage = "Um perfil vinculado a permissão é obrigatório")]
+        public Guid PerfilId { get; set; }
     }
 }
