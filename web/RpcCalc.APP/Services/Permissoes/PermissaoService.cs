@@ -1,4 +1,5 @@
 ﻿using RpcCalc.APP.Interop.Permissoes;
+using System.Text.Json;
 
 namespace RpcCalc.APP.Services.Permissoes
 {
@@ -43,7 +44,26 @@ namespace RpcCalc.APP.Services.Permissoes
 
         public async Task<PermissaoDto?> Gravar(PermissaoViewModel viewModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.PostAsJsonAsync("api/permissao/gravar", viewModel);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseBody = await response.Content.ReadAsStreamAsync();
+                    var permissaoAdd = await JsonSerializer.DeserializeAsync<PermissaoDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    return permissaoAdd;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
         }
 
         public async Task<IEnumerable<PermissaoDto>?> ObterTodos()

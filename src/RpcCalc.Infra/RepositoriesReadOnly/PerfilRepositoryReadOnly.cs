@@ -13,7 +13,7 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
 
         public override async Task<PerfilEntity?> Capturar(Guid id)
         {
-            var result = await _context.Perfil
+            var result = await _context.Perfil!
                 .Include(p => p.Permissoes)
                 .FirstOrDefaultAsync(p => p.Id == id);
 

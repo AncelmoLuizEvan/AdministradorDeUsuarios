@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using RpcCalc.APP.Interop.Perfis;
 using RpcCalc.APP.Interop.Permissoes;
 using RpcCalc.APP.Services.Permissoes;
 
