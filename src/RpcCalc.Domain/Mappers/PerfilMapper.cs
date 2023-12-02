@@ -28,7 +28,7 @@ namespace RpcCalc.Domain.Mappers
                     {
                         Id = entity.Id,
                         Nome = entity.Nome,
-                        Descricao = entity.Descricao
+                        Descricao = entity.Descricao,
                     }).ToList();
         }
     }

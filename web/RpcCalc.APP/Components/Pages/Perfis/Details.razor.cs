@@ -9,7 +9,7 @@ namespace RpcCalc.APP.Components.Pages.Perfis
     {
         protected string _mensagem = string.Empty;
 
-        protected PerfilViewModel Perfil { get; set; } = new PerfilViewModel();
+        protected PerfilDto Perfil { get; set; } = new PerfilDto();
 
         [Parameter]
         public string? Id { get; set; }
@@ -28,7 +28,7 @@ namespace RpcCalc.APP.Components.Pages.Perfis
                 var result = await Service.Capturar(perfilId);
 
                 if (result != null)
-                    Perfil = result.DtoForViewModel();
+                    Perfil = result;
             }
         }
 

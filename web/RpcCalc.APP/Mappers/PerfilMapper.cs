@@ -1,4 +1,4 @@
-﻿using RpcCalc.APP.Interop.Perfis;   
+﻿using RpcCalc.APP.Interop.Perfis;
 
 namespace RpcCalc.APP.Mappers
 {
