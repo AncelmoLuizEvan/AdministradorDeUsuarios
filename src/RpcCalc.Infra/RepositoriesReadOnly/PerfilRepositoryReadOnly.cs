@@ -19,5 +19,15 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
 
             return result;
         }
+
+        public override async Task<IEnumerable<PerfilEntity>?> Listar()
+        {
+            var result = await _context.Perfil!
+               .Include(p => p.Permissoes)
+               .AsNoTracking()
+               .ToListAsync();
+
+            return result;
+        }
     }
 }

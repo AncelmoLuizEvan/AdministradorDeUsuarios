@@ -16,8 +16,7 @@ namespace RpcCalc.Domain.Mappers
             {
                 Id = entity.Id,
                 Nome = entity.Nome,
-                Descricao = entity.Descricao,
-                Permissoes = entity.Permissoes.EntityForDtoList()
+                Descricao = entity.Descricao
             };
         }
 
@@ -29,6 +28,7 @@ namespace RpcCalc.Domain.Mappers
                         Id = entity.Id,
                         Nome = entity.Nome,
                         Descricao = entity.Descricao,
+                        Permissoes = entity.Permissoes.EntityForDtoList()
                     }).ToList();
         }
     }

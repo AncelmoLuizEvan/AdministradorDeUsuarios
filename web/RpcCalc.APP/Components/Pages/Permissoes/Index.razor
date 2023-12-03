@@ -35,7 +35,8 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Nome</th>
+                        <th scope="col">Sistema</th>
+                        <th scope="col">Perfil</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -44,6 +45,7 @@
                     {
                         <tr>
                             <td>@item.Sistema</td>
+                            <td>@item.Perfil.Nome</td>
                             <td>
                                 <a href="@($"permissao/details/{item.Id}")" class="btn btn-outline-primary">Detalhar</a>
                             </td>
