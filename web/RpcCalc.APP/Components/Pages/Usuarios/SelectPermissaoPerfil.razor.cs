@@ -9,8 +9,7 @@ namespace RpcCalc.APP.Components.Pages.Usuarios
 {
     public partial class SelectPermissaoPerfil
     {
-        [Inject]
-        private IPermissaoService PermissaoService { get; set; } = null!;
+      
 
         [Inject]
         private IPerfilService PerfilService { get; set; } = null!;
@@ -33,9 +32,11 @@ namespace RpcCalc.APP.Components.Pages.Usuarios
                 Perfis = null;
         }
 
-        private async Task LoadPermissoes()
+        private async Task LoadPermissoes(ChangeEventArgs e)
         {
-            var perfilSelecionado = Perfis?.FirstOrDefault(x => x.Id == PerfilId);
+            Guid perfilId = Guid.Parse(e.Value.ToString());
+
+            var perfilSelecionado = Perfis?.FirstOrDefault(x => x.Id == perfilId);
             Permissoes = perfilSelecionado?.Permissoes;
         }
 

@@ -1,7 +1,7 @@
 ﻿
 <div class="mb-3">
     <label class="form-label">Perfil</label>
-    <InputSelect @bind-Value="PerfilId" class="form-control" @onselect="LoadPermissoes">
+    <InputSelect @bind-Value="PerfilId" class="form-control" @onchange="@LoadPermissoes">
         <option value="0">Selecione...</option>
         @foreach (var item in Perfis!)
         {
