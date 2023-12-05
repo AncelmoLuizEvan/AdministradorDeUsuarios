@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RpcCalc.Infra.Context;
 
@@ -10,9 +11,11 @@ using RpcCalc.Infra.Context;
 namespace RpcCalc.Infra.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231202191448_IncluindoDataInicialFinalNoPerfil")]
+    partial class IncluindoDataInicialFinalNoPerfil
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,6 +59,12 @@ namespace RpcCalc.Infra.Migrations
                         .HasColumnType("DATETIME");
 
                     b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<DateTime?>("DataFinal")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<DateTime>("DataInicio")
                         .HasColumnType("DATETIME");
 
                     b.Property<string>("Descricao")
@@ -163,12 +172,6 @@ namespace RpcCalc.Infra.Migrations
                         .HasColumnType("DATETIME");
 
                     b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<DateTime?>("DataFinal")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<DateTime>("DataInicio")
                         .HasColumnType("DATETIME");
 
                     b.Property<string>("PerfilId")

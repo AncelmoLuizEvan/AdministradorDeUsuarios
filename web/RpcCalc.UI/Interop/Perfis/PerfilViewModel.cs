@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RpcCalc.Domain.Interop.Perfil
+namespace RpcCalc.UI.Interop.Perfis
 {
     public class PerfilViewModel
     {
@@ -8,6 +8,5 @@ namespace RpcCalc.Domain.Interop.Perfil
         public string Nome { get; set; } = null!;
 
         public string? Descricao { get; set; }
-
     }
 }
