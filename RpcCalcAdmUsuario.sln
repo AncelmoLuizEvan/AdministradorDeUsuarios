@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpcCalc.UseCases", "src\Rpc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpcCalc.Tests", "tests\RpcCalc.Tests\RpcCalc.Tests.csproj", "{44DFB2EF-2617-4E8D-94F0-E5CE7C8F92AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpcCalc.UI", "web\RpcCalc.UI\RpcCalc.UI.csproj", "{B170D5E2-4D1A-4BCA-B53C-0127AF42A8EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{44DFB2EF-2617-4E8D-94F0-E5CE7C8F92AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44DFB2EF-2617-4E8D-94F0-E5CE7C8F92AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44DFB2EF-2617-4E8D-94F0-E5CE7C8F92AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B170D5E2-4D1A-4BCA-B53C-0127AF42A8EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B170D5E2-4D1A-4BCA-B53C-0127AF42A8EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B170D5E2-4D1A-4BCA-B53C-0127AF42A8EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B170D5E2-4D1A-4BCA-B53C-0127AF42A8EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{E6D3BF40-86B1-4361-9439-89A74E8CE878} = {BDA1E094-B01F-4045-AA1D-52893ABEE9C4}
 		{748D5813-47FE-4532-9949-F89A2E7A6D22} = {A63A806C-EF7A-4B32-B21E-F212509A20F9}
 		{44DFB2EF-2617-4E8D-94F0-E5CE7C8F92AA} = {F909B1A7-7F07-47F9-8B81-D08C2179CAA1}
+		{B170D5E2-4D1A-4BCA-B53C-0127AF42A8EA} = {18AB8E99-E874-4B93-AF72-FB47748C4CB5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14CA4565-1A26-4613-B5AB-50498E0A495A}
