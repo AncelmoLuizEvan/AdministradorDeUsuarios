@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RpcCalc.App.Client\RpcCalc.App.Client.csproj" />
+    <ProjectReference Include="..\RpcCalc.Web.Client\RpcCalc.Web.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
   </ItemGroup>
 
