@@ -29,5 +29,16 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
 
             return result;
         }
+
+        public async Task<IEnumerable<PermissaoEntity>?> ListarPermissoesDoPerfil(Guid perfilId)
+        {
+            var result = await _context.Permissao!
+                .Include(p => p.Perfil)
+                .AsNoTracking()
+                .Where(x => x.PerfilId == perfilId)
+                .ToListAsync();
+
+            return result;
+        }
     }
 }
