@@ -122,6 +122,16 @@
                         }
                     </tbody>
                 </table>
+                @if (!string.IsNullOrEmpty(_erroAddPerfilPermissao))
+                {
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-danger" role="alert">
+                                @_erroAddPerfilPermissao
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
