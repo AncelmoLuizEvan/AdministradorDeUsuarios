@@ -17,6 +17,9 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
         [Parameter]
         public string? _mensagem { get; set; }
 
+        [Parameter]
+        public string? _erroAddPerfilPermissao { get; set; }
+
         [EditorRequired]
         [Parameter]
         public UsuarioViewModel Model { get; set; } = null!;
@@ -56,13 +59,14 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
             if (args.Value.ToString() == "0")
             {
                 Permissoes = Enumerable.Empty<PermissaoDto>();
+                LimparListas();
                 DescricaoPerfil = string.Empty;
             }
             else
             {
                 var perfilSelecionado = Perfis!.FirstOrDefault(x => x.Id == Guid.Parse(args.Value.ToString()));
                 PerfilId = perfilSelecionado.Id.ToString();
-                Permissoes = perfilSelecionado!.Permissoes;
+                Permissoes = perfilSelecionado.Permissoes;
                 DescricaoPerfil = perfilSelecionado.Descricao!;
             }
         }
@@ -81,14 +85,35 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
 
         private void AdicionarPerfilPermissao()
         {
-            UsuarioPerfil = new UsuarioPerfilDto
+            try
             {
-                Perfil = DescricaoPerfil,
-                Permissao = DescricaoPermissao,
-                PerfilId = Guid.Parse(PerfilId)
-            };
+                if (String.IsNullOrEmpty(DescricaoPerfil))
+                {
+                    _erroAddPerfilPermissao = "Selecione o Perfil";
+                    return;
+                }
 
-            UsuarioPerfis.Add(UsuarioPerfil);
+                if (String.IsNullOrEmpty(DescricaoPermissao))
+                {
+                    _erroAddPerfilPermissao = "Selecione a Permissão";
+                    return;
+                }
+
+                UsuarioPerfil = new UsuarioPerfilDto
+                {
+                    Perfil = DescricaoPerfil,
+                    Permissao = DescricaoPermissao,
+                    PerfilId = Guid.Parse(PerfilId)
+                };
+
+                UsuarioPerfis.Add(UsuarioPerfil);
+
+                _erroAddPerfilPermissao = string.Empty;
+            }
+            catch
+            {
+                _erroAddPerfilPermissao = "Selecione um Perfil e uma Permissão";
+            }
         }
 
         private void ExcluirPerfilPermissao(string id)
@@ -101,6 +126,14 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
                 return;
 
             UsuarioPerfis.Remove(usuarioPerfil);
+        }
+
+        private void LimparListas()
+        {
+            UsuarioPerfis = new List<UsuarioPerfilDto>();
+            DescricaoPerfil = string.Empty;
+            DescricaoPermissao = string.Empty;
+            PerfilId = string.Empty;
         }
 
         protected void GoToUsuarios() => Navigation.NavigateTo("/usuario/list");
