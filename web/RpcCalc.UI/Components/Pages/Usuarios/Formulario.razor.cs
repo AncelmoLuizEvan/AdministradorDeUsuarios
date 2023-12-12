@@ -31,8 +31,15 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
         [Parameter]
         public IEnumerable<PermissaoDto> Permissoes { get; set; } = Enumerable.Empty<PermissaoDto>();
 
+        [Parameter]
+        public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = new List<UsuarioPerfilDto>();
+        private UsuarioPerfilDto? UsuarioPerfil { get; set; }
+
         string? PerfilId { get; set; }
         string? PermissaoId { get; set; }
+
+        string DescricaoPerfil { get; set; } = string.Empty;
+        string DescricaoPermissao { get; set; } = string.Empty;
 
         protected override async Task OnInitializedAsync()
         {
@@ -49,12 +56,51 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
             if (args.Value.ToString() == "0")
             {
                 Permissoes = Enumerable.Empty<PermissaoDto>();
+                DescricaoPerfil = string.Empty;
             }
             else
             {
-                var perfilSelecionado = Perfis.FirstOrDefault(x => x.Id == Guid.Parse(args.Value.ToString()));
-                Permissoes = perfilSelecionado.Permissoes;
+                var perfilSelecionado = Perfis!.FirstOrDefault(x => x.Id == Guid.Parse(args.Value.ToString()));
+                PerfilId = perfilSelecionado.Id.ToString();
+                Permissoes = perfilSelecionado!.Permissoes;
+                DescricaoPerfil = perfilSelecionado.Descricao!;
             }
+        }
+
+        private void ObterPermissaoSelecionada(ChangeEventArgs args)
+        {
+            if (args.Value.ToString() == "0")
+            {
+                DescricaoPermissao = string.Empty;
+            }
+            else
+            {
+                DescricaoPermissao = Permissoes.FirstOrDefault(x => x.Id == Guid.Parse(args.Value.ToString())).Sistema;
+            }
+        }
+
+        private void AdicionarPerfilPermissao()
+        {
+            UsuarioPerfil = new UsuarioPerfilDto
+            {
+                Perfil = DescricaoPerfil,
+                Permissao = DescricaoPermissao,
+                PerfilId = Guid.Parse(PerfilId)
+            };
+
+            UsuarioPerfis.Add(UsuarioPerfil);
+        }
+
+        private void ExcluirPerfilPermissao(string id)
+        {
+            var perfilId = Guid.Parse(id);
+
+            var usuarioPerfil = UsuarioPerfis.FirstOrDefault(x => x.PerfilId == perfilId);
+            
+            if (usuarioPerfil == null)
+                return;
+
+            UsuarioPerfis.Remove(usuarioPerfil);
         }
 
         protected void GoToUsuarios() => Navigation.NavigateTo("/usuario/list");
