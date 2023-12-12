@@ -1,50 +1,140 @@
 ﻿@attribute [StreamRendering]
 
 <div class="row">
-    <EditForm Model="@Model" OnValidSubmit="OnValidateSubmit">
-        <DataAnnotationsValidator />
-        <div class="mb-3">
-            <label for="nome" class="form-label"><em>*</em>Nome</label>
-            <InputText class="form-control" @bind-Value="@Model.Nome"></InputText>
-            <ValidationMessage For="@(() => Model.Nome)" />
-        </div>
-        <div class="mb-3">
-            <label for="cnpjcpf" class="form-label"><em>*</em>CPF</label>
-            <InputText class="form-control" @bind-Value="@Model.CnpjCpf"></InputText>
-            <ValidationMessage For="@(() => Model.CnpjCpf)" />
-        </div>
-        <div class="mb-3">
-            <label for="celular" class="form-label">Telefone Celular</label>
-            <InputText class="form-control" @bind-Value="@Model.Celular"></InputText>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label"><em>*</em>Email</label>
-            <InputText class="form-control" @bind-Value="@Model.Email"></InputText>
-            <ValidationMessage For="@(() => Model.Email)" />
-        </div>
-        <div class="mb-3">
-            <label for="login" class="form-label"><em>*</em>Login</label>
-            <InputText class="form-control" @bind-Value="@Model.Login"></InputText>
-            <ValidationMessage For="@(() => Model.Login)" />
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <a @onclick="@GoToUsuarios" class="btn btn-outline-primary">Voltar</a>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                Dados
             </div>
-            <div class="col-2">
-                <button type="submit" class="btn btn-outline-success">Salvar</button>
+            <div class="card-body">
+
+                <EditForm Model="@Model" OnValidSubmit="OnValidateSubmit">
+                    <DataAnnotationsValidator />
+                    <div class="mb-3">
+                        <label for="nome" class="form-label"><em>*</em>Nome</label>
+                        <InputText class="form-control" @bind-Value="@Model.Nome"></InputText>
+                        <ValidationMessage For="@(() => Model.Nome)" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="cnpjcpf" class="form-label"><em>*</em>CPF</label>
+                        <InputText class="form-control" @bind-Value="@Model.CnpjCpf"></InputText>
+                        <ValidationMessage For="@(() => Model.CnpjCpf)" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="celular" class="form-label">Telefone Celular</label>
+                        <InputText class="form-control" @bind-Value="@Model.Celular"></InputText>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label"><em>*</em>Email</label>
+                        <InputText class="form-control" @bind-Value="@Model.Email"></InputText>
+                        <ValidationMessage For="@(() => Model.Email)" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="login" class="form-label"><em>*</em>Login</label>
+                        <InputText class="form-control" @bind-Value="@Model.Login"></InputText>
+                        <ValidationMessage For="@(() => Model.Login)" />
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <a @onclick="@GoToUsuarios" class="btn btn-outline-primary">Voltar</a>
+                        </div>
+                        <div class="col-2">
+                            <button type="submit" class="btn btn-outline-success">Salvar</button>
+                        </div>
+                    </div>
+                </EditForm>
+
+                @if (!string.IsNullOrEmpty(_mensagem))
+                {
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-danger" role="alert">
+                                @_mensagem
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
-    </EditForm>
-    @if (!string.IsNullOrEmpty(_mensagem))
-    {
-        <div class="row">
-            <div class="col">
-                <div class="alert alert-danger" role="alert">
-                    @_mensagem
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                Adicionar Permissões
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label class="form-label">Perfil</label>
+                    <select value="@PerfilId" class="form-control" @onchange="ObterPermissoes">
+                        <option value="0">Selecione</option>
+                        @foreach (var item in Perfis!)
+                        {
+                            <option value="@item.Id">@item.Nome</option>
+                        }
+                    </select>
+                </div>
+                <div class="row mb-3">
+                    <label class="form-label">Permissões</label>
+                    <select value="@PermissaoId" class="form-control" @onchange="ObterPermissaoSelecionada">
+                        <option>Selecione</option>
+                        @foreach (var item in Permissoes!)
+                        {
+                            <option value="@item.Id">@item.Sistema</option>
+                        }
+                    </select>
                 </div>
             </div>
+            <div class="card-footer">
+                <button class="btn btn-success" @onclick="AdicionarPerfilPermissao">Adicionar</button>
+            </div>
         </div>
-    }
-
+        <br />
+        <div class="card mb-3">
+            <div class="card-header">
+                Permissões
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Perfil</th>
+                            <th scope="col">Permissão</th>
+                            <th scope="col">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (UsuarioPerfis.Count() == 0)
+                        {
+                            <tr>
+                                <th colspan="3">Sem registros</th>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in UsuarioPerfis)
+                            {
+                                <tr>
+                                    <td>@item.Perfil</td>
+                                    <td>@item.Permissao</td>
+                                    <td><button class="btn btn-danger" @onclick="() => ExcluirPerfilPermissao(item.PerfilId.ToString())">Excluir</button></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                @if (!string.IsNullOrEmpty(_erroAddPerfilPermissao))
+                {
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-danger" role="alert">
+                                @_erroAddPerfilPermissao
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
+
+
