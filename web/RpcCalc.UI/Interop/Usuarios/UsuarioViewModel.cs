@@ -18,5 +18,7 @@ namespace RpcCalc.UI.Interop.Usuarios
         public string? Email { get; set; } = null!;
 
         public string? Celular { get; set; } 
+
+        public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = new List<UsuarioPerfilDto>();
     }
 }

@@ -34,8 +34,6 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
         [Parameter]
         public IEnumerable<PermissaoDto> Permissoes { get; set; } = Enumerable.Empty<PermissaoDto>();
 
-        [Parameter]
-        public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = new List<UsuarioPerfilDto>();
         private UsuarioPerfilDto? UsuarioPerfil { get; set; }
 
         string? PerfilId { get; set; }
@@ -106,7 +104,7 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
                     PerfilId = Guid.Parse(PerfilId)
                 };
 
-                UsuarioPerfis.Add(UsuarioPerfil);
+                Model.UsuarioPerfis.Add(UsuarioPerfil);
 
                 _erroAddPerfilPermissao = string.Empty;
             }
@@ -120,17 +118,17 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
         {
             var perfilId = Guid.Parse(id);
 
-            var usuarioPerfil = UsuarioPerfis.FirstOrDefault(x => x.PerfilId == perfilId);
+            var usuarioPerfil = Model.UsuarioPerfis.FirstOrDefault(x => x.PerfilId == perfilId);
             
             if (usuarioPerfil == null)
                 return;
 
-            UsuarioPerfis.Remove(usuarioPerfil);
+            Model.UsuarioPerfis.Remove(usuarioPerfil);
         }
 
         private void LimparListas()
         {
-            UsuarioPerfis = new List<UsuarioPerfilDto>();
+            Model.UsuarioPerfis = new List<UsuarioPerfilDto>();
             DescricaoPerfil = string.Empty;
             DescricaoPermissao = string.Empty;
             PerfilId = string.Empty;

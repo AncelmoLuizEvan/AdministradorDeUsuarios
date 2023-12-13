@@ -10,12 +10,18 @@ namespace RpcCalc.UseCases.UsuarioUseCases
     {
         private readonly IUsuarioRepository _repository;
         private readonly IUsuarioRepositoryReadOnly _repositoryReadOnly;
+        private readonly IUsuarioPerfilRepository _repositoryUsuarioPerfil;
+
+        private DateTime DataInicio { get; set; }
+        private DateTime? DataFinal { get; set; }
 
         public UsuarioCreate(IUsuarioRepository repository,
-            IUsuarioRepositoryReadOnly usuarioRepositoryReadOnly)
+            IUsuarioRepositoryReadOnly usuarioRepositoryReadOnly,
+            IUsuarioPerfilRepository repositoryUsuarioPerfil)
         {
             _repository = repository;
             _repositoryReadOnly = usuarioRepositoryReadOnly;
+            _repositoryUsuarioPerfil = repositoryUsuarioPerfil;
         }
 
         public async Task<UsuarioDto> Execute(UsuarioViewModel viewModel)
@@ -28,6 +34,18 @@ namespace RpcCalc.UseCases.UsuarioUseCases
 
                 var result = await _repositoryReadOnly.Capturar(entity.Id);
 
+                foreach (var usuarioPerfil in viewModel.UsuarioPerfis)
+                {
+                    CalculaIntervaloPerfil(usuarioPerfil.Perfil);
+
+                    usuarioPerfil.UsuarioId = result!.Id;
+                    usuarioPerfil.DataInicio = DataInicio;
+                    usuarioPerfil.DataFinal = DataFinal;
+
+                    var usuarioPerfilEntity = usuarioPerfil.DtoForEntity();
+                    await _repositoryUsuarioPerfil.Gravar(usuarioPerfilEntity);
+                }
+
                 if (result is not null)
                     return result.EntityForDto();
 
@@ -39,6 +57,25 @@ namespace RpcCalc.UseCases.UsuarioUseCases
                 throw;
             }
 
+        }
+
+        private void CalculaIntervaloPerfil(string perfil)
+        {
+            switch (perfil)
+            {
+                case "Anual":
+                    DataInicio = DateTime.Now;
+                    DataFinal = DateTime.Now.AddHours(1);
+                    break;
+                case "Semestral":
+                    DataInicio = DateTime.Now;
+                    DataFinal = DateTime.Now.AddMonths(6);
+                    break;
+                case "Vitalicio":
+                    DataInicio = DateTime.Now;
+                    DataFinal = DateTime.Now.AddHours(30);
+                    break;
+            }
         }
     }
 }
