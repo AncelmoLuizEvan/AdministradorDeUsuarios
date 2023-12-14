@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 
 builder.Services.AddDataBaseConfiguration(configuration);
-builder.Services.AddRegisterDependencies();
+builder.Services.AddRegisterDependencies(configuration);
 
 var app = builder.Build();
 
