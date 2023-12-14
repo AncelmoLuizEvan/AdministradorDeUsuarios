@@ -9,5 +9,7 @@
         public string Email { get; set; } = null!;
         public string? Celular { get; set; }
         public bool Inativo { get; set; }
+
+        public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = null!;
     }
 }

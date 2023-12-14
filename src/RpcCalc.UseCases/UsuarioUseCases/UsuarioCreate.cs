@@ -1,4 +1,5 @@
-﻿using RpcCalc.Domain.Interfaces.Repositories;
+﻿using RpcCalc.Domain.Interfaces;
+using RpcCalc.Domain.Interfaces.Repositories;
 using RpcCalc.Domain.Interfaces.RepositoriesReadOnly;
 using RpcCalc.Domain.Interfaces.UseCases.UsuarioUseCase;
 using RpcCalc.Domain.Interop.Usuario;
@@ -8,6 +9,7 @@ namespace RpcCalc.UseCases.UsuarioUseCases
 {
     public class UsuarioCreate : IUsuarioCreate
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IUsuarioRepository _repository;
         private readonly IUsuarioRepositoryReadOnly _repositoryReadOnly;
         private readonly IUsuarioPerfilRepository _repositoryUsuarioPerfil;
@@ -15,10 +17,12 @@ namespace RpcCalc.UseCases.UsuarioUseCases
         private DateTime DataInicio { get; set; }
         private DateTime? DataFinal { get; set; }
 
-        public UsuarioCreate(IUsuarioRepository repository,
+        public UsuarioCreate(IUnitOfWork unitOfWork,
+            IUsuarioRepository repository,
             IUsuarioRepositoryReadOnly usuarioRepositoryReadOnly,
             IUsuarioPerfilRepository repositoryUsuarioPerfil)
         {
+            _unitOfWork = unitOfWork;
             _repository = repository;
             _repositoryReadOnly = usuarioRepositoryReadOnly;
             _repositoryUsuarioPerfil = repositoryUsuarioPerfil;
@@ -28,6 +32,8 @@ namespace RpcCalc.UseCases.UsuarioUseCases
         {
             try
             {
+                _unitOfWork.BeginTransaction();
+
                 var entity = viewModel.ViewModelForEntity();
 
                 await _repository.Gravar(entity);
@@ -46,6 +52,8 @@ namespace RpcCalc.UseCases.UsuarioUseCases
                     await _repositoryUsuarioPerfil.Gravar(usuarioPerfilEntity);
                 }
 
+                _unitOfWork.Commit();
+
                 if (result is not null)
                     return result.EntityForDto();
 
@@ -54,6 +62,7 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             catch (Exception ex)
             {
                 var logError = ex.ToString();
+                _unitOfWork.Rollback();
                 throw;
             }
 

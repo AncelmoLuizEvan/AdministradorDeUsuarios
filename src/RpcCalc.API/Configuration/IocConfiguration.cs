@@ -1,4 +1,5 @@
-﻿using RpcCalc.Domain.Interfaces.Repositories;
+﻿using RpcCalc.Domain.Interfaces;
+using RpcCalc.Domain.Interfaces.Repositories;
 using RpcCalc.Domain.Interfaces.RepositoriesReadOnly;
 using RpcCalc.Domain.Interfaces.UseCases.MotivoInativacaoUseCase;
 using RpcCalc.Domain.Interfaces.UseCases.PerfilUseCase;
@@ -16,15 +17,24 @@ namespace RpcCalc.API.Configuration
 {
     public static class IocConfiguration
     {
-        public static void AddRegisterDependencies(this IServiceCollection services)
+        public static void AddRegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
+            if (services == null) throw new ArgumentNullException(nameof(services));
+
+            var serviceProvider = services.BuildServiceProvider();
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
             services.AddScoped<DataBaseContext>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDbSession>(s => new DbSession(connectionString));
 
             services.AddScoped<IMotivoInativacaoRepository, MotivoInativacaoRepository>();
             services.AddScoped<IMotivoInativacaoRepositoryReadOnly, MotivoInativacaoRepositoryReadOnly>();
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IUsuarioRepositoryReadOnly, UsuarioRepositoryReadOnly>();
+            services.AddScoped<IUsuarioPerfilRepository, UsuarioPerfilRepository>();
+            services.AddScoped<IUsuarioPerfilRepositoryReadOnly, UsuarioPerfilRepositoryReadOnly>();
 
             services.AddScoped<IPerfilRepository, PerfilRepository>();
             services.AddScoped<IPerfilRepositoryReadOnly, PerfilRepositoryReadOnly>();

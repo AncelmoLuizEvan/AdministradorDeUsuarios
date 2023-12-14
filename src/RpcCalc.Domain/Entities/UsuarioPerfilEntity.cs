@@ -13,9 +13,9 @@
         }
 
         public Guid UsuarioId { get; private set; }
-        public UsuarioEntity Usuario { get; set; } = new UsuarioEntity();
+        public UsuarioEntity Usuario { get; set; } 
         public Guid PerfilId { get; private set; }
-        public PerfilEntity Perfil { get; set; } = new PerfilEntity();
+        public PerfilEntity Perfil { get; set; } 
 
         public DateTime DataInicio { get; private set; }
         public DateTime? DataFinal { get; private set; }

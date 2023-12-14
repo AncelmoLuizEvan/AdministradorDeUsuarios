@@ -28,7 +28,9 @@ namespace RpcCalc.Domain.Mappers
                     select new UsuarioPerfilDto
                     {
                         PerfilId = entity.PerfilId,
-                        UsuarioId = entity.UsuarioId
+                        UsuarioId = entity.UsuarioId,
+                        Perfil = entity.Perfil.Descricao,
+                        Permissao = entity.Perfil.Permissoes.First().Sistema
                     }).ToList();
         }
     }

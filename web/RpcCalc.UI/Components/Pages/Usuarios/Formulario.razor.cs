@@ -65,7 +65,7 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
                 var perfilSelecionado = Perfis!.FirstOrDefault(x => x.Id == Guid.Parse(args.Value.ToString()));
                 PerfilId = perfilSelecionado.Id.ToString();
                 Permissoes = perfilSelecionado.Permissoes;
-                DescricaoPerfil = perfilSelecionado.Descricao!;
+                DescricaoPerfil = perfilSelecionado.Nome!;
             }
         }
 
