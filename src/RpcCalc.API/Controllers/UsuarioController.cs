@@ -61,5 +61,17 @@ namespace RpcCalc.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete]
+        [Route("excluir/usuario/{idusuario}/perfil/{idperfil}/permissao/{idpermissao}")]
+        public async Task<IActionResult> Excluir([FromServices] IUsuarioDelete useCase, [FromRoute] Guid idusuario, [FromRoute] Guid idperfil, [FromRoute] Guid idpermissao)
+        {
+            var result = await useCase.Execute(idusuario, idperfil, idpermissao);
+
+            if (!result)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
     }
 }

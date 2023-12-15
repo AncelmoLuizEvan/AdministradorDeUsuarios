@@ -14,12 +14,12 @@ namespace RpcCalc.Domain.Mappers
             };
         }
 
-        public static UsuarioPerfilEntity DtoForEntity(this UsuarioPerfilDto dto)
+        public static UsuarioPerfilEntity DtoForEntity(this UsuarioPerfilDto dto, string perfil)
         {
-            return new UsuarioPerfilEntity(dto.UsuarioId, 
+            return new UsuarioPerfilEntity(dto.UsuarioId,
                 dto.PerfilId,
-                dto.DataInicio,
-                dto.DataFinal);
+                dto.PermissaoId,
+                perfil);
         }
 
         public static IEnumerable<UsuarioPerfilDto> EntityForDtoList(this IEnumerable<UsuarioPerfilEntity> entityList)
@@ -29,8 +29,9 @@ namespace RpcCalc.Domain.Mappers
                     {
                         PerfilId = entity.PerfilId,
                         UsuarioId = entity.UsuarioId,
-                        Perfil = entity.Perfil.Descricao,
-                        Permissao = entity.Perfil.Permissoes.First().Sistema
+                        Perfil = entity.Perfil.Descricao!,
+                        Permissao = entity.Permissao.Sistema,
+                        PermissaoId = entity.PermissaoId
                     }).ToList();
         }
     }

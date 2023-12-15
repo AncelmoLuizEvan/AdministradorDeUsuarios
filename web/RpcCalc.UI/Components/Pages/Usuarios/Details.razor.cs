@@ -2,6 +2,7 @@
 using RpcCalc.UI.Interop.Usuarios;
 using RpcCalc.UI.Mappers;
 using RpcCalc.UI.Services.Usuarios;
+using System.Reflection;
 
 namespace RpcCalc.UI.Components.Pages.Usuarios
 {
@@ -16,6 +17,7 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
 
         [Inject]
         private IUsuarioService Service { get; set; } = null!;
+
         [Inject]
         private NavigationManager Navigation { get; set; } = null!;
 
@@ -37,14 +39,35 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
             if (!string.IsNullOrEmpty(Id))
             {
                 var usuarioId = Guid.Parse(Id);
-                var resulte = await Service.Excluir(usuarioId);
+                var result = await Service.Excluir(usuarioId);
 
-                if (resulte)
+                if (result)
                     Navigation.NavigateTo("/usuario/list");
                 else
                     _mensagem = "Ocorreu um erro, o usuário não foi excluído. ";
 
             }
+        }
+
+        private async Task ExcluirPerfilPermissao(string idusuario, string idperfil, string idpermissao)
+        {
+            var usuarioId = Guid.Parse(idusuario);
+            var perfilId = Guid.Parse(idperfil);
+            var permissaoId = Guid.Parse(idpermissao);
+
+            var result = await Service.ExcluirUsuarioPerfil(usuarioId, perfilId, permissaoId);
+
+            if (result)
+            {
+                var usuarioPerfil = Usuario.UsuarioPerfis.FirstOrDefault(x => x.PerfilId == perfilId && x.PermissaoId == permissaoId);
+
+                if (usuarioPerfil == null)
+                    return;
+
+                Usuario.UsuarioPerfis.Remove(usuarioPerfil);
+            }
+            else
+                _mensagem = "Ocorreu um erro, o usuário não foi excluído. ";
         }
 
         protected void GoToUsuarios() => Navigation.NavigateTo("/usuario/list");

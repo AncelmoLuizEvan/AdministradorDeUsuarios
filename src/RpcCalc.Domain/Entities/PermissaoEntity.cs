@@ -4,17 +4,15 @@
     {
         public PermissaoEntity() { }
 
-        public PermissaoEntity(string sistema, int acessar, Guid perfilId)
+        public PermissaoEntity(string sistema, int acessar)
         {
             Sistema = sistema;
             Acessar = acessar;
-            PerfilId = perfilId;
         }
 
         public string Sistema { get; private set; } = null!;
         public int Acessar { get; private set; }
-        public Guid PerfilId { get; private set; }
 
-        public virtual PerfilEntity? Perfil { get; private set; }
+        public ICollection<UsuarioPerfilEntity> UsuariosPerfis { get; private set; } = new HashSet<UsuarioPerfilEntity>();
     }
 }

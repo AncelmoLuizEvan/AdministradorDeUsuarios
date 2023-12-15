@@ -9,7 +9,6 @@ namespace RpcCalc.UI.Mappers
             return new PermissaoDto()
             {
                 Sistema = viewModel.Sistema,
-                PerfilId = viewModel.PerfilId,
                 Acessar = viewModel.Acessar
             };
         }
@@ -19,8 +18,6 @@ namespace RpcCalc.UI.Mappers
             return new PermissaoViewModel()
             {
                 Sistema = dto.Sistema!,
-                PerfilId = dto.PerfilId,
-                Perfil = dto.Perfil.Descricao!,
                 Acessar = dto.Acessar
             };
         }
