@@ -14,9 +14,6 @@ namespace RpcCalc.UseCases.UsuarioUseCases
         private readonly IUsuarioRepositoryReadOnly _repositoryReadOnly;
         private readonly IUsuarioPerfilRepository _repositoryUsuarioPerfil;
 
-        private DateTime DataInicio { get; set; }
-        private DateTime? DataFinal { get; set; }
-
         public UsuarioCreate(IUnitOfWork unitOfWork,
             IUsuarioRepository repository,
             IUsuarioRepositoryReadOnly usuarioRepositoryReadOnly,
@@ -42,13 +39,9 @@ namespace RpcCalc.UseCases.UsuarioUseCases
 
                 foreach (var usuarioPerfil in viewModel.UsuarioPerfis)
                 {
-                    CalculaIntervaloPerfil(usuarioPerfil.Perfil);
-
                     usuarioPerfil.UsuarioId = result!.Id;
-                    usuarioPerfil.DataInicio = DataInicio;
-                    usuarioPerfil.DataFinal = DataFinal;
 
-                    var usuarioPerfilEntity = usuarioPerfil.DtoForEntity();
+                    var usuarioPerfilEntity = usuarioPerfil.DtoForEntity(usuarioPerfil.Perfil);
                     await _repositoryUsuarioPerfil.Gravar(usuarioPerfilEntity);
                 }
 
@@ -66,25 +59,6 @@ namespace RpcCalc.UseCases.UsuarioUseCases
                 throw;
             }
 
-        }
-
-        private void CalculaIntervaloPerfil(string perfil)
-        {
-            switch (perfil)
-            {
-                case "Anual":
-                    DataInicio = DateTime.Now;
-                    DataFinal = DateTime.Now.AddHours(1);
-                    break;
-                case "Semestral":
-                    DataInicio = DateTime.Now;
-                    DataFinal = DateTime.Now.AddMonths(6);
-                    break;
-                case "Vitalicio":
-                    DataInicio = DateTime.Now;
-                    DataFinal = DateTime.Now.AddHours(30);
-                    break;
-            }
         }
     }
 }

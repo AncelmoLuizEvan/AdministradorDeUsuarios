@@ -1,5 +1,6 @@
 ﻿@page "/usuario/details/{id}"
 @rendermode InteractiveServer
+@attribute [StreamRendering]
 
 <PageTitle>Detalhamento do Usuário</PageTitle>
 
@@ -93,7 +94,7 @@
                                 <tr>
                                     <td>@item.Perfil</td>
                                     <td>@item.Permissao</td>
-                                    <td><button class="btn btn-danger">Excluir</button></td>
+                                    <td><button class="btn btn-danger" @onclick="() => ExcluirPerfilPermissao(item.UsuarioId.ToString(), item.PerfilId.ToString(), item.PermissaoId.ToString())">Excluir</button></td>
                                 </tr>
                             }
                         }

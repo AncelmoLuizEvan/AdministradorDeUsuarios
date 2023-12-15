@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpcCalc.UseCases", "src\Rpc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpcCalc.Tests", "tests\RpcCalc.Tests\RpcCalc.Tests.csproj", "{44DFB2EF-2617-4E8D-94F0-E5CE7C8F92AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpcCalc.UI", "web\RpcCalc.UI\RpcCalc.UI.csproj", "{B170D5E2-4D1A-4BCA-B53C-0127AF42A8EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpcCalc.UI", "web\RpcCalc.UI\RpcCalc.UI.csproj", "{B170D5E2-4D1A-4BCA-B53C-0127AF42A8EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
