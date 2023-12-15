@@ -15,13 +15,22 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
         {
             var result = await _context.UsuarioPerfil!
                 .Include(p => p.Perfil)
-                    .ThenInclude(n => n.Permissoes)
+                .Include(p => p.Permissao)
                 .Include(p => p.Usuario)
                 .AsNoTracking()
                 .Where(p => p.UsuarioId == usuarioId)
                 .ToListAsync();
 
             return result;
+        }
+
+        public async Task<UsuarioPerfilEntity> CapiturarPermissaoDoUsuario(Guid usuarioId, Guid perfilId, Guid permissaoId)
+        {
+            var result = await _context.UsuarioPerfil!
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.UsuarioId == usuarioId && p.PerfilId == perfilId && p.PermissaoId == permissaoId);
+
+            return result!;
         }
     }
 }

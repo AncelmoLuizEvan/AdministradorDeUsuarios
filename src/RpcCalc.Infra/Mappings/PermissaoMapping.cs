@@ -16,10 +16,6 @@ namespace RpcCalc.Infra.Mappings
             .IsRequired()
             .HasColumnType("varchar(36)");
 
-            builder.Property(p => p.PerfilId)
-                .IsRequired()
-                .HasColumnType("varchar(36)");
-
             builder.Property(p => p.Sistema)
                 .IsRequired()
                 .HasColumnType("varchar(45)");
@@ -35,9 +31,9 @@ namespace RpcCalc.Infra.Mappings
             builder.Property(p => p.DataAtualizacao)
                 .HasColumnType("DATETIME");
 
-            builder.HasOne(f => f.Perfil)
-                .WithMany(p => p.Permissoes)
-                .HasForeignKey(p => p.PerfilId);
+            builder.HasMany(f => f.UsuariosPerfis)
+                .WithOne(p => p.Permissao)
+                .HasForeignKey(p => p.PermissaoId);
         }
     }
 }

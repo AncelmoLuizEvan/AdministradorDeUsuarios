@@ -9,7 +9,7 @@ namespace RpcCalc.Domain.Mappers
         {
             var acessar = (viewModel.Acessar) ? 1 : 0;
 
-            return new PermissaoEntity(viewModel.Sistema, acessar, viewModel.PerfilId);
+            return new PermissaoEntity(viewModel.Sistema, acessar);
         }
 
         public static PermissaoDto EntityForDto(this PermissaoEntity entity)
@@ -18,9 +18,7 @@ namespace RpcCalc.Domain.Mappers
             {
                 Id = entity.Id,
                 Sistema = entity.Sistema,
-                Acessar = entity.Acessar == 1 ? true : false,
-                PerfilId = entity.PerfilId,
-                Perfil = entity.Perfil!.EntityForDto()
+                Acessar = entity.Acessar == 1 ? true : false
             };
         }
 
@@ -31,9 +29,7 @@ namespace RpcCalc.Domain.Mappers
                     {
                         Id = entity.Id,
                         Sistema = entity.Sistema,
-                        Acessar = entity.Acessar == 1 ? true : false,
-                        PerfilId = entity.PerfilId,
-                        Perfil = entity.Perfil!.EntityForDto(),
+                        Acessar = entity.Acessar == 1 ? true : false
                     }).ToList();
         }
     }

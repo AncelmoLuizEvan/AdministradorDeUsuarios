@@ -14,7 +14,6 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
         public override async Task<PermissaoEntity?> Capturar(Guid id)
         {
             var result = await _context.Permissao!
-                .Include(p => p.Perfil)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             return result;
@@ -23,20 +22,8 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
         public override async Task<IEnumerable<PermissaoEntity>?> Listar()
         {
             var result = await _context.Permissao!
-               .Include(p => p.Perfil)
                .AsNoTracking()
                .ToListAsync();
-
-            return result;
-        }
-
-        public async Task<IEnumerable<PermissaoEntity>?> ListarPermissoesDoPerfil(Guid perfilId)
-        {
-            var result = await _context.Permissao!
-                .Include(p => p.Perfil)
-                .AsNoTracking()
-                .Where(x => x.PerfilId == perfilId)
-                .ToListAsync();
 
             return result;
         }

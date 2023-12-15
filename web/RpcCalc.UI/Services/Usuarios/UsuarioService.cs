@@ -66,6 +66,22 @@ namespace RpcCalc.UI.Services.Usuarios
             }
         }
 
+        public async Task<bool> ExcluirUsuarioPerfil(Guid idusuario, Guid idperfil, Guid idpermissao)
+        {
+            try
+            {
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.DeleteFromJsonAsync<bool>($"api/Usuario/excluir/usuario/{idusuario}/perfil/{idperfil}/permissao/{idpermissao}");
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
+        }
+
         public async Task<UsuarioDto?> Gravar(UsuarioViewModel viewModel)
         {
             try
@@ -105,3 +121,4 @@ namespace RpcCalc.UI.Services.Usuarios
         }
     }
 }
+///api/Usuario/excluir/usuario/{idusuario}/perfil/{idperfil}/permissao/{idpermissao}

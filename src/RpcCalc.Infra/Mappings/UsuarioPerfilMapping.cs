@@ -24,6 +24,10 @@ namespace RpcCalc.Infra.Mappings
                .IsRequired()
                .HasColumnType("varchar(36)");
 
+            builder.Property(p => p.PermissaoId)
+             .IsRequired()
+             .HasColumnType("varchar(36)");
+
             builder.Property(p => p.DataInicio)
              .IsRequired()
              .HasColumnType("DATETIME");

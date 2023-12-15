@@ -8,9 +8,6 @@ namespace RpcCalc.UI.Components.Pages.Permissoes
     public partial class Formulario
     {
         [Inject]
-        private IPerfilService Service { get; set; } = null!;
-
-        [Inject]
         private NavigationManager NavigationManager { get; set; } = null!;
 
         [Parameter]
@@ -24,13 +21,6 @@ namespace RpcCalc.UI.Components.Pages.Permissoes
         [Parameter]
         public EventCallback OnValidateSubmit { get; set; }
 
-        [Parameter]
-        public IEnumerable<PerfilDto>? Perfis { get; set; } = Enumerable.Empty<PerfilDto>();
-
-        protected override async Task OnInitializedAsync()
-        {
-            Perfis = await Service.ObterTodos();
-        }
         protected void GoToPermissoes() => NavigationManager.NavigateTo("/permissao/list");
     }
 }
