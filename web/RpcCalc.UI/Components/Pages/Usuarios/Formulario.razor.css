@@ -1,2 +1,7 @@
 ﻿body {
 }
+
+em{
+    color:red;
+    padding:0 2px 0 2px;
+}
