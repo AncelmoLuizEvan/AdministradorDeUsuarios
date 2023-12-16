@@ -35,7 +35,7 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             {
                 _unitOfWork.BeginTransaction();
 
-                var senha = PasswordGenerator.Generate(25, true, true);
+                var senha = PasswordGenerator.Generate(16, false, true);
 
                 var entity = viewModel.ViewModelForEntity(PasswordHasher.Hash(senha));
 
@@ -56,7 +56,7 @@ namespace RpcCalc.UseCases.UsuarioUseCases
                     var usuarioRole = new UsuarioRoleDto
                     {
                         UsuarioId = result!.Id,
-                        RoleId = role.Id,
+                        RoleId = role.RoleId,
                     };
 
                     var usuarioRoleEntity = usuarioRole.DtoForEntity();

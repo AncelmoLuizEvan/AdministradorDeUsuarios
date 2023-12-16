@@ -5,6 +5,6 @@
         public Guid UsuarioId { get; set; }
         public Guid RoleId { get; set; }
 
-        public RoleDto Role { get; set; }
+        public RoleDto? Role { get; set; }
     }
 }

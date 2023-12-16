@@ -11,15 +11,13 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
         [Inject]
         private NavigationManager Navigation { get; set; } = null!;
 
-        protected string _mensagem = string.Empty;
-
         public UsuarioViewModel Usuario { get; set; } = new UsuarioViewModel();
 
         private async Task Save()
         {
             if (Usuario.UsuarioPerfis.Count() == 0)
             {
-                _mensagem = "Adicione uma ou mais permissões para o usuário";
+                Usuario._mensagemPerfil = "Adicione uma ou mais permissões para o usuário";
             }
             else
             {
@@ -28,7 +26,7 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
                 if (result is not null)
                     Navigation.NavigateTo("/usuario/list");
                 else
-                    _mensagem = "Ocorreu um erro na API, o usuário não foi adicionado";
+                    Usuario._mensagemPerfil = "Ocorreu um erro na API, o usuário não foi adicionado";
             }
         }
 

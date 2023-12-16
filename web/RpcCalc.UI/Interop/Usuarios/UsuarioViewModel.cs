@@ -1,5 +1,6 @@
 ﻿using RpcCalc.UI.Interop.Roles;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace RpcCalc.UI.Interop.Usuarios
 {
@@ -23,5 +24,11 @@ namespace RpcCalc.UI.Interop.Usuarios
         public List<UsuarioRoleDto> Roles { get; set; } = new List<UsuarioRoleDto>();
 
         public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = new List<UsuarioPerfilDto>();
+
+        [JsonIgnore]
+        public string _mensagemPerfil { get; set; } = string.Empty;
+
+        [JsonIgnore]
+        public string _mensagemRole { get; set; } = string.Empty;
     }
 }
