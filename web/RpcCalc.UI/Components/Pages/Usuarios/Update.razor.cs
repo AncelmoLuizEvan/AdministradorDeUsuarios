@@ -13,8 +13,6 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
         private NavigationManager Navigation { get; set; } = null!;
         protected UsuarioViewModel Usuario { get; set; } = new UsuarioViewModel();
 
-        protected string _mensagem = string.Empty;
-
         [Parameter]
         public string Id { get; set; } = null!;
 
@@ -34,7 +32,7 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
         {
             if (Usuario.UsuarioPerfis.Count() == 0)
             {
-                _mensagem = "Adicione uma ou mais permissões para o usuário";
+                Usuario._mensagemPerfil = "Adicione uma ou mais permissões para o usuário";
             }
             else
             {
@@ -43,7 +41,7 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
                 if (result is not null)
                     Navigation.NavigateTo("/usuario/list");
                 else
-                    _mensagem = "Ocorreu um erro, o usuário não foi atualizado";
+                    Usuario._mensagemPerfil = "Ocorreu um erro, o usuário não foi atualizado";
             }
 
         }

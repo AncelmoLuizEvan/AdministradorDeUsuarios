@@ -23,15 +23,6 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
         [Inject]
         private NavigationManager Navigation { get; set; } = null!;
 
-        [Parameter]
-        public string? _mensagem { get; set; }
-
-        [Parameter]
-        public string? _erroAddPerfilPermissao { get; set; }
-
-        [Parameter]
-        public string? _erroAddRole { get; set; }
-
         [EditorRequired]
         [Parameter]
         public UsuarioViewModel Model { get; set; } = null!;
@@ -134,13 +125,13 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
             {
                 if (String.IsNullOrEmpty(DescricaoPerfil))
                 {
-                    _erroAddPerfilPermissao = "Selecione o Perfil";
+                    Model._mensagemPerfil = "Selecione o Perfil";
                     return;
                 }
 
                 if (String.IsNullOrEmpty(DescricaoPermissao))
                 {
-                    _erroAddPerfilPermissao = "Selecione a Permissão";
+                    Model._mensagemPerfil = "Selecione a Permissão";
                     return;
                 }
 
@@ -154,11 +145,11 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
 
                 Model.UsuarioPerfis.Add(UsuarioPerfil);
 
-                _erroAddPerfilPermissao = string.Empty;
+                Model._mensagemPerfil = string.Empty;
             }
             catch
             {
-                _erroAddPerfilPermissao = "Selecione um Perfil e uma Permissão";
+                Model._mensagemPerfil = "Selecione um Perfil e uma Permissão";
             }
         }
 
@@ -168,22 +159,23 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
             {
                 if (String.IsNullOrEmpty(DescricaoRole))
                 {
-                    _erroAddRole = "Selecione o Tipo de Usuário";
+                    Model._mensagemRole = "Selecione o Tipo de Usuário";
                     return;
                 }
 
                 UsuarioRole = new UsuarioRoleDto
                 {
+                    RoleId = Guid.Parse(RoleId),
                     Role = new RoleDto { Id = Guid.Parse(RoleId), Descricao = DescricaoRole }
                 };
 
                 Model.Roles.Add(UsuarioRole);
 
-                _erroAddRole = string.Empty;
+                Model._mensagemRole = string.Empty;
             }
             catch
             {
-                _erroAddRole = "Selecione o Tipo de Usuário";
+                Model._mensagemRole = "Selecione o Tipo de Usuário";
             }
         }
         private void ExcluirPerfilPermissao(string id)

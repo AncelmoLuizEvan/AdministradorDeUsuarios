@@ -44,12 +44,12 @@
                     </div>
                 </EditForm>
 
-                @if (!string.IsNullOrEmpty(_mensagem))
+                @if (!string.IsNullOrEmpty(Model._mensagemPerfil))
                 {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-danger" role="alert">
-                                @_mensagem
+                                @Model._mensagemPerfil
                             </div>
                         </div>
                     </div>
@@ -155,12 +155,12 @@
                         }
                     </tbody>
                 </table>
-                @if (!string.IsNullOrEmpty(_erroAddPerfilPermissao))
+                @if (!string.IsNullOrEmpty(Model._mensagemPerfil))
                 {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-danger" role="alert">
-                                @_erroAddPerfilPermissao
+                                @Model._mensagemPerfil
                             </div>
                         </div>
                     </div>

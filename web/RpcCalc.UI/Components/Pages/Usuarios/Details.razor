@@ -70,23 +70,30 @@
         <div class="card  mb-3">
             <div class="card-header">Nível de Acesso</div>
             <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-6">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tipo de Usuário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         @if (Usuario.Roles.Count() == 0)
                         {
-                            <strong>Sem registros</strong>
+                            <tr>
+                                <th>Sem registros</th>
+                            </tr>
                         }
                         else
                         {
-                            <ul class="list-group list-group-flush">
-                                @foreach (var item in Usuario.Roles)
-                                {
-                                    <li class="list-group-item"><button class="btn btn-danger" @onclick="() => ExcluirUsuarioRole(item.RoleId.ToString())">X</button> @item.Role.Descricao</li>
-                                }
-                            </ul>
+                            @foreach (var item in Usuario.Roles)
+                            {
+                                <tr>
+                                    <td>@item.Role.Descricao </td>
+                                </tr>
+                            }
                         }
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="card mb-3">
@@ -94,19 +101,18 @@
                 Permissões
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Perfil</th>
                             <th scope="col">Permissão</th>
-                            <th scope="col">#</th>
                         </tr>
                     </thead>
                     <tbody>
                         @if (Usuario.UsuarioPerfis.Count() == 0)
                         {
                             <tr>
-                                <th colspan="3">Sem registros</th>
+                                <th colspan="2">Sem registros</th>
                             </tr>
                         }
                         else
@@ -116,7 +122,6 @@
                                 <tr>
                                     <td>@item.Perfil</td>
                                     <td>@item.Permissao</td>
-                                    <td><button class="btn btn-danger" @onclick="() => ExcluirPerfilPermissao(item.UsuarioId.ToString(), item.PerfilId.ToString(), item.PermissaoId.ToString())">Excluir</button></td>
                                 </tr>
                             }
                         }
