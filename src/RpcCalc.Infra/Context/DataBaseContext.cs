@@ -16,6 +16,8 @@ namespace RpcCalc.Infra.Context
         public DbSet<PermissaoEntity>? Permissao { get; set; }
         public DbSet<UsuarioEntity>? Usuario { get; set; }
         public DbSet<UsuarioPerfilEntity>? UsuarioPerfil { get; set; }
+        public DbSet<UsuarioRoleEntity>? UsuarioRole { get; set; }
+        public DbSet<RoleEntity>? Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -5,9 +5,8 @@ namespace RpcCalc.Domain.Mappers
 {
     public static class UsuarioMapper
     {
-        public static UsuarioEntity ViewModelForEntity(this UsuarioViewModel viewModel)
+        public static UsuarioEntity ViewModelForEntity(this UsuarioViewModel viewModel, string senha)
         {
-            var senha = "12345"; //TODO implementar o gerador de senha
 
             return new UsuarioEntity(
                 viewModel.CnpjCpf!,
@@ -33,6 +32,16 @@ namespace RpcCalc.Domain.Mappers
                 Email = entity.Email,
                 Celular = entity.Celular,
                 Inativo = entity.Inativo == 1 ? true : false,
+                Roles = entity.Roles.EntityForDtoList().ToList()
+            };
+        }
+
+        public static LoginDto EntityForLoginDto(this UsuarioEntity entity)
+        {
+            return new LoginDto()
+            {
+               Nome = entity.Nome,
+               Email = entity.Email,
             };
         }
 

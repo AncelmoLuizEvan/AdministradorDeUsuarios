@@ -26,7 +26,7 @@ namespace RpcCalc.Infra.Repositories
 
         public async Task Gravar(T entity)
         {
-            _context.Set<T>().AddRange(entity);
+            await _context.Set<T>().AddAsync(entity);
             await _context.SaveChangesAsync();
         }
     }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using RpcCalc.UI.Interop.Perfis;
 using RpcCalc.UI.Interop.Permissoes;
+using RpcCalc.UI.Interop.Roles;
 using RpcCalc.UI.Interop.Usuarios;
 using RpcCalc.UI.Services.Perfis;
 using RpcCalc.UI.Services.Permissoes;
+using RpcCalc.UI.Services.Roles;
 
 namespace RpcCalc.UI.Components.Pages.Usuarios
 {
@@ -16,6 +18,9 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
         private IPermissaoService PermissaoService { get; set; } = null!;
 
         [Inject]
+        private IRoleService RoleService { get; set; } = null!;
+
+        [Inject]
         private NavigationManager Navigation { get; set; } = null!;
 
         [Parameter]
@@ -23,6 +28,9 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
 
         [Parameter]
         public string? _erroAddPerfilPermissao { get; set; }
+
+        [Parameter]
+        public string? _erroAddRole { get; set; }
 
         [EditorRequired]
         [Parameter]
@@ -38,28 +46,41 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
         [Parameter]
         public IEnumerable<PermissaoDto>? Permissoes { get; set; } = Enumerable.Empty<PermissaoDto>();
 
+        [Parameter]
+        public IEnumerable<RoleDto>? Roles { get; set; } = Enumerable.Empty<RoleDto>();
+
         private UsuarioPerfilDto? UsuarioPerfil { get; set; }
+        private RoleDto? Role { get; set; }
+        private UsuarioRoleDto? UsuarioRole { get; set; }
 
         string PerfilId { get; set; } = string.Empty;
         string PermissaoId { get; set; } = string.Empty;
+        string RoleId { get; set; } = string.Empty;
 
         string DescricaoPerfil { get; set; } = string.Empty;
         string DescricaoPermissao { get; set; } = string.Empty;
+        string DescricaoRole { get; set; } = string.Empty;
 
         protected override async Task OnInitializedAsync()
         {
             var perfis = await PerfilService.ObterTodos();
             var permissoes = await PermissaoService.ObterTodos();
+            var roles = await RoleService.ObterTodos();
 
             if (perfis is not null && perfis.Any())
-                Perfis = perfis;
+                Perfis = perfis.OrderBy(x => x.Nome);
             else
                 Perfis = null;
 
             if (permissoes is not null && permissoes.Any())
-                Permissoes = permissoes;
+                Permissoes = permissoes.OrderBy(x => x.Sistema);
             else
                 Permissoes = null;
+
+            if (roles is not null && roles.Any())
+                Roles = roles.OrderBy(x => x.Descricao);
+            else
+                Roles = null;
         }
 
         private void ObterPermissoes(ChangeEventArgs args)
@@ -89,6 +110,21 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
                 var permissaoSelecionada = Permissoes.FirstOrDefault(x => x.Id == Guid.Parse(args.Value.ToString()));
                 DescricaoPermissao = permissaoSelecionada.Sistema;
                 PermissaoId = permissaoSelecionada.Id.ToString();
+            }
+        }
+
+        private void ObterRoleSelecionada(ChangeEventArgs args)
+        {
+            if (args.Value.ToString() == "0")
+            {
+                RoleId = string.Empty;
+            }
+            else
+            {
+                var roleSelecionada = Roles.FirstOrDefault(x => x.Id == Guid.Parse(args.Value.ToString()));
+                DescricaoRole = roleSelecionada.Descricao;
+                RoleId = roleSelecionada.Id.ToString();
+                Role = roleSelecionada;
             }
         }
 
@@ -126,6 +162,30 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
             }
         }
 
+        private void AdicionarUsuarioRole()
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(DescricaoRole))
+                {
+                    _erroAddRole = "Selecione o Tipo de Usuário";
+                    return;
+                }
+
+                UsuarioRole = new UsuarioRoleDto
+                {
+                    Role = new RoleDto { Id = Guid.Parse(RoleId), Descricao = DescricaoRole }
+                };
+
+                Model.Roles.Add(UsuarioRole);
+
+                _erroAddRole = string.Empty;
+            }
+            catch
+            {
+                _erroAddRole = "Selecione o Tipo de Usuário";
+            }
+        }
         private void ExcluirPerfilPermissao(string id)
         {
             var perfilId = Guid.Parse(id);
@@ -138,12 +198,16 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
             Model.UsuarioPerfis.Remove(usuarioPerfil);
         }
 
-        private void LimparListas()
+        private void ExcluirUsuarioRole(string id)
         {
-            Model.UsuarioPerfis = new List<UsuarioPerfilDto>();
-            DescricaoPerfil = string.Empty;
-            DescricaoPermissao = string.Empty;
-            PerfilId = string.Empty;
+            var roleId = Guid.Parse(id);
+
+            var role = Model.Roles.FirstOrDefault(x => x.Role.Id == roleId);
+
+            if (role == null)
+                return;
+
+            Model.Roles.Remove(role);
         }
 
         protected void GoToUsuarios() => Navigation.NavigateTo("/usuario/list");

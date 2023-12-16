@@ -17,12 +17,19 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
 
         private async Task Save()
         {
-            var result = await Service.Gravar(Usuario);
-
-            if (result is not null)
-                Navigation.NavigateTo("/usuario/list");
+            if (Usuario.UsuarioPerfis.Count() == 0)
+            {
+                _mensagem = "Adicione uma ou mais permissões para o usuário";
+            }
             else
-                _mensagem = "Ocorreu um erro na API, o usuário não foi adicionado";
+            {
+                var result = await Service.Gravar(Usuario);
+
+                if (result is not null)
+                    Navigation.NavigateTo("/usuario/list");
+                else
+                    _mensagem = "Ocorreu um erro na API, o usuário não foi adicionado";
+            }
         }
 
         protected void GoToUsuarios() => Navigation.NavigateTo("/usuario/list");
