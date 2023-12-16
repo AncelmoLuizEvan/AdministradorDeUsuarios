@@ -4,6 +4,7 @@ using RpcCalc.Domain.Interfaces.RepositoriesReadOnly;
 using RpcCalc.Domain.Interfaces.UseCases.UsuarioUseCase;
 using RpcCalc.Domain.Interop.Usuario;
 using RpcCalc.Domain.Mappers;
+using SecureIdentity.Password;
 
 namespace RpcCalc.UseCases.UsuarioUseCases
 {
@@ -31,7 +32,9 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             {
                 _unitOfWork.BeginTransaction();
 
-                var entity = viewModel.ViewModelForEntity();
+                var senha = PasswordGenerator.Generate(25, true, true);
+
+                var entity = viewModel.ViewModelForEntity(PasswordHasher.Hash(senha));
 
                 await _repository.Gravar(entity);
 

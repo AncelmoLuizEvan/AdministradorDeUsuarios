@@ -2,6 +2,7 @@
 using RpcCalc.Domain.Interfaces.UseCases.UsuarioUseCase;
 using RpcCalc.Domain.Interop.Usuario;
 using RpcCalc.Domain.Mappers;
+using SecureIdentity.Password;
 
 namespace RpcCalc.UseCases.UsuarioUseCases
 {
@@ -40,6 +41,23 @@ namespace RpcCalc.UseCases.UsuarioUseCases
                 return result!.EntityForDtoList();
 
             return Enumerable.Empty<UsuarioDto>();
+        }
+
+        public async Task<LoginDto?> ValidarLogin(string email, string senha)
+        {
+            var result = await _repositoryReadOnly.ObterPorLogin(email);
+
+            if (result == null)
+                return null;
+
+            if (!PasswordHasher.Verify(result.Senha, senha))
+                return null;
+
+            if (result is not null)
+                return result.EntityForLoginDto();
+
+            return null;
+
         }
     }
 }

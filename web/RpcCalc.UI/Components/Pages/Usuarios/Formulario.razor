@@ -58,6 +58,39 @@
         </div>
     </div>
     <div class="col-6">
+        <div class="card  mb-3">
+            <div class="card-header">Nível de Acesso</div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <label for="role" class="form-label"><em>*</em> Tipo de Usuário</label>
+                        <select value="@RoleId" class="form-control mb-1" @onchange="ObterRoleSelecionada">
+                            <option value="0">Selecione</option>
+                            @foreach (var item in Roles!)
+                            {
+                                <option value="@item.Id">@item.Descricao</option>
+                            }
+                        </select>
+                        <button class="btn btn-success" @onclick="AdicionarUsuarioRole">Adicionar</button>
+                    </div>
+                    <div class="col-6">
+                        @if (Model.Roles.Count() == 0)
+                        {
+                            <strong>Sem registros</strong>
+                        }
+                        else
+                        {
+                            <ul class="list-group list-group-flush">
+                                @foreach (var item in Model.Roles)
+                                {
+                                    <li class="list-group-item"><button class="btn btn-danger" @onclick="() => ExcluirUsuarioRole(item.Id.ToString())">X</button>  @item.Descricao </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card">
             <div class="card-header">
                 Adicionar Permissões

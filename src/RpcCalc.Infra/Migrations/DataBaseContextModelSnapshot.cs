@@ -69,6 +69,36 @@ namespace RpcCalc.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Perfis", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ee8bb8a8-4ef3-4ac8-a78c-8ab657b81145",
+                            DataCriacao = new DateTime(2023, 12, 15, 19, 40, 13, 548, DateTimeKind.Local).AddTicks(2313),
+                            Descricao = "Acesso para testar o sistema",
+                            Nome = "Mensal"
+                        },
+                        new
+                        {
+                            Id = "9c335fc5-1870-4074-995a-6d4fcb2746f8",
+                            DataCriacao = new DateTime(2023, 12, 15, 19, 40, 13, 548, DateTimeKind.Local).AddTicks(2345),
+                            Descricao = "Acesso por seis meses",
+                            Nome = "Semestral"
+                        },
+                        new
+                        {
+                            Id = "9d67272c-5d27-4f84-b666-32e9f6cfb8e6",
+                            DataCriacao = new DateTime(2023, 12, 15, 19, 40, 13, 548, DateTimeKind.Local).AddTicks(2346),
+                            Descricao = "Acesso por um ano",
+                            Nome = "Anual"
+                        },
+                        new
+                        {
+                            Id = "7947d5c0-fe71-43cf-896a-d4356caedffe",
+                            DataCriacao = new DateTime(2023, 12, 15, 19, 40, 13, 548, DateTimeKind.Local).AddTicks(2348),
+                            Descricao = "Acesso vitalício",
+                            Nome = "Vitalicio"
+                        });
                 });
 
             modelBuilder.Entity("RpcCalc.Domain.Entities.PermissaoEntity", b =>
@@ -93,6 +123,47 @@ namespace RpcCalc.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Permissoes", (string)null);
+                });
+
+            modelBuilder.Entity("RpcCalc.Domain.Entities.RoleEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<DateTime?>("DataAtualizacao")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(45)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1c735ea5-2fdd-4ca7-abf5-05620a80f37f",
+                            DataCriacao = new DateTime(2023, 12, 15, 19, 40, 13, 548, DateTimeKind.Local).AddTicks(6467),
+                            Descricao = "Administrador",
+                            Nome = "Admin"
+                        },
+                        new
+                        {
+                            Id = "5cc8f87b-0e5a-441e-9123-8368f92babd5",
+                            DataCriacao = new DateTime(2023, 12, 15, 19, 40, 13, 548, DateTimeKind.Local).AddTicks(6477),
+                            Descricao = "Cliente RpcCalc",
+                            Nome = "Cliente"
+                        });
                 });
 
             modelBuilder.Entity("RpcCalc.Domain.Entities.UsuarioEntity", b =>
@@ -140,7 +211,7 @@ namespace RpcCalc.Infra.Migrations
 
                     b.Property<string>("Senha")
                         .IsRequired()
-                        .HasColumnType("varchar(45)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -188,6 +259,21 @@ namespace RpcCalc.Infra.Migrations
                     b.ToTable("UsuariosPerfis", (string)null);
                 });
 
+            modelBuilder.Entity("UsuarioRole", b =>
+                {
+                    b.Property<string>("RoleId")
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<string>("UsuarioId")
+                        .HasColumnType("varchar(36)");
+
+                    b.HasKey("RoleId", "UsuarioId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("UsuarioRole");
+                });
+
             modelBuilder.Entity("RpcCalc.Domain.Entities.MotivoInativacaoEntity", b =>
                 {
                     b.HasOne("RpcCalc.Domain.Entities.UsuarioEntity", "Usuario")
@@ -211,7 +297,7 @@ namespace RpcCalc.Infra.Migrations
                         .IsRequired();
 
                     b.HasOne("RpcCalc.Domain.Entities.UsuarioEntity", "Usuario")
-                        .WithMany()
+                        .WithMany("UsuarioPerfis")
                         .HasForeignKey("UsuarioId")
                         .IsRequired();
 
@@ -220,6 +306,21 @@ namespace RpcCalc.Infra.Migrations
                     b.Navigation("Permissao");
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("UsuarioRole", b =>
+                {
+                    b.HasOne("RpcCalc.Domain.Entities.RoleEntity", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .IsRequired()
+                        .HasConstraintName("FK_UsuarioRole_RoleId");
+
+                    b.HasOne("RpcCalc.Domain.Entities.UsuarioEntity", null)
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .IsRequired()
+                        .HasConstraintName("FK_UsuarioRole_UsuarioId");
                 });
 
             modelBuilder.Entity("RpcCalc.Domain.Entities.PerfilEntity", b =>
@@ -235,6 +336,8 @@ namespace RpcCalc.Infra.Migrations
             modelBuilder.Entity("RpcCalc.Domain.Entities.UsuarioEntity", b =>
                 {
                     b.Navigation("MotivoInativacaoEntities");
+
+                    b.Navigation("UsuarioPerfis");
                 });
 #pragma warning restore 612, 618
         }

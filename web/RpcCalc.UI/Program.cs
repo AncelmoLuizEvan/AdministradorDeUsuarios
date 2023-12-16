@@ -1,6 +1,7 @@
 using RpcCalc.UI.Components;
 using RpcCalc.UI.Services.Perfis;
 using RpcCalc.UI.Services.Permissoes;
+using RpcCalc.UI.Services.Roles;
 using RpcCalc.UI.Services.Usuarios;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddHttpClient("API", httpClient =>
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IPerfilService, PerfilService>();
 builder.Services.AddScoped<IPermissaoService, PermissaoService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 
 var app = builder.Build();
 

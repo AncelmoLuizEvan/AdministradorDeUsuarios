@@ -17,8 +17,9 @@ namespace RpcCalc.Domain.Interop.Usuario
         [EmailAddress(ErrorMessage = "E-mail inválido!")]
         [Required(ErrorMessage = "O Email é obrigatório")]
         public string Email { get; set; } = null!;
-
         public string? Celular { get; set; }
+
+        public List<RoleDto> Roles { get; set; } = null!;
         public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = null!;
     }
 }

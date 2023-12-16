@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RpcCalc.UI.Interop.Roles;
+using System.ComponentModel.DataAnnotations;
 
 namespace RpcCalc.UI.Interop.Usuarios
 {
@@ -17,8 +18,9 @@ namespace RpcCalc.UI.Interop.Usuarios
         [Required(ErrorMessage = "O Email é obrigatório")]
         public string? Email { get; set; } = null!;
 
-        public string? Celular { get; set; } 
+        public string? Celular { get; set; }
 
+        public List<RoleDto> Roles { get; set; } = new List<RoleDto>();
         public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = new List<UsuarioPerfilDto>();
     }
 }

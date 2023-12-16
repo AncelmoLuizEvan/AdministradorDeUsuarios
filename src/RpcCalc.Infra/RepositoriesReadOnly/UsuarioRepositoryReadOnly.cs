@@ -20,5 +20,15 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
 
             return result;
         }
+
+        public async Task<UsuarioEntity?> ObterPorLogin(string email)
+        {
+          var result = await _context.Usuario!
+                 .AsNoTracking()
+                 .Include(r => r.Roles)
+                 .FirstOrDefaultAsync(u => u.Email == email);
+
+            return result;
+        }
     }
 }
