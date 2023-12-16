@@ -14,7 +14,6 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
         public async Task<UsuarioRoleEntity> CapiturarRoleDoUsuario(Guid usuarioId, Guid roleId)
         {
             var result = await _context.UsuarioRole!
-                .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.UsuarioId == usuarioId && p.RoleId == roleId);
 
             return result!;

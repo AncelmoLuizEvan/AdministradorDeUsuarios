@@ -17,7 +17,7 @@ namespace RpcCalc.Domain.Mappers
                     {
                         UsuarioId = entity.UsuarioId,
                         RoleId = entity.RoleId,
-                        Role = entity.Role.EntityForDto()
+                        Role = entity.Role?.EntityForDto()
                     }).ToList();
         }
     }

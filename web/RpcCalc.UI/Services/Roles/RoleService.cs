@@ -11,22 +11,6 @@ namespace RpcCalc.UI.Services.Roles
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<bool> ExcluirUsuarioRole(Guid idusuario, Guid idrole)
-        {
-            try
-            {
-                var httpClient = _httpClientFactory.CreateClient("API");
-                var response = await httpClient.DeleteFromJsonAsync<bool>($"api/Usuario/{idusuario}/role/{idrole}/excluirRole");
-
-                return response;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-                throw;
-            }
-        }
-
         public async Task<IEnumerable<RoleDto>?> ObterTodos()
         {
             try

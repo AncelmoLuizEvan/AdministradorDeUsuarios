@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using RpcCalc.UI.Interop.Usuarios;
 using RpcCalc.UI.Mappers;
-using RpcCalc.UI.Services.Roles;
 using RpcCalc.UI.Services.Usuarios;
 
 namespace RpcCalc.UI.Components.Pages.Usuarios
@@ -17,9 +16,6 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
 
         [Inject]
         private IUsuarioService Service { get; set; } = null!;
-
-        [Inject]
-        private IRoleService RoleService { get; set; } = null!;
 
         [Inject]
         private NavigationManager Navigation { get; set; } = null!;
@@ -50,47 +46,6 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
                     _mensagem = "Ocorreu um erro, o usuário não foi excluído. ";
 
             }
-        }
-
-        private async Task ExcluirPerfilPermissao(string idusuario, string idperfil, string idpermissao)
-        {
-            var usuarioId = Guid.Parse(idusuario);
-            var perfilId = Guid.Parse(idperfil);
-            var permissaoId = Guid.Parse(idpermissao);
-
-            var result = await Service.ExcluirUsuarioPerfil(usuarioId, perfilId, permissaoId);
-
-            if (result)
-            {
-                var usuarioPerfil = Usuario.UsuarioPerfis.FirstOrDefault(x => x.PerfilId == perfilId && x.PermissaoId == permissaoId);
-
-                if (usuarioPerfil == null)
-                    return;
-
-                Usuario.UsuarioPerfis.Remove(usuarioPerfil);
-            }
-            else
-                _mensagem = "Ocorreu um erro, perfil permissão não foi excluído. ";
-        }
-
-        private async Task ExcluirUsuarioRole(string idrole)
-        {
-            var usuarioId = Guid.Parse(Id!);
-            var roleId = Guid.Parse(idrole);
-
-            var result = await RoleService.ExcluirUsuarioRole(usuarioId, roleId);
-
-            if (result)
-            {
-                var usuarioRole = Usuario.Roles.FirstOrDefault(x => x.RoleId == roleId);
-
-                if (usuarioRole == null)
-                    return;
-
-                Usuario.Roles.Remove(usuarioRole);
-            }
-            else
-                _mensagem = "Ocorreu um erro, tipo de usuário não foi excluído. ";
         }
 
         protected void GoToUsuarios() => Navigation.NavigateTo("/usuario/list");

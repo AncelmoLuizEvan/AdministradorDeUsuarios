@@ -19,7 +19,7 @@ namespace RpcCalc.Domain.Interop.Usuario
         public string Email { get; set; } = null!;
         public string? Celular { get; set; }
 
-        public List<RoleDto> Roles { get; set; } = null!;
+        public List<UsuarioRoleDto> Roles { get; set; } = null!;
         public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = null!;
     }
 }
