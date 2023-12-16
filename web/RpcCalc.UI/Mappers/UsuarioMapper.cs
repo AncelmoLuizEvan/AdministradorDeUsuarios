@@ -25,7 +25,8 @@ namespace RpcCalc.UI.Mappers
                 Login = dto.Login!,
                 Email = dto.Email!,
                 Celular = dto.Celular!,
-                UsuarioPerfis = dto.UsuarioPerfis
+                UsuarioPerfis = dto.UsuarioPerfis,
+                Roles = dto.Roles
             };
         }
     }

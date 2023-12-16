@@ -42,6 +42,10 @@
                     DataInicio = DateTime.Now;
                     DataFinal = DateTime.Now.AddHours(30);
                     break;
+                case "Mensal":
+                    DataInicio = DateTime.Now;
+                    DataFinal = DateTime.Now.AddMonths(1);
+                    break;
             }
         }
     }

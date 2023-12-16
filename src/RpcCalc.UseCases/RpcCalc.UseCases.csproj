@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SecureIdentity" Version="1.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RpcCalc.Infra\RpcCalc.Infra.csproj" />
   </ItemGroup>
 

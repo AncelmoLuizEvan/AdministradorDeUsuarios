@@ -16,7 +16,20 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
             var result = await _context.Usuario!
                 .AsNoTracking()
                 .Include(u => u.UsuarioPerfis)
+                    .ThenInclude(x => x.Perfil)
+                .Include(u => u.Roles)
+                    .ThenInclude(x => x.Role)
                 .FirstOrDefaultAsync(p => p.Id == id);
+
+            return result;
+        }
+
+        public async Task<UsuarioEntity?> ObterPorLogin(string email)
+        {
+            var result = await _context.Usuario!
+                   .AsNoTracking()
+                   .Include(r => r.Roles)
+                   .FirstOrDefaultAsync(u => u.Email == email);
 
             return result;
         }

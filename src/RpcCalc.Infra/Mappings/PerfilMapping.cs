@@ -32,8 +32,21 @@ namespace RpcCalc.Infra.Mappings
                 .HasColumnType("DATETIME");
 
             builder.HasMany(f => f.UsuariosPerfis)
-            .WithOne(p => p.Perfil)
-            .HasForeignKey(p => p.PerfilId);
+                .WithOne(p => p.Perfil)
+                .HasForeignKey(p => p.PerfilId);
+
+            builder.HasData(PopularDadosIniciais());
+        }
+
+        private IList<PerfilEntity> PopularDadosIniciais()
+        {
+            return new List<PerfilEntity>
+            {
+                new PerfilEntity("Mensal","Acesso para testar o sistema"),
+                new PerfilEntity("Semestral", "Acesso por seis meses"),
+                new PerfilEntity("Anual", "Acesso por um ano"),
+                new PerfilEntity("Vitalicio", "Acesso vitalício")
+            };
         }
     }
 }

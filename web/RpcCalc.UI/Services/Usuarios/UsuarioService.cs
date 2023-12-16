@@ -121,4 +121,3 @@ namespace RpcCalc.UI.Services.Usuarios
         }
     }
 }
-///api/Usuario/excluir/usuario/{idusuario}/perfil/{idperfil}/permissao/{idpermissao}

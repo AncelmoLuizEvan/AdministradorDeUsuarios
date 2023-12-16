@@ -67,6 +67,28 @@
     </div>
 
     <div class="col-6">
+        <div class="card  mb-3">
+            <div class="card-header">Nível de Acesso</div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-6">
+                        @if (Usuario.Roles.Count() == 0)
+                        {
+                            <strong>Sem registros</strong>
+                        }
+                        else
+                        {
+                            <ul class="list-group list-group-flush">
+                                @foreach (var item in Usuario.Roles)
+                                {
+                                    <li class="list-group-item"><button class="btn btn-danger" @onclick="() => ExcluirUsuarioRole(item.RoleId.ToString())">X</button> @item.Role.Descricao</li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card mb-3">
             <div class="card-header">
                 Permissões

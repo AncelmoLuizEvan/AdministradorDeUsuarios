@@ -40,6 +40,7 @@
 
         public ICollection<MotivoInativacaoEntity>? MotivoInativacaoEntities { get; private set; }
         public ICollection<UsuarioPerfilEntity> UsuarioPerfis { get; private set; }
+        public ICollection<UsuarioRoleEntity> Roles { get; private set; }
 
         public void AtualizarDados(string cnpjCpf,
            string nome,

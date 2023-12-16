@@ -1,9 +1,11 @@
-﻿using RpcCalc.Domain.Interfaces;
+﻿using RpcCalc.API.Services;
+using RpcCalc.Domain.Interfaces;
 using RpcCalc.Domain.Interfaces.Repositories;
 using RpcCalc.Domain.Interfaces.RepositoriesReadOnly;
 using RpcCalc.Domain.Interfaces.UseCases.MotivoInativacaoUseCase;
 using RpcCalc.Domain.Interfaces.UseCases.PerfilUseCase;
 using RpcCalc.Domain.Interfaces.UseCases.PermissaoUseCase;
+using RpcCalc.Domain.Interfaces.UseCases.RoleUseCase;
 using RpcCalc.Domain.Interfaces.UseCases.UsuarioUseCase;
 using RpcCalc.Infra.Context;
 using RpcCalc.Infra.Repositories;
@@ -11,6 +13,7 @@ using RpcCalc.Infra.RepositoriesReadOnly;
 using RpcCalc.UseCases.MotivoInativacaoUseCases;
 using RpcCalc.UseCases.PerfilUseCases;
 using RpcCalc.UseCases.PermissaoUseCases;
+using RpcCalc.UseCases.RoleUseCases;
 using RpcCalc.UseCases.UsuarioUseCases;
 
 namespace RpcCalc.API.Configuration
@@ -25,6 +28,7 @@ namespace RpcCalc.API.Configuration
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
             services.AddScoped<DataBaseContext>();
+            services.AddTransient<TokenService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDbSession>(s => new DbSession(connectionString));
 
@@ -41,6 +45,10 @@ namespace RpcCalc.API.Configuration
 
             services.AddScoped<IPermissaoRepository, PermissaoRepository>();
             services.AddScoped<IPermissaoRepositoryReadOnly, PermissaoRepositoryReadOnly>();
+
+            services.AddScoped<IRoleRepositoryReadOnly, RoleRepositoryReadOnly>();
+            services.AddScoped<IUsuarioRoleRepository, UsuarioRoleRepository>();
+            services.AddScoped<IUsuarioRoleRepositoryReadOnly, UsuarioRoleRepositoryReadOnly>();
 
             //USE CASES
             services.AddScoped<IUsuarioCreate, UsuarioCreate>();
@@ -59,6 +67,8 @@ namespace RpcCalc.API.Configuration
 
             services.AddScoped<IMotivoInativacaoCreate, MotivoInativacaoCreate>();
             services.AddScoped<IMotivoInativacaoSearch, MotivoInativacaoSearch>();
+
+            services.AddScoped<IRoleSearch, RoleSearch>();
         }
     }
 }
