@@ -14,16 +14,19 @@ namespace RpcCalc.UseCases.UsuarioUseCases
         private readonly IUsuarioRepository _repository;
         private readonly IUsuarioRepositoryReadOnly _repositoryReadOnly;
         private readonly IUsuarioPerfilRepository _repositoryUsuarioPerfil;
+        private readonly IUsuarioRoleRepository _usuarioRoleRepository;
 
         public UsuarioCreate(IUnitOfWork unitOfWork,
             IUsuarioRepository repository,
             IUsuarioRepositoryReadOnly usuarioRepositoryReadOnly,
-            IUsuarioPerfilRepository repositoryUsuarioPerfil)
+            IUsuarioPerfilRepository repositoryUsuarioPerfil,
+            IUsuarioRoleRepository usuarioRoleRepository)
         {
             _unitOfWork = unitOfWork;
             _repository = repository;
             _repositoryReadOnly = usuarioRepositoryReadOnly;
             _repositoryUsuarioPerfil = repositoryUsuarioPerfil;
+            _usuarioRoleRepository = usuarioRoleRepository;
         }
 
         public async Task<UsuarioDto> Execute(UsuarioViewModel viewModel)
@@ -46,6 +49,18 @@ namespace RpcCalc.UseCases.UsuarioUseCases
 
                     var usuarioPerfilEntity = usuarioPerfil.DtoForEntity(usuarioPerfil.Perfil);
                     await _repositoryUsuarioPerfil.Gravar(usuarioPerfilEntity);
+                }
+
+                foreach (var role in viewModel.Roles)
+                {
+                    var usuarioRole = new UsuarioRoleDto
+                    {
+                        UsuarioId = result!.Id,
+                        RoleId = role.Id,
+                    };
+
+                    var usuarioRoleEntity = usuarioRole.DtoForEntity();
+                    await _usuarioRoleRepository.Gravar(usuarioRoleEntity);
                 }
 
                 _unitOfWork.Commit();

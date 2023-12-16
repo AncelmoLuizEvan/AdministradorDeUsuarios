@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using RpcCalc.UI.Interop.Usuarios;
 using RpcCalc.UI.Mappers;
+using RpcCalc.UI.Services.Roles;
 using RpcCalc.UI.Services.Usuarios;
-using System.Reflection;
 
 namespace RpcCalc.UI.Components.Pages.Usuarios
 {
@@ -17,6 +17,9 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
 
         [Inject]
         private IUsuarioService Service { get; set; } = null!;
+
+        [Inject]
+        private IRoleService RoleService { get; set; } = null!;
 
         [Inject]
         private NavigationManager Navigation { get; set; } = null!;
@@ -67,7 +70,27 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
                 Usuario.UsuarioPerfis.Remove(usuarioPerfil);
             }
             else
-                _mensagem = "Ocorreu um erro, o usuário não foi excluído. ";
+                _mensagem = "Ocorreu um erro, perfil permissão não foi excluído. ";
+        }
+
+        private async Task ExcluirUsuarioRole(string idrole)
+        {
+            var usuarioId = Guid.Parse(Id!);
+            var roleId = Guid.Parse(idrole);
+
+            var result = await RoleService.ExcluirUsuarioRole(usuarioId, roleId);
+
+            if (result)
+            {
+                var usuarioRole = Usuario.Roles.FirstOrDefault(x => x.RoleId == roleId);
+
+                if (usuarioRole == null)
+                    return;
+
+                Usuario.Roles.Remove(usuarioRole);
+            }
+            else
+                _mensagem = "Ocorreu um erro, tipo de usuário não foi excluído. ";
         }
 
         protected void GoToUsuarios() => Navigation.NavigateTo("/usuario/list");

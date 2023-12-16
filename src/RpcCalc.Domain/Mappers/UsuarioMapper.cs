@@ -18,8 +18,7 @@ namespace RpcCalc.Domain.Mappers
                 DateTime.Now,
                 viewModel.Celular,
                 0,
-                0,
-                viewModel.Roles.ViewModelForEntityList().ToList());
+                0);
         }
 
         public static UsuarioDto EntityForDto(this UsuarioEntity entity)
@@ -33,6 +32,7 @@ namespace RpcCalc.Domain.Mappers
                 Email = entity.Email,
                 Celular = entity.Celular,
                 Inativo = entity.Inativo == 1 ? true : false,
+                Roles = entity.Roles.EntityForDtoList().ToList()
             };
         }
 
@@ -42,7 +42,6 @@ namespace RpcCalc.Domain.Mappers
             {
                Nome = entity.Nome,
                Email = entity.Email,
-               Roles = entity.Roles.EntityForDtoList().ToList()
             };
         }
 

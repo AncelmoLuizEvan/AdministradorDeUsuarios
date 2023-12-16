@@ -12,18 +12,25 @@ namespace RpcCalc.UseCases.UsuarioUseCases
         private readonly IUsuarioRepositoryReadOnly _repositoryReadOnly;
         private readonly IUsuarioPerfilRepositoryReadOnly _usuarioPerfilRepositoryReadOnly;
         private readonly IUsuarioPerfilRepository _usuarioPerfilRepository;
+        private readonly IUsuarioRoleRepository _usuarioRoleRepository;
+        private readonly IUsuarioRoleRepositoryReadOnly _usuarioRoleRepositoryReadOnly;
+
 
         public UsuarioDelete(IUnitOfWork unitOfWork,
             IUsuarioRepository repository,
             IUsuarioRepositoryReadOnly repositoryReadOnly,
             IUsuarioPerfilRepositoryReadOnly usuarioPerfilRepositoryReadOnly,
-            IUsuarioPerfilRepository usuarioPerfilRepository)
+            IUsuarioPerfilRepository usuarioPerfilRepository,
+            IUsuarioRoleRepository usuarioRoleRepository,
+            IUsuarioRoleRepositoryReadOnly usuarioRoleRepositoryReadOnly)
         {
             _unitOfWork = unitOfWork;
             _repository = repository;
             _repositoryReadOnly = repositoryReadOnly;
             _usuarioPerfilRepositoryReadOnly = usuarioPerfilRepositoryReadOnly;
             _usuarioPerfilRepository = usuarioPerfilRepository;
+            _usuarioRoleRepository = usuarioRoleRepository;
+            _usuarioRoleRepositoryReadOnly = usuarioRoleRepositoryReadOnly;
         }
 
         public async Task<bool> Execute(Guid id)
@@ -64,6 +71,25 @@ namespace RpcCalc.UseCases.UsuarioUseCases
 
                 if (result is not null)
                     await _usuarioPerfilRepository.Excluir(result);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                var logError = ex.ToString();
+                return false;
+                throw;
+            }
+        }
+
+        public async Task<bool> Execute(Guid id, Guid idrole)
+        {
+            try
+            {
+                var result = await _usuarioRoleRepositoryReadOnly.CapiturarRoleDoUsuario(id, idrole);
+
+                if (result is not null)
+                    await _usuarioRoleRepository.Excluir(result);
 
                 return true;
             }

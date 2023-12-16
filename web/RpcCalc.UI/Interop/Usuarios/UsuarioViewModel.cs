@@ -20,7 +20,8 @@ namespace RpcCalc.UI.Interop.Usuarios
 
         public string? Celular { get; set; }
 
-        public List<RoleDto> Roles { get; set; } = new List<RoleDto>();
+        public List<UsuarioRoleDto> Roles { get; set; } = new List<UsuarioRoleDto>();
+
         public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = new List<UsuarioPerfilDto>();
     }
 }

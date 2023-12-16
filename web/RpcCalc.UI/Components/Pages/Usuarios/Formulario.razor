@@ -83,7 +83,7 @@
                             <ul class="list-group list-group-flush">
                                 @foreach (var item in Model.Roles)
                                 {
-                                    <li class="list-group-item"><button class="btn btn-danger" @onclick="() => ExcluirUsuarioRole(item.Id.ToString())">X</button>  @item.Descricao </li>
+                                    <li class="list-group-item"><button class="btn btn-danger" @onclick="() => ExcluirUsuarioRole(item.Role.Id.ToString())">X</button>  @item.Role.Descricao </li>
                                 }
                             </ul>
                         }

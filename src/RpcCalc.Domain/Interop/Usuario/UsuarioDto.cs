@@ -11,5 +11,6 @@
         public bool Inativo { get; set; }
 
         public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = null!;
+        public List<UsuarioRoleDto> Roles { get; set; } = null!;
     }
 }

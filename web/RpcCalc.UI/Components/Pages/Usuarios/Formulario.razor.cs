@@ -51,6 +51,7 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
 
         private UsuarioPerfilDto? UsuarioPerfil { get; set; }
         private RoleDto? Role { get; set; }
+        private UsuarioRoleDto? UsuarioRole { get; set; }
 
         string PerfilId { get; set; } = string.Empty;
         string PermissaoId { get; set; } = string.Empty;
@@ -171,13 +172,12 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
                     return;
                 }
 
-                Role = new RoleDto
+                UsuarioRole = new UsuarioRoleDto
                 {
-                    Id = Guid.Parse(RoleId),
-                    Descricao = DescricaoRole
+                    Role = new RoleDto { Id = Guid.Parse(RoleId), Descricao = DescricaoRole }
                 };
 
-                Model.Roles.Add(Role);
+                Model.Roles.Add(UsuarioRole);
 
                 _erroAddRole = string.Empty;
             }
@@ -202,20 +202,12 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
         {
             var roleId = Guid.Parse(id);
 
-            var role = Model.Roles.FirstOrDefault(x => x.Id == roleId);
+            var role = Model.Roles.FirstOrDefault(x => x.Role.Id == roleId);
 
             if (role == null)
                 return;
 
             Model.Roles.Remove(role);
-        }
-
-        private void LimparListas()
-        {
-            Model.UsuarioPerfis = new List<UsuarioPerfilDto>();
-            DescricaoPerfil = string.Empty;
-            DescricaoPermissao = string.Empty;
-            PerfilId = string.Empty;
         }
 
         protected void GoToUsuarios() => Navigation.NavigateTo("/usuario/list");

@@ -44,6 +44,18 @@ namespace RpcCalc.API.Controllers
             return Ok(result);
         }
 
+        [HttpDelete]
+        [Route("{idusuario}/role/{idrole}/excluirRole")]
+        public async Task<IActionResult> ExcluirRole([FromServices] IUsuarioDelete useCase, [FromRoute] Guid idusuario, [FromRoute] Guid idrole)
+        {
+            var result = await useCase.Execute(idusuario, idrole);
+
+            if (!result)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
         [HttpGet("obterTodos")]
         public async Task<IActionResult> ObterTodos([FromServices] IUsuarioSearch useCase)
         {

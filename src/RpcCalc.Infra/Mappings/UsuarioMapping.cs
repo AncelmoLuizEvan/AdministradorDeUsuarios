@@ -62,23 +62,25 @@ namespace RpcCalc.Infra.Mappings
               .WithOne(p => p.Usuario)
               .HasForeignKey(p => p.UsuarioId);
 
-            builder
-               .HasMany(x => x.Roles)
-               .WithMany(x => x.Usuarios)
-               .UsingEntity<Dictionary<string, object>>(
-                   "UsuarioRole",
-                   role => role
-                       .HasOne<RoleEntity>()
-                       .WithMany()
-                       .HasForeignKey("RoleId")
-                       .HasConstraintName("FK_UsuarioRole_RoleId")
-                       .OnDelete(DeleteBehavior.Cascade),
-                   user => user
-                       .HasOne<UsuarioEntity>()
-                       .WithMany()
-                       .HasForeignKey("UsuarioId")
-                       .HasConstraintName("FK_UsuarioRole_UsuarioId")
-                       .OnDelete(DeleteBehavior.Cascade));
+          
+
+            //builder
+            //   .HasMany(x => x.Roles)
+            //   .WithMany(x => x.Usuarios)
+            //   .UsingEntity<Dictionary<string, object>>(
+            //       "UsuarioRole",
+            //       role => role
+            //           .HasOne<RoleEntity>()
+            //           .WithMany()
+            //           .HasForeignKey("RoleId")
+            //           .HasConstraintName("FK_UsuarioRole_RoleId")
+            //           .OnDelete(DeleteBehavior.Cascade),
+            //       user => user
+            //           .HasOne<UsuarioEntity>()
+            //           .WithMany()
+            //           .HasForeignKey("UsuarioId")
+            //           .HasConstraintName("FK_UsuarioRole_UsuarioId")
+            //           .OnDelete(DeleteBehavior.Cascade));
         }
     }
 }

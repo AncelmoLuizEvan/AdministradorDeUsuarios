@@ -5,6 +5,16 @@ namespace RpcCalc.Domain.Mappers
 {
     public static class RoleMapper
     {
+        public static RoleDto EntityForDto(this RoleEntity entity)
+        {
+            return new RoleDto()
+            {
+                Id = entity.Id,
+                Nome = entity.Nome,
+                Descricao = entity.Descricao
+            };
+        }
+
         public static IEnumerable<RoleDto> EntityForDtoList(this IEnumerable<RoleEntity> entityList)
         {
             return (from entity in entityList

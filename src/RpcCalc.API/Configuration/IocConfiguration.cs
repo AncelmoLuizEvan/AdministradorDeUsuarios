@@ -47,6 +47,8 @@ namespace RpcCalc.API.Configuration
             services.AddScoped<IPermissaoRepositoryReadOnly, PermissaoRepositoryReadOnly>();
 
             services.AddScoped<IRoleRepositoryReadOnly, RoleRepositoryReadOnly>();
+            services.AddScoped<IUsuarioRoleRepository, UsuarioRoleRepository>();
+            services.AddScoped<IUsuarioRoleRepositoryReadOnly, UsuarioRoleRepositoryReadOnly>();
 
             //USE CASES
             services.AddScoped<IUsuarioCreate, UsuarioCreate>();

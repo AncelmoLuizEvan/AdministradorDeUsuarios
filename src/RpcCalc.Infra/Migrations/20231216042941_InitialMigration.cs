@@ -72,7 +72,7 @@ namespace RpcCalc.Infra.Migrations
                     CnpjCpf = table.Column<string>(type: "varchar(14)", nullable: false),
                     Nome = table.Column<string>(type: "varchar(45)", nullable: false),
                     Login = table.Column<string>(type: "varchar(45)", nullable: false),
-                    Senha = table.Column<string>(type: "varchar(45)", nullable: false),
+                    Senha = table.Column<string>(type: "varchar(255)", nullable: false),
                     Email = table.Column<string>(type: "varchar(45)", nullable: false),
                     DataHoraAcesso = table.Column<DateTime>(type: "DATETIME", nullable: true),
                     DataHoraInclusao = table.Column<DateTime>(type: "DATETIME", nullable: true),
@@ -103,29 +103,6 @@ namespace RpcCalc.Infra.Migrations
                     table.PrimaryKey("PK_MotivosInativacao", x => x.Id);
                     table.ForeignKey(
                         name: "FK_MotivosInativacao_Usuarios_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id");
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "UsuarioRole",
-                columns: table => new
-                {
-                    RoleId = table.Column<string>(type: "varchar(36)", nullable: false),
-                    UsuarioId = table.Column<string>(type: "varchar(36)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UsuarioRole", x => new { x.RoleId, x.UsuarioId });
-                    table.ForeignKey(
-                        name: "FK_UsuarioRole_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_UsuarioRole_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id");
@@ -166,15 +143,41 @@ namespace RpcCalc.Infra.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "UsuariosRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
+                    UsuarioId = table.Column<string>(type: "varchar(36)", nullable: false),
+                    RoleId = table.Column<string>(type: "varchar(36)", nullable: false),
+                    DataCriacao = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    DataAtualizacao = table.Column<DateTime>(type: "DATETIME", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsuariosRoles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UsuariosRoles_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_UsuariosRoles_Usuarios_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.InsertData(
                 table: "Perfis",
                 columns: new[] { "Id", "DataAtualizacao", "DataCriacao", "Descricao", "Nome" },
                 values: new object[,]
                 {
-                    { "1aa3a3f9-e1d6-4c77-9a88-a269b5254365", null, new DateTime(2023, 12, 15, 15, 49, 48, 141, DateTimeKind.Local).AddTicks(4658), "Acesso por um ano", "Anual" },
-                    { "92a3f4a4-b35c-44d6-bdfd-1e20e5faea60", null, new DateTime(2023, 12, 15, 15, 49, 48, 141, DateTimeKind.Local).AddTicks(4639), "Acesso para testar o sistema", "Mensal" },
-                    { "db3ff49b-f066-4bad-88ca-b8ff17a80b28", null, new DateTime(2023, 12, 15, 15, 49, 48, 141, DateTimeKind.Local).AddTicks(4686), "Acesso vitalício", "Vitalicio" },
-                    { "ebf3d807-1424-4e86-8a13-a8ee89674765", null, new DateTime(2023, 12, 15, 15, 49, 48, 141, DateTimeKind.Local).AddTicks(4657), "Acesso por seis meses", "Semestral" }
+                    { "337ebb8d-185c-4f77-b40d-8ed53f9a4744", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1429), "Acesso para testar o sistema", "Mensal" },
+                    { "3f81495b-b0fb-4356-9b37-56001d9f41cf", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1447), "Acesso vitalício", "Vitalicio" },
+                    { "b45eca50-7451-48a3-9f18-0f91d532c5ee", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1444), "Acesso por seis meses", "Semestral" },
+                    { "e645d5f5-8fa6-430e-9f05-ffabedf5c64d", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1446), "Acesso por um ano", "Anual" }
                 });
 
             migrationBuilder.InsertData(
@@ -182,18 +185,13 @@ namespace RpcCalc.Infra.Migrations
                 columns: new[] { "Id", "DataAtualizacao", "DataCriacao", "Descricao", "Nome" },
                 values: new object[,]
                 {
-                    { "412551dd-b756-49ec-803b-f229acd4fb89", null, new DateTime(2023, 12, 15, 15, 49, 48, 141, DateTimeKind.Local).AddTicks(9166), "Administrador", "Admin" },
-                    { "43a63c44-e72f-472b-b9d7-7f55c848b9a6", null, new DateTime(2023, 12, 15, 15, 49, 48, 141, DateTimeKind.Local).AddTicks(9175), "Cliente RpcCalc", "Cliente" }
+                    { "25b8b123-8e19-44e7-8012-1f9bd866ca88", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(6188), "Cliente RpcCalc", "Cliente" },
+                    { "d26b4af8-bc0b-4e3c-bc1f-96ccd6bb9f96", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(6179), "Administrador", "Admin" }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_MotivosInativacao_UsuarioId",
                 table: "MotivosInativacao",
-                column: "UsuarioId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UsuarioRole_UsuarioId",
-                table: "UsuarioRole",
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
@@ -210,6 +208,16 @@ namespace RpcCalc.Infra.Migrations
                 name: "IX_UsuariosPerfis_UsuarioId",
                 table: "UsuariosPerfis",
                 column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsuariosRoles_RoleId",
+                table: "UsuariosRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsuariosRoles_UsuarioId",
+                table: "UsuariosRoles",
+                column: "UsuarioId");
         }
 
         /// <inheritdoc />
@@ -219,19 +227,19 @@ namespace RpcCalc.Infra.Migrations
                 name: "MotivosInativacao");
 
             migrationBuilder.DropTable(
-                name: "UsuarioRole");
-
-            migrationBuilder.DropTable(
                 name: "UsuariosPerfis");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "UsuariosRoles");
 
             migrationBuilder.DropTable(
                 name: "Perfis");
 
             migrationBuilder.DropTable(
                 name: "Permissoes");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

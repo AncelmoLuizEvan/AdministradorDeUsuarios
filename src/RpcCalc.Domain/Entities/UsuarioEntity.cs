@@ -13,8 +13,7 @@
                              DateTime? dataHoraInclusao,
                              string? celular,
                              int? emailVerificado,
-                             int? inativo,
-                             ICollection<RoleEntity> roles)
+                             int? inativo)
         {
             CnpjCpf = cnpjCpf;
             Nome = nome;
@@ -26,7 +25,6 @@
             Celular = celular;
             EmailVerificado = emailVerificado;
             Inativo = inativo;
-            Roles = roles;
         }
 
         public string CnpjCpf { get; private set; } = null!;
@@ -42,7 +40,7 @@
 
         public ICollection<MotivoInativacaoEntity>? MotivoInativacaoEntities { get; private set; }
         public ICollection<UsuarioPerfilEntity> UsuarioPerfis { get; private set; }
-        public ICollection<RoleEntity> Roles { get; private set; }
+        public ICollection<UsuarioRoleEntity> Roles { get; private set; }
 
         public void AtualizarDados(string cnpjCpf,
            string nome,
