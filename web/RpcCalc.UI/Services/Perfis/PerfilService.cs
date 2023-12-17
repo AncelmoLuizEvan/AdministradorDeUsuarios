@@ -1,4 +1,5 @@
-﻿using RpcCalc.UI.Interop.Perfis;
+﻿using Blazored.LocalStorage;
+using RpcCalc.UI.Interop.Perfis;
 using System.Text.Json;
 
 namespace RpcCalc.UI.Services.Perfis
@@ -6,10 +7,13 @@ namespace RpcCalc.UI.Services.Perfis
     public class PerfilService : IPerfilService
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ILocalStorageService _localStorageService;
 
-        public PerfilService(IHttpClientFactory httpClientFactory)
+        public PerfilService(IHttpClientFactory httpClientFactory, 
+            ILocalStorageService localStorageService)
         {
             _httpClientFactory = httpClientFactory;
+            _localStorageService = localStorageService;
         }
 
         public async Task<PerfilDto?> Alterar(Guid id, PerfilViewModel viewModel)
@@ -92,9 +96,16 @@ namespace RpcCalc.UI.Services.Perfis
 
         public async Task<IEnumerable<PerfilDto>?> ObterTodos()
         {
+            //https://code-maze.com/add-bearertoken-httpclient-request/
+            // tutorial
+
             try
             {
+                //TODO pegar no cooke
+                var token = "";
+
                 var httpClient = _httpClientFactory.CreateClient("API");
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 return await httpClient.GetFromJsonAsync<IEnumerable<PerfilDto>?>("api/perfil/ObterTodos");
             }
             catch (Exception ex)

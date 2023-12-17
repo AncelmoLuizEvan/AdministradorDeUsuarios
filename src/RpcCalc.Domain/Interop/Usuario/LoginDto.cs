@@ -5,6 +5,6 @@
         public string Nome { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
 
-        public List<RoleDto> Roles { get; set; } = null!;
+        public List<UsuarioRoleDto> Roles { get; set; } = null!;
     }
 }

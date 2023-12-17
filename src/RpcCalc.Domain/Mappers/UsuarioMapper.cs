@@ -42,6 +42,7 @@ namespace RpcCalc.Domain.Mappers
             {
                Nome = entity.Nome,
                Email = entity.Email,
+               Roles = entity.Roles.EntityForDtoList().ToList()
             };
         }
 
