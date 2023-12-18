@@ -1,0 +1,21 @@
+﻿@page "/logout"
+
+
+@code {
+    [Inject]
+    private IAuthService Service { get; set; } = null!;
+
+    [Inject]
+    private NavigationManager Navigation { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        FazerLogout();
+    }
+
+    private void FazerLogout()
+    {
+        Service.Logout();
+        Navigation.NavigateTo("/");
+    }
+}
