@@ -4,11 +4,11 @@ namespace RpcCalc.UI.Interop.Authentication
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="O login é um e-mail válido e é obrigatório")]
         [EmailAddress]
         public string Login { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "A senha é obrigatória")]
         public string Senha { get; set; }
     }
 }
