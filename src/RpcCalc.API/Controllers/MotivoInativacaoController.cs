@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RpcCalc.Domain.Interfaces.UseCases.MotivoInativacaoUseCase;
 using RpcCalc.Domain.Interop.MotivoInativacao;
 
 namespace RpcCalc.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class MotivoInativacaoController : ControllerBase

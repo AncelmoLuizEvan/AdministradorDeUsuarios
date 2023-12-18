@@ -10,11 +10,11 @@ namespace RpcCalc.API.Services
 {
     public class TokenService
     {
-        public string GerarToken(LoginDto dto)
+        public UsuarioLogado GerarToken(LoginDto login)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(AuthConfiguration.JwtKey);
-            var claims = dto.ObterClaims();
+            var claims = login.ObterClaims();
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -24,7 +24,12 @@ namespace RpcCalc.API.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return tokenHandler.WriteToken(token);
+            return new UsuarioLogado
+            {
+                Sucesso = true,
+                Token = tokenHandler.WriteToken(token),
+                Usuario = new UsuarioInfo(login.Nome, login.Email)
+            };
         }
     }
 }
