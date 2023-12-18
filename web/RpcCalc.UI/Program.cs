@@ -1,5 +1,3 @@
-using Blazored.LocalStorage;
-using RpcCalc.UI.Auth;
 using RpcCalc.UI.Components;
 using RpcCalc.UI.Services.Authentication;
 using RpcCalc.UI.Services.Perfis;
@@ -19,9 +17,7 @@ builder.Services.AddHttpClient("API", httpClient =>
     httpClient.BaseAddress = new Uri(baseUrl);
 });
 
-builder.Services.AddBlazoredLocalStorage();
-builder.Services.AddAuthenticationCore();
-builder.Services.AddTransient<AuthProvider>();
+builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IPerfilService, PerfilService>();
 builder.Services.AddScoped<IPermissaoService, PermissaoService>();

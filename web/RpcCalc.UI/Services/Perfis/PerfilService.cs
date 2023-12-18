@@ -1,5 +1,4 @@
-﻿using Blazored.LocalStorage;
-using RpcCalc.UI.Interop.Perfis;
+﻿using RpcCalc.UI.Interop.Perfis;
 using System.Text.Json;
 
 namespace RpcCalc.UI.Services.Perfis
@@ -7,13 +6,10 @@ namespace RpcCalc.UI.Services.Perfis
     public class PerfilService : IPerfilService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILocalStorageService _localStorageService;
 
-        public PerfilService(IHttpClientFactory httpClientFactory, 
-            ILocalStorageService localStorageService)
+        public PerfilService(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
-            _localStorageService = localStorageService;
         }
 
         public async Task<PerfilDto?> Alterar(Guid id, PerfilViewModel viewModel)
@@ -101,7 +97,6 @@ namespace RpcCalc.UI.Services.Perfis
 
             try
             {
-                //TODO pegar no cooke
                 var token = "";
 
                 var httpClient = _httpClientFactory.CreateClient("API");
