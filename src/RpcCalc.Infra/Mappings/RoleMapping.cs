@@ -31,7 +31,7 @@ namespace RpcCalc.Infra.Mappings
             builder.Property(p => p.DataAtualizacao)
                 .HasColumnType("DATETIME");
 
-            builder.HasData(PopularDadosIniciais());
+           // builder.HasData(PopularDadosIniciais());
         }
 
         private IList<RoleEntity> PopularDadosIniciais()

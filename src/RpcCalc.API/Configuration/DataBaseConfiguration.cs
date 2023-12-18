@@ -11,13 +11,8 @@ namespace RpcCalc.API.Configuration
 
             services.AddDbContext<DataBaseContext>(options =>
             {
-                options.UseMySQL(connectionString);
+                options.UseSqlServer(connectionString);
             });
-        }
-
-        public static void UseDataBaseConfiguration(this IApplicationBuilder app)
-        {
-
         }
     }
 }

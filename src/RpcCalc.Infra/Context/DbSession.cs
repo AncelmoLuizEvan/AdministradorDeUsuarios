@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Data.SqlClient;
 using RpcCalc.Domain.Interfaces;
 using System.Data;
 
@@ -13,7 +13,7 @@ namespace RpcCalc.Infra.Context
         public DbSession(string connectionString)
         {
             _id = Guid.NewGuid();
-            Connection = new MySqlConnection(connectionString);
+            Connection = new SqlConnection(connectionString);
             Connection.Open();
         }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RpcCalc.Domain.Entities;
+using RpcCalc.Infra.Mappings;
 
 namespace RpcCalc.Infra.Context
 {
@@ -28,7 +29,8 @@ namespace RpcCalc.Infra.Context
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataBaseContext).Assembly);
 
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+                relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
             base.OnModelCreating(modelBuilder);
         }

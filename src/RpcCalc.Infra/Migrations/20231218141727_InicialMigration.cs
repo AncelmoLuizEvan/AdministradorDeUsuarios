@@ -3,19 +3,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace RpcCalc.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InicialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterDatabase()
-                .Annotation("MySQL:Charset", "utf8mb4");
-
             migrationBuilder.CreateTable(
                 name: "Perfis",
                 columns: table => new
@@ -29,8 +24,7 @@ namespace RpcCalc.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Perfis", x => x.Id);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Permissoes",
@@ -45,8 +39,7 @@ namespace RpcCalc.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Permissoes", x => x.Id);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Roles",
@@ -61,8 +54,7 @@ namespace RpcCalc.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "Usuarios",
@@ -85,8 +77,7 @@ namespace RpcCalc.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.Id);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "MotivosInativacao",
@@ -106,8 +97,7 @@ namespace RpcCalc.Infra.Migrations
                         column: x => x.UsuarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id");
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "UsuariosPerfis",
@@ -140,8 +130,7 @@ namespace RpcCalc.Infra.Migrations
                         column: x => x.UsuarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id");
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                });
 
             migrationBuilder.CreateTable(
                 name: "UsuariosRoles",
@@ -166,27 +155,6 @@ namespace RpcCalc.Infra.Migrations
                         column: x => x.UsuarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id");
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.InsertData(
-                table: "Perfis",
-                columns: new[] { "Id", "DataAtualizacao", "DataCriacao", "Descricao", "Nome" },
-                values: new object[,]
-                {
-                    { "337ebb8d-185c-4f77-b40d-8ed53f9a4744", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1429), "Acesso para testar o sistema", "Mensal" },
-                    { "3f81495b-b0fb-4356-9b37-56001d9f41cf", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1447), "Acesso vitalício", "Vitalicio" },
-                    { "b45eca50-7451-48a3-9f18-0f91d532c5ee", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1444), "Acesso por seis meses", "Semestral" },
-                    { "e645d5f5-8fa6-430e-9f05-ffabedf5c64d", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1446), "Acesso por um ano", "Anual" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Roles",
-                columns: new[] { "Id", "DataAtualizacao", "DataCriacao", "Descricao", "Nome" },
-                values: new object[,]
-                {
-                    { "25b8b123-8e19-44e7-8012-1f9bd866ca88", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(6188), "Cliente RpcCalc", "Cliente" },
-                    { "d26b4af8-bc0b-4e3c-bc1f-96ccd6bb9f96", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(6179), "Administrador", "Admin" }
                 });
 
             migrationBuilder.CreateIndex(

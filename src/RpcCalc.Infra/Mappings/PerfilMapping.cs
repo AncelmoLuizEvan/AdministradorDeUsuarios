@@ -35,7 +35,7 @@ namespace RpcCalc.Infra.Mappings
                 .WithOne(p => p.Perfil)
                 .HasForeignKey(p => p.PerfilId);
 
-            builder.HasData(PopularDadosIniciais());
+           // builder.HasData(PopularDadosIniciais());
         }
 
         private IList<PerfilEntity> PopularDadosIniciais()
