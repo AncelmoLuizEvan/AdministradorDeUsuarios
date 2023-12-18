@@ -1,4 +1,5 @@
 ﻿using RpcCalc.UI.Interop.Perfis;
+using RpcCalc.UI.Services.Caches;
 using System.Text.Json;
 
 namespace RpcCalc.UI.Services.Perfis
@@ -6,17 +7,22 @@ namespace RpcCalc.UI.Services.Perfis
     public class PerfilService : IPerfilService
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ICacheService _cacheService;
 
-        public PerfilService(IHttpClientFactory httpClientFactory)
+        public PerfilService(IHttpClientFactory httpClientFactory,
+            ICacheService cacheService)
         {
             _httpClientFactory = httpClientFactory;
+            _cacheService = cacheService;
         }
 
         public async Task<PerfilDto?> Alterar(Guid id, PerfilViewModel viewModel)
         {
             try
             {
+                var token = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response = await httpClient.PutAsJsonAsync($"api/perfil/alterar/{id}", viewModel);
 
                 if (response.IsSuccessStatusCode)
@@ -40,7 +46,9 @@ namespace RpcCalc.UI.Services.Perfis
         {
             try
             {
+                var token = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 return await httpClient.GetFromJsonAsync<PerfilDto>($"api/perfil/{id}");
             }
             catch (Exception ex)
@@ -54,7 +62,9 @@ namespace RpcCalc.UI.Services.Perfis
         {
             try
             {
+                var token = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response = await httpClient.DeleteFromJsonAsync<bool>($"api/perfil/excluir/{id}");
 
                 return response;
@@ -70,7 +80,9 @@ namespace RpcCalc.UI.Services.Perfis
         {
             try
             {
+                var token = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response = await httpClient.PostAsJsonAsync("api/perfil/gravar", viewModel);
 
                 if (response.IsSuccessStatusCode)
@@ -92,13 +104,9 @@ namespace RpcCalc.UI.Services.Perfis
 
         public async Task<IEnumerable<PerfilDto>?> ObterTodos()
         {
-            //https://code-maze.com/add-bearertoken-httpclient-request/
-            // tutorial
-
             try
             {
-                var token = "";
-
+                var token = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
                 httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 return await httpClient.GetFromJsonAsync<IEnumerable<PerfilDto>?>("api/perfil/ObterTodos");

@@ -5,6 +5,6 @@ namespace RpcCalc.UI.Services.Authentication
     public interface IAuthService
     {
         Task<UsuarioLogado> Login(LoginViewModel viewModel);
-        Task Logout();
+        void Logout();
     }
 }

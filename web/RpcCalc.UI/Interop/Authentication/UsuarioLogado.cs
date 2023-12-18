@@ -4,7 +4,7 @@
     {
         public bool Sucesso { get; set; }
         public string? Error { get; set; }
-        public string? Token { get; set; } = string.Empty;
+        public string Token { get; set; } = string.Empty;
         public UsuarioInfo? Usuario { get; set; }
     }
 

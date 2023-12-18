@@ -28,14 +28,14 @@ namespace RpcCalc.UI.Components.Pages.Logins
 
             if (result.Sucesso)
             {
-                Navigation.NavigateTo("/");
+                Navigation.NavigateTo("/admin");
             }
             else
             {
                 Error = result.Error!;
                 ShowErrors = true;
 
-                Navigation.NavigateTo("/login");
+                Navigation.NavigateTo("/");
             }
         }
     }
