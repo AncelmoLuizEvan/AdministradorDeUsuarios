@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RpcCalc.Domain.Interfaces.UseCases.PerfilUseCase;
 using RpcCalc.Domain.Interop.Perfil;
 
 namespace RpcCalc.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class PerfilController : ControllerBase
@@ -44,6 +46,7 @@ namespace RpcCalc.API.Controllers
             return Ok(result);
         }
 
+       
         [HttpGet("obterTodos")]
         public async Task<IActionResult> ObterTodos([FromServices] IPerfilSearch useCase)
         {

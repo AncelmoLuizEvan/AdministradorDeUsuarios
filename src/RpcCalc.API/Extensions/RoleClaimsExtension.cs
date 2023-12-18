@@ -12,7 +12,7 @@ namespace RpcCalc.API.Extensions
                 new (ClaimTypes.Name, loginDto.Nome)
             };
 
-            result.AddRange(loginDto.Roles.Select(role => new Claim(ClaimTypes.Role, role.Nome)));
+            result.AddRange(loginDto.Roles.Select(role => new Claim(ClaimTypes.Role, role.Role.Nome)));
 
             return result;
         }

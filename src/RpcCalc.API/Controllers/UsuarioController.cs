@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RpcCalc.Domain.Interfaces.UseCases.UsuarioUseCase;
 using RpcCalc.Domain.Interop.Usuario;
 
 namespace RpcCalc.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase

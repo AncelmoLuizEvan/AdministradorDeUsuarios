@@ -27,7 +27,7 @@ namespace RpcCalc.API.Configuration
             var serviceProvider = services.BuildServiceProvider();
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            services.AddScoped<DataBaseContext>();
+            services.AddDbContext<DataBaseContext>();
             services.AddTransient<TokenService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDbSession>(s => new DbSession(connectionString));

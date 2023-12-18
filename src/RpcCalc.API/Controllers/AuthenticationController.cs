@@ -10,6 +10,7 @@ namespace RpcCalc.API.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromServices] TokenService tokenService,
             [FromServices] IUsuarioSearch useCase,
@@ -18,22 +19,17 @@ namespace RpcCalc.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var usuarioLogado = await useCase.ValidarLogin(viewModel.Email, viewModel.Senha);
+            var usuarioValildo = await useCase.ValidarLogin(viewModel.Login, viewModel.Senha);
 
-            if (usuarioLogado == null)
-                return NotFound("Usuário ou senha inválida!");
+            if (usuarioValildo == null)
+            {
+                var usuarioErroLogin = new UsuarioLogado { Sucesso = false, Error = "Usuário ou senha inválidos", Token = string.Empty, Usuario = new UsuarioInfo("Anonymous", viewModel.Login) };
+                return StatusCode(401, usuarioErroLogin);
+            }
+   
+            var usuarioAutenticado = tokenService.GerarToken(usuarioValildo);
 
-            var token = tokenService.GerarToken(usuarioLogado);
-
-            return Ok(token);
+            return Ok(usuarioAutenticado);
         }
-
-        [Authorize(Roles = "admin")]
-        [HttpGet("obterUsuario")]
-        public IActionResult ObterUsuario() => Ok(User.Identity.Name);
-
-        [Authorize(Roles = "cliente")]
-        [HttpGet("obterCliente")]
-        public IActionResult ObterCliente() => Ok(User.Identity.Name);
     }
 }
