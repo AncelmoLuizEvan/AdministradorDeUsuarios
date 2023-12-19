@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using RpcCalc.UI.Interop.Authentication;
+using RpcCalc.UI.Interop.Usuarios;
 using RpcCalc.UI.Services.Authentication;
+using RpcCalc.UI.Services.Usuarios;
 
 namespace RpcCalc.UI.Components.Pages.Logins
 {
@@ -10,11 +12,16 @@ namespace RpcCalc.UI.Components.Pages.Logins
         private IAuthService Service { get; set; } = null!;
 
         [Inject]
+        private IUsuarioService UsuarioService { get; set; } = null!;
+
+        [Inject]
         private NavigationManager Navigation { get; set; } = null!;
 
         LoginViewModel LoginVM = new LoginViewModel();
-        private bool ShowErrors;
+   
         private string Error = string.Empty;
+
+        private Guid? Id { get; set; }
 
         [EditorRequired]
         [Parameter]
@@ -22,21 +29,32 @@ namespace RpcCalc.UI.Components.Pages.Logins
 
         private async Task FazerLogin()
         {
-            ShowErrors = false;
-
             var result = await Service.Login(LoginVM);
 
             if (result.Sucesso)
             {
-                Navigation.NavigateTo("/admin");
+                if (!string.IsNullOrWhiteSpace(result.Usuario!.Role))
+                {
+                    var buscarPorEmail = new EmailViewModel
+                    {
+                        Email = result.Usuario.Email
+                    };
+
+                    var usuarioDto = await UsuarioService.ObterPorEmail(buscarPorEmail);
+
+                    Navigation.NavigateTo($"/usuario/cliente/details/{usuarioDto!.Id}");
+                }
+                else
+                {
+                    Navigation.NavigateTo("/admin");
+                }
             }
             else
             {
                 Error = result.Error!;
-                ShowErrors = true;
-
-                Navigation.NavigateTo("/");
             }
         }
+
+
     }
 }

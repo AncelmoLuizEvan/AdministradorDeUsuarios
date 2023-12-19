@@ -20,9 +20,9 @@ namespace RpcCalc.UI.Services.Permissoes
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 return await httpClient.GetFromJsonAsync<PermissaoDto>($"api/permissao/{id}");
             }
             catch (Exception ex)
@@ -36,9 +36,9 @@ namespace RpcCalc.UI.Services.Permissoes
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 var response = await httpClient.DeleteFromJsonAsync<bool>($"api/permissao/excluir/{id}");
 
                 return response;
@@ -54,9 +54,9 @@ namespace RpcCalc.UI.Services.Permissoes
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 var response = await httpClient.PostAsJsonAsync("api/permissao/gravar", viewModel);
 
                 if (response.IsSuccessStatusCode)
@@ -80,9 +80,9 @@ namespace RpcCalc.UI.Services.Permissoes
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 return await httpClient.GetFromJsonAsync<IEnumerable<PermissaoDto>?>("api/permissao/ObterTodos");
             }
             catch (Exception ex)

@@ -8,9 +8,6 @@ namespace RpcCalc.UI.Components.Pages.Logins
         [Inject]
         private NavigationManager Navigation { get; set; } = null!;
 
-        [Parameter]
-        public string? _mensagem { get; set; }
-
         [EditorRequired]
         [Parameter]
         public LoginViewModel Model { get; set; } = null!;

@@ -3,9 +3,8 @@ using RpcCalc.UI.Services.Caches;
 
 namespace RpcCalc.UI.Components.Layout
 {
-    public partial class MainLayout
+    public partial class ClienteLayout
     {
-
         [Inject]
         private NavigationManager Navigation { get; set; } = null!;
 

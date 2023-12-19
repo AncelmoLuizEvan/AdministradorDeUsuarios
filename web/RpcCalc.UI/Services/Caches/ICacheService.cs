@@ -1,8 +1,10 @@
-﻿namespace RpcCalc.UI.Services.Caches
+﻿using RpcCalc.UI.Interop.Authentication;
+
+namespace RpcCalc.UI.Services.Caches
 {
     public interface ICacheService
     {
-        string GetCachedToken(string cacheKey);
+        UsuarioLogado? GetCachedToken(string cacheKey);
         void ClearCache();
     }
 }
