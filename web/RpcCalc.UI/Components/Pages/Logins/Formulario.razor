@@ -6,7 +6,7 @@
         <InputText Id="login" Class="form-control" @bind-Value="Model.Login" />
         <ValidationMessage For="@(() => Model.Login)" />
     </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="senha">Senha</label>
         <InputText Id="password" type="password" Class="form-control" @bind-Value="Model.Senha" />
         <ValidationMessage For="@(() => Model.Senha)" />
@@ -21,19 +21,6 @@
             </div>
         </div>
     </div>
-    @if (!string.IsNullOrEmpty(_mensagem))
-    {
-        <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <div class="text-center pt-1 mb-3 pb-1">
-                    <div class="alert alert-danger" role="alert">
-                        @_mensagem
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
 </EditForm>
 
 

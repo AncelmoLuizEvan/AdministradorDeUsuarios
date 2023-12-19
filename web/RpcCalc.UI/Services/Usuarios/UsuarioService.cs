@@ -1,5 +1,6 @@
 ﻿using RpcCalc.UI.Interop.Usuarios;
 using RpcCalc.UI.Services.Caches;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace RpcCalc.UI.Services.Usuarios
@@ -19,9 +20,9 @@ namespace RpcCalc.UI.Services.Usuarios
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 var response = await httpClient.PutAsJsonAsync($"api/Usuario/alterar/{id}", viewModel);
 
                 if (response.IsSuccessStatusCode)
@@ -45,9 +46,9 @@ namespace RpcCalc.UI.Services.Usuarios
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 return await httpClient.GetFromJsonAsync<UsuarioDto>($"api/Usuario/{id}");
             }
             catch (Exception ex)
@@ -61,9 +62,9 @@ namespace RpcCalc.UI.Services.Usuarios
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 var response = await httpClient.DeleteFromJsonAsync<bool>($"api/Usuario/excluir/{id}");
 
                 return response;
@@ -79,9 +80,9 @@ namespace RpcCalc.UI.Services.Usuarios
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 var response = await httpClient.DeleteFromJsonAsync<bool>($"api/Usuario/excluir/usuario/{idusuario}/perfil/{idperfil}/permissao/{idpermissao}");
 
                 return response;
@@ -97,10 +98,36 @@ namespace RpcCalc.UI.Services.Usuarios
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 var response = await httpClient.PostAsJsonAsync("api/Usuario/gravar", viewModel);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseBody = await response.Content.ReadAsStreamAsync();
+                    var usuarioAdd = await JsonSerializer.DeserializeAsync<UsuarioDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    return usuarioAdd;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<UsuarioDto?> ObterPorEmail(EmailViewModel viewModel)
+        {
+            try
+            {
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
+                var httpClient = _httpClientFactory.CreateClient("API");
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
+                var response = await httpClient.PostAsJsonAsync("api/Usuario/Cliente", viewModel);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -123,9 +150,9 @@ namespace RpcCalc.UI.Services.Usuarios
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 return await httpClient.GetFromJsonAsync<IEnumerable<UsuarioDto>?>("api/Usuario/ObterTodos");
             }
             catch (Exception ex)

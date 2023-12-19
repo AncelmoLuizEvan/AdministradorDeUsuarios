@@ -10,13 +10,15 @@
 
     public class UsuarioInfo
     {
-        public UsuarioInfo(string nome, string email)
+        public UsuarioInfo(string nome, string email, string role)
         {
             Nome = nome;
             Email = email;
+            Role = role;
         }
 
         public string Nome { get; private set; }
         public string Email { get; private set; }
+        public string Role { get; set; } = string.Empty;
     }
 }

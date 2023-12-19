@@ -27,15 +27,13 @@ namespace RpcCalc.UI.Services.Authentication
                 var httpClient = _httpClientFactory.CreateClient("API");
                 var response = await httpClient.PostAsJsonAsync($"api/Authentication/login", viewModel);
 
+                var responseBody = await response.Content.ReadAsStreamAsync();
+                usuarioLogado = await JsonSerializer.DeserializeAsync<UsuarioLogado>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
                 if (response.IsSuccessStatusCode)
-                {
-                    var responseBody = await response.Content.ReadAsStreamAsync();
-                    usuarioLogado = await JsonSerializer.DeserializeAsync<UsuarioLogado>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-                    _cacheProvider.SetCache("_token", usuarioLogado!.Token, cacheEntryOptions);
-                }
-
-                return usuarioLogado;
+                    _cacheProvider.SetCache<UsuarioLogado>("_token", usuarioLogado!, cacheEntryOptions);
+                
+                return usuarioLogado!;
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 ﻿using RpcCalc.UI.CacheServices;
+using RpcCalc.UI.Interop.Authentication;
 
 namespace RpcCalc.UI.Services.Caches
 {
@@ -16,12 +17,12 @@ namespace RpcCalc.UI.Services.Caches
             _cacheProvider.ClearCache("_token");
         }
 
-        public string GetCachedToken(string cacheKey)
+        public UsuarioLogado? GetCachedToken(string cacheKey)
         {
-            var tokenCached = _cacheProvider.GetFromCache<string>(cacheKey);
-            if (!String.IsNullOrEmpty(tokenCached)) return tokenCached;
+            var usuarioLogadoCached = _cacheProvider.GetFromCache<UsuarioLogado>(cacheKey);
+            if (usuarioLogadoCached is null) return usuarioLogadoCached;
 
-            return _cacheProvider.GetFromCache<string>(cacheKey);
+            return _cacheProvider.GetFromCache<UsuarioLogado>(cacheKey);
         }
     }
 }

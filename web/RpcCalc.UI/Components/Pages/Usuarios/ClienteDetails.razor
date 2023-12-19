@@ -1,0 +1,123 @@
+﻿@layout ClienteLayout
+@page "/usuario/cliente/details/{id}"
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+
+<PageTitle>Detalhamento do Usuário</PageTitle>
+
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                Detalhamento do Usuário
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="nome" class="form-label">NOME</label>
+                        <br />
+                        <span>@Usuario.Nome</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="cnpjcpf" class="form-label">CPF</label>
+                        <br />
+                        <span>@Usuario.CnpjCpf</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="celular" class="form-label">TELEFONE CELULAR</label>
+                        <br />
+                        <span>@Usuario.Celular</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="email" class="form-label">E-MAIL</label>
+                        <br />
+                        <span>@Usuario.Email</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="login" class="form-label">LOGIN</label>
+                        <br />
+                        <span>@Usuario.Login</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p style="color: red">@_mensagem</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card  mb-3">
+            <div class="card-header">Nível de Acesso</div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tipo de Usuário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Usuario.Roles.Count() == 0)
+                        {
+                            <tr>
+                                <th>Sem registros</th>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var item in Usuario.Roles)
+                            {
+                                <tr>
+                                    <td>@item.Role.Descricao </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                Permissões
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Perfil</th>
+                            <th scope="col">Permissão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Usuario.UsuarioPerfis.Count() == 0)
+                        {
+                            <tr>
+                                <th colspan="2">Sem registros</th>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Usuario.UsuarioPerfis)
+                            {
+                                <tr>
+                                    <td>@item.Perfil</td>
+                                    <td>@item.Permissao</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
