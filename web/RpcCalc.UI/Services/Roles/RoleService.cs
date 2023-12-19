@@ -18,9 +18,9 @@ namespace RpcCalc.UI.Services.Roles
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 return await httpClient.GetFromJsonAsync<IEnumerable<RoleDto>?>("api/Role/ObterTodos");
             }
             catch (Exception ex)

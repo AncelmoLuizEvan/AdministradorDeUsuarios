@@ -20,9 +20,9 @@ namespace RpcCalc.UI.Services.Perfis
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 var response = await httpClient.PutAsJsonAsync($"api/perfil/alterar/{id}", viewModel);
 
                 if (response.IsSuccessStatusCode)
@@ -46,9 +46,9 @@ namespace RpcCalc.UI.Services.Perfis
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 return await httpClient.GetFromJsonAsync<PerfilDto>($"api/perfil/{id}");
             }
             catch (Exception ex)
@@ -62,9 +62,9 @@ namespace RpcCalc.UI.Services.Perfis
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 var response = await httpClient.DeleteFromJsonAsync<bool>($"api/perfil/excluir/{id}");
 
                 return response;
@@ -80,9 +80,9 @@ namespace RpcCalc.UI.Services.Perfis
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 var response = await httpClient.PostAsJsonAsync("api/perfil/gravar", viewModel);
 
                 if (response.IsSuccessStatusCode)
@@ -106,9 +106,9 @@ namespace RpcCalc.UI.Services.Perfis
         {
             try
             {
-                var token = _cacheService.GetCachedToken("_token");
+                var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
                 return await httpClient.GetFromJsonAsync<IEnumerable<PerfilDto>?>("api/perfil/ObterTodos");
             }
             catch (Exception ex)

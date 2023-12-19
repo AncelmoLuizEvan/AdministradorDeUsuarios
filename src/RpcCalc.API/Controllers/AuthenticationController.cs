@@ -21,15 +21,22 @@ namespace RpcCalc.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            UsuarioLogado usuarioAutenticado = new UsuarioLogado();
+
             var usuarioValildo = await useCase.ValidarLogin(viewModel.Login, viewModel.Senha);
 
             if (usuarioValildo == null)
             {
-                var usuarioErroLogin = new UsuarioLogado { Sucesso = false, Error = "Usuário ou senha inválidos", Token = string.Empty, Usuario = new UsuarioInfo("Anonymous", viewModel.Login) };
+                var usuarioErroLogin = new UsuarioLogado { Sucesso = false, Error = "Usuário ou senha inválidos", Token = string.Empty, Usuario = new UsuarioInfo("Anonymous", viewModel.Login, string.Empty) };
                 return StatusCode(401, usuarioErroLogin);
             }
-   
-            var usuarioAutenticado = tokenService.GerarToken(usuarioValildo);
+            
+            var roleCliente = usuarioValildo.Roles.Find(x => x.Role.Nome.Equals("Cliente"));
+            
+            if (roleCliente == null)
+                usuarioAutenticado = tokenService.GerarToken(usuarioValildo);
+            else
+                usuarioAutenticado = tokenService.GerarToken(usuarioValildo, roleCliente.Role.Nome);
 
             return Ok(usuarioAutenticado);
         }

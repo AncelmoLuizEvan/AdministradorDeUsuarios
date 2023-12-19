@@ -10,5 +10,6 @@ namespace RpcCalc.UI.Services.Usuarios
         Task<UsuarioDto?> Capturar(Guid id);
         Task<IEnumerable<UsuarioDto>?> ObterTodos();
         Task<bool> ExcluirUsuarioPerfil(Guid idusuario, Guid idperfil, Guid idpermissao);
+        Task<UsuarioDto?> ObterPorEmail(EmailViewModel viewModel);
     }
 }

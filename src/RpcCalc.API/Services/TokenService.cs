@@ -9,8 +9,8 @@ using System.Text;
 namespace RpcCalc.API.Services
 {
     public class TokenService
-    {
-        public UsuarioLogado GerarToken(LoginDto login)
+    { 
+        public UsuarioLogado GerarToken(LoginDto login, string roleCliente = null)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(AuthConfiguration.JwtKey);
@@ -28,7 +28,7 @@ namespace RpcCalc.API.Services
             {
                 Sucesso = true,
                 Token = tokenHandler.WriteToken(token),
-                Usuario = new UsuarioInfo(login.Nome, login.Email)
+                Usuario = new UsuarioInfo(login.Nome, login.Email, roleCliente)
             };
         }
     }

@@ -59,5 +59,21 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             return null;
 
         }
+
+        public async Task<UsuarioDto?> ObterPorEmail(string email)
+        {
+            var result = await _repositoryReadOnly.ObterPorLogin(email);
+            if (result is null)
+                return null;
+
+            var usuario = result.EntityForDto();
+            var usuarioPerfil = await _repositoryUsuarioPerfilReadOnly.CapiturarPorUsuario(usuario.Id);
+
+            var entityForDtoList = usuarioPerfil.EntityForDtoList();
+            usuario.UsuarioPerfis = entityForDtoList.ToList();
+
+            return usuario;
+
+        }
     }
 }
