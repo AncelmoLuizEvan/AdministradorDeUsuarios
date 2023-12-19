@@ -10,7 +10,7 @@ namespace RpcCalc.UI.Interop.Authentication
         public string CnpjCpf { get; set; } = null!;
 
         [Required(ErrorMessage = "O Nome é obrigatório")]
-        public string? Nome { get; set; } = null!;
+        public string Nome { get; set; } = null!;
 
         [Required(ErrorMessage = "O Email é obrigatório")]
         [EmailAddress(ErrorMessage = "Informe um e-mail correto")]

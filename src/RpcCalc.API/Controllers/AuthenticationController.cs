@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RpcCalc.API.Services;
+using RpcCalc.Domain.Interfaces.UseCases.AuthenticationUseCase;
 using RpcCalc.Domain.Interfaces.UseCases.UsuarioUseCase;
+using RpcCalc.Domain.Interop.Authentication;
 using RpcCalc.Domain.Interop.Usuario;
 
 namespace RpcCalc.API.Controllers
@@ -34,12 +36,12 @@ namespace RpcCalc.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("novaconta")]
-        public async Task<IActionResult> NovaConta([FromServices] IUsuarioCreate useCase, [FromBody] NovaContaViewModel viewModel)
+        public async Task<IActionResult> NovaConta([FromServices] INovaContaCreate useCase, [FromBody] NovaContaViewModel viewModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await useCase.ExecuteNovaConta(viewModel);
+            var result = await useCase.Execute(viewModel);
 
             return Ok(result);
         }

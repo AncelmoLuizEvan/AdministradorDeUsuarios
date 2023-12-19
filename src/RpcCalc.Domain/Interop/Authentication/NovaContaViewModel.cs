@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace RpcCalc.Domain.Interop.Usuario
+namespace RpcCalc.Domain.Interop.Authentication
 {
     public class NovaContaViewModel
     {
@@ -10,7 +10,7 @@ namespace RpcCalc.Domain.Interop.Usuario
         public string CnpjCpf { get; set; } = null!;
 
         [Required(ErrorMessage = "O Nome é obrigatório")]
-        public string? Nome { get; set; } = null!;
+        public string Nome { get; set; } = null!;
 
         [Required(ErrorMessage = "O Email é obrigatório")]
         [EmailAddress(ErrorMessage = "Informe um e-mail correto")]
@@ -19,12 +19,12 @@ namespace RpcCalc.Domain.Interop.Usuario
         public string? Celular { get; set; }
 
         [JsonIgnore]
-        public string Login { get; set; } = null!;
+        public string? Login { get; set; }
 
         [JsonIgnore]
-        public List<UsuarioRoleDto> Roles { get; set; } = null!;
+        public int Role { get; set; }
 
         [JsonIgnore]
-        public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = null!;
+        public int Perfil { get; set; }
     }
 }

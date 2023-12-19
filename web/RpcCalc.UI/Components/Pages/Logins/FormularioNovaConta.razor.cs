@@ -18,5 +18,6 @@ namespace RpcCalc.UI.Components.Pages.Logins
         public EventCallback OnValidateSubmit { get; set; }
 
         protected void GoToLogin() => Navigation.NavigateTo("/");
+      
     }
 }

@@ -5,6 +5,9 @@ namespace RpcCalc.UI.Components.Pages.Logins
 {
     public partial class Formulario
     {
+        [Inject]
+        private NavigationManager Navigation { get; set; } = null!;
+
         [Parameter]
         public string? _mensagem { get; set; }
 
@@ -15,5 +18,7 @@ namespace RpcCalc.UI.Components.Pages.Logins
         [EditorRequired]
         [Parameter]
         public EventCallback OnValidateSubmit { get; set; }
+
+        protected void GoToLNovaConta() => Navigation.NavigateTo("/novaconta");
     }
 }

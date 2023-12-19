@@ -29,11 +29,6 @@
                         <InputText class="form-control" @bind-Value="@Model.Email"></InputText>
                         <ValidationMessage For="@(() => Model.Email)" />
                     </div>
-                    <div class="mb-3">
-                        <label for="login" class="form-label"><em>*</em>Login</label>
-                        <InputText class="form-control" @bind-Value="@Model.Login"></InputText>
-                        <ValidationMessage For="@(() => Model.Login)" />
-                    </div>
                     <div class="row">
                         <div class="col-2">
                             <a @onclick="@GoToUsuarios" class="btn btn-outline-primary">Voltar</a>

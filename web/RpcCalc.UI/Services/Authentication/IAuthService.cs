@@ -8,6 +8,6 @@ namespace RpcCalc.UI.Services.Authentication
 
         void Logout();
 
-        Task<NovaContaViewModel?> Gravar(NovaContaViewModel viewModel);
+        Task<NovaContaDto?> Gravar(NovaContaViewModel viewModel);
     }
 }

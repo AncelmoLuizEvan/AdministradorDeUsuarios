@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace RpcCalc.Domain.Interop.Usuario
 {
@@ -11,8 +12,8 @@ namespace RpcCalc.Domain.Interop.Usuario
         [Required(ErrorMessage = "O Nome é obrigatório")]
         public string Nome { get; set; } = null!;
 
-        [Required(ErrorMessage = "O Login é obrigatório")]
-        public string Login { get; set; } = null!;
+        [JsonIgnore]
+        public string Login { get; set; } = string.Empty;
 
         [EmailAddress(ErrorMessage = "E-mail inválido!")]
         [Required(ErrorMessage = "O Email é obrigatório")]

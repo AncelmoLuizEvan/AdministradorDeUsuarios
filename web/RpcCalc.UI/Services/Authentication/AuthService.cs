@@ -49,7 +49,7 @@ namespace RpcCalc.UI.Services.Authentication
             _cacheProvider.ClearCache("_token");
         }
 
-        public async Task<NovaContaViewModel?> Gravar(NovaContaViewModel viewModel)
+        public async Task<NovaContaDto?> Gravar(NovaContaViewModel viewModel)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace RpcCalc.UI.Services.Authentication
                 if (response.IsSuccessStatusCode)
                 {
                     var responseBody = await response.Content.ReadAsStreamAsync();
-                    var usuarioAdd = await JsonSerializer.DeserializeAsync<NovaContaViewModel>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    var usuarioAdd = await JsonSerializer.DeserializeAsync<NovaContaDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                     return usuarioAdd;
                 }

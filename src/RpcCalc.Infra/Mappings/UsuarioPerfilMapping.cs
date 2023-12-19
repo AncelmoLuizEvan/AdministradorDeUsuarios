@@ -25,7 +25,7 @@ namespace RpcCalc.Infra.Mappings
                .HasColumnType("varchar(36)");
 
             builder.Property(p => p.PermissaoId)
-             .IsRequired()
+             .IsRequired(false)
              .HasColumnType("varchar(36)");
 
             builder.Property(p => p.DataInicio)
