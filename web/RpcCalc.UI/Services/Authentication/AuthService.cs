@@ -48,5 +48,30 @@ namespace RpcCalc.UI.Services.Authentication
         {
             _cacheProvider.ClearCache("_token");
         }
+
+        public async Task<NovaContaDto?> Gravar(NovaContaViewModel viewModel)
+        {
+            try
+            {
+               
+                var httpClient = _httpClientFactory.CreateClient("API");
+                var response = await httpClient.PostAsJsonAsync("api/Authentication/novaconta", viewModel);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseBody = await response.Content.ReadAsStreamAsync();
+                    var usuarioAdd = await JsonSerializer.DeserializeAsync<NovaContaDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    return usuarioAdd;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
+        }
     }
 }

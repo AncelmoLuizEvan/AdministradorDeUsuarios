@@ -1,4 +1,5 @@
 ﻿using RpcCalc.Domain.Entities;
+using RpcCalc.Domain.Interop.Authentication;
 using RpcCalc.Domain.Interop.Usuario;
 
 namespace RpcCalc.Domain.Mappers
@@ -11,7 +12,7 @@ namespace RpcCalc.Domain.Mappers
             return new UsuarioEntity(
                 viewModel.CnpjCpf!,
                 viewModel.Nome!,
-                viewModel.Login!,
+                viewModel.Email.Replace("@", "-").Replace(".", "-"),
                 senha,
                 viewModel.Email!,
                 DateTime.Now,
@@ -59,6 +60,34 @@ namespace RpcCalc.Domain.Mappers
                         Celular = entity.Celular,
                         Inativo = entity.Inativo == 1 ? true : false,
                     }).ToList();
+        }
+
+        public static UsuarioEntity NovaContaViewModelForEntity(this NovaContaViewModel viewModel, string senha)
+        {
+
+            return new UsuarioEntity(
+                viewModel.CnpjCpf!,
+                viewModel.Nome!,
+                viewModel.Login!,
+                senha,
+                viewModel.Email!,
+                DateTime.Now,
+                DateTime.Now,
+                viewModel.Celular,
+                0,
+                0);
+        }
+
+        public static NovaContaDto NovaContaEntityForDto(this UsuarioEntity entity)
+        {
+            return new NovaContaDto()
+            {
+                Id = entity.Id,
+                CnpjCpf = entity.CnpjCpf,
+                Nome = entity.Nome,
+                Email = entity.Email,
+                Celular = entity.Celular
+            };
         }
     }
 }

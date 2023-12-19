@@ -1,0 +1,43 @@
+﻿<EditForm Model="@Model" OnValidSubmit="OnValidateSubmit">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="nome" class="form-label"><em>*</em>Nome</label>
+        <InputText class="form-control" @bind-Value="@Model.Nome"></InputText>
+        <ValidationMessage For="@(() => Model.Nome)" />
+    </div>
+    <div class="mb-3">
+        <label for="cnpjcpf" class="form-label"><em>*</em>CPF</label>
+        <InputText class="form-control" @bind-Value="@Model.CnpjCpf"></InputText>
+        <ValidationMessage For="@(() => Model.CnpjCpf)" />
+    </div>
+    <div class="mb-3">
+        <label for="celular" class="form-label">Telefone Celular</label>
+        <InputText class="form-control" @bind-Value="@Model.Celular"></InputText>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label"><em>*</em>Email</label>
+        <InputText class="form-control" @bind-Value="@Model.Email"></InputText>
+        <ValidationMessage For="@(() => Model.Email)" />
+    </div>
+    <div class="text-center pt-1 mb-3 pb-1">
+        <div class="row text-center pt-1 mb-3 pb-1">
+            <div class="col">
+                <button type="submit" class="btn btn-primary bg-gradient mb-3"> <i class="fa-solid fa-right-to-bracket"></i> Salvar</button>
+            </div>
+            <div class="col">
+                <a @onclick="@GoToLogin" class="btn btn-outline-primary">Voltar</a>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(Model._mensagemPerfil))
+{
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-danger" role="alert">
+                @Model._mensagemPerfil
+            </div>
+        </div>
+    </div>
+}
