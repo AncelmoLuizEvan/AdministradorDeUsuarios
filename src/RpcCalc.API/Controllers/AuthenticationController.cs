@@ -31,5 +31,17 @@ namespace RpcCalc.API.Controllers
 
             return Ok(usuarioAutenticado);
         }
+
+        [AllowAnonymous]
+        [HttpPost("novaconta")]
+        public async Task<IActionResult> NovaConta([FromServices] IUsuarioCreate useCase, [FromBody] NovaContaViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await useCase.ExecuteNovaConta(viewModel);
+
+            return Ok(result);
+        }
     }
 }

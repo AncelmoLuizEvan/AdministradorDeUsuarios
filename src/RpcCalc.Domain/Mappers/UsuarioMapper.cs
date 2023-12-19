@@ -60,5 +60,21 @@ namespace RpcCalc.Domain.Mappers
                         Inativo = entity.Inativo == 1 ? true : false,
                     }).ToList();
         }
+
+        public static UsuarioEntity ViewModelForEntity(this NovaContaViewModel viewModel, string senha)
+        {
+
+            return new UsuarioEntity(
+                viewModel.CnpjCpf!,
+                viewModel.Nome!,
+                viewModel.Login!,
+                senha,
+                viewModel.Email!,
+                DateTime.Now,
+                DateTime.Now,
+                viewModel.Celular,
+                0,
+                0);
+        }
     }
 }

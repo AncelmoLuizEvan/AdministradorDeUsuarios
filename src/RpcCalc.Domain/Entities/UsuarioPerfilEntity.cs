@@ -46,6 +46,10 @@
                     DataInicio = DateTime.Now;
                     DataFinal = DateTime.Now.AddMonths(1);
                     break;
+                case "Semana":
+                    DataInicio = DateTime.Now;
+                    DataFinal = DateTime.Now.AddDays(7);
+                    break;
             }
         }
     }

@@ -174,10 +174,11 @@ namespace RpcCalc.Infra.Migrations
                 columns: new[] { "Id", "DataAtualizacao", "DataCriacao", "Descricao", "Nome" },
                 values: new object[,]
                 {
-                    { "337ebb8d-185c-4f77-b40d-8ed53f9a4744", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1429), "Acesso para testar o sistema", "Mensal" },
-                    { "3f81495b-b0fb-4356-9b37-56001d9f41cf", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1447), "Acesso vitalício", "Vitalicio" },
-                    { "b45eca50-7451-48a3-9f18-0f91d532c5ee", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1444), "Acesso por seis meses", "Semestral" },
-                    { "e645d5f5-8fa6-430e-9f05-ffabedf5c64d", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1446), "Acesso por um ano", "Anual" }
+                    { "0031a3a2-bda4-40c5-bbcd-1695f4a492be", null, new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(4411), "Acesso por seis meses", "Semestral" },
+                    { "4ce10ffc-9d18-4931-b990-e1092e575cd9", null, new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(4412), "Acesso por um ano", "Anual" },
+                    { "510faed3-f562-417e-81ab-096eecf652da", null, new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(4386), "Acesso para testar o sistema", "Mensal" },
+                    { "7b38c7e2-b500-4a0c-92c7-2533c953b2d9", null, new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(4413), "Acesso vitalício", "Vitalicio" },
+                    { "c9215eee-38e0-4a80-a437-e1625ed66679", null, new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(4415), "Acesso para testar", "Semana" }
                 });
 
             migrationBuilder.InsertData(
@@ -185,8 +186,8 @@ namespace RpcCalc.Infra.Migrations
                 columns: new[] { "Id", "DataAtualizacao", "DataCriacao", "Descricao", "Nome" },
                 values: new object[,]
                 {
-                    { "25b8b123-8e19-44e7-8012-1f9bd866ca88", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(6188), "Cliente RpcCalc", "Cliente" },
-                    { "d26b4af8-bc0b-4e3c-bc1f-96ccd6bb9f96", null, new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(6179), "Administrador", "Admin" }
+                    { "4cde49c8-13c4-4284-9861-e139722a1541", null, new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(8619), "Cliente RpcCalc", "Cliente" },
+                    { "7eb6ce60-4c2f-47a0-bfc8-3db36e0428c3", null, new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(8609), "Administrador", "Admin" }
                 });
 
             migrationBuilder.CreateIndex(

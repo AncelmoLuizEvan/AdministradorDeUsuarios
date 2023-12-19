@@ -73,31 +73,38 @@ namespace RpcCalc.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "337ebb8d-185c-4f77-b40d-8ed53f9a4744",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1429),
+                            Id = "510faed3-f562-417e-81ab-096eecf652da",
+                            DataCriacao = new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(4386),
                             Descricao = "Acesso para testar o sistema",
                             Nome = "Mensal"
                         },
                         new
                         {
-                            Id = "b45eca50-7451-48a3-9f18-0f91d532c5ee",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1444),
+                            Id = "0031a3a2-bda4-40c5-bbcd-1695f4a492be",
+                            DataCriacao = new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(4411),
                             Descricao = "Acesso por seis meses",
                             Nome = "Semestral"
                         },
                         new
                         {
-                            Id = "e645d5f5-8fa6-430e-9f05-ffabedf5c64d",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1446),
+                            Id = "4ce10ffc-9d18-4931-b990-e1092e575cd9",
+                            DataCriacao = new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(4412),
                             Descricao = "Acesso por um ano",
                             Nome = "Anual"
                         },
                         new
                         {
-                            Id = "3f81495b-b0fb-4356-9b37-56001d9f41cf",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1447),
+                            Id = "7b38c7e2-b500-4a0c-92c7-2533c953b2d9",
+                            DataCriacao = new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(4413),
                             Descricao = "Acesso vitalício",
                             Nome = "Vitalicio"
+                        },
+                        new
+                        {
+                            Id = "c9215eee-38e0-4a80-a437-e1625ed66679",
+                            DataCriacao = new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(4415),
+                            Descricao = "Acesso para testar",
+                            Nome = "Semana"
                         });
                 });
 
@@ -152,15 +159,15 @@ namespace RpcCalc.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d26b4af8-bc0b-4e3c-bc1f-96ccd6bb9f96",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(6179),
+                            Id = "7eb6ce60-4c2f-47a0-bfc8-3db36e0428c3",
+                            DataCriacao = new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(8609),
                             Descricao = "Administrador",
                             Nome = "Admin"
                         },
                         new
                         {
-                            Id = "25b8b123-8e19-44e7-8012-1f9bd866ca88",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(6188),
+                            Id = "4cde49c8-13c4-4284-9861-e139722a1541",
+                            DataCriacao = new DateTime(2023, 12, 18, 23, 21, 13, 807, DateTimeKind.Local).AddTicks(8619),
                             Descricao = "Cliente RpcCalc",
                             Nome = "Cliente"
                         });
