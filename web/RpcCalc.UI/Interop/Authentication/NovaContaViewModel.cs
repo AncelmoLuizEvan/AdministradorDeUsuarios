@@ -19,9 +19,13 @@ namespace RpcCalc.UI.Interop.Authentication
         public string? Celular { get; set; }
 
         [JsonIgnore]
-        public string _mensagemPerfil { get; set; } = string.Empty;
+        public int Num1 { get; set; } = new Random().Next(1, 10);
+        [JsonIgnore]
+        public int Num2 { get; set; } = new Random().Next(1, 10);
+        [JsonIgnore]
+        public string Resultado { get; set; }
 
         [JsonIgnore]
-        public string _mensagemRole { get; set; } = string.Empty;
+        public string _mensagem { get; set; } = string.Empty;
     }
 }
