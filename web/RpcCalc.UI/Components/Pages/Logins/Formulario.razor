@@ -12,7 +12,14 @@
         <ValidationMessage For="@(() => Model.Senha)" />
     </div>
     <div class="text-center pt-1 mb-3 pb-1">
-        <button type="submit" class="btn btn-primary bg-gradient mb-3"> <i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary bg-gradient mb-3"> <i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+            </div>
+            <div class="col">
+                <a @onclick="@GoToLNovaConta" class="btn btn-outline-primary">Criar Conta</a>
+            </div>
+        </div>
     </div>
     @if (!string.IsNullOrEmpty(_mensagem))
     {
@@ -28,4 +35,5 @@
         </div>
     }
 </EditForm>
+
 

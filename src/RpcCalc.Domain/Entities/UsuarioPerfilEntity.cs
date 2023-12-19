@@ -4,7 +4,7 @@
     {
         public UsuarioPerfilEntity() { }
 
-        public UsuarioPerfilEntity(Guid usuarioId, Guid perfilId, Guid permissaoId, string perfil)
+        public UsuarioPerfilEntity(Guid usuarioId, Guid perfilId, Guid? permissaoId, string perfil)
         {
             UsuarioId = usuarioId;
             PerfilId = perfilId;
@@ -19,7 +19,7 @@
         public Guid PerfilId { get; private set; }
         public PerfilEntity Perfil { get; set; }
 
-        public Guid PermissaoId { get; private set; }
+        public Guid? PermissaoId { get; private set; }
         public PermissaoEntity Permissao { get; set; }
 
         public DateTime DataInicio { get; private set; }
@@ -45,6 +45,10 @@
                 case "Mensal":
                     DataInicio = DateTime.Now;
                     DataFinal = DateTime.Now.AddMonths(1);
+                    break;
+                case "Semana":
+                    DataInicio = DateTime.Now;
+                    DataFinal = DateTime.Now.AddDays(7);
                     break;
             }
         }

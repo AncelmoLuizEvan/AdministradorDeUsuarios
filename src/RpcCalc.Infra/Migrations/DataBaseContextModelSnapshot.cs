@@ -73,31 +73,38 @@ namespace RpcCalc.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "337ebb8d-185c-4f77-b40d-8ed53f9a4744",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1429),
+                            Id = "21400ed9-544a-4938-b876-7863969fa8aa",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(2497),
                             Descricao = "Acesso para testar o sistema",
                             Nome = "Mensal"
                         },
                         new
                         {
-                            Id = "b45eca50-7451-48a3-9f18-0f91d532c5ee",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1444),
+                            Id = "3a03bf7e-5869-4e71-b608-ab72d3507e4b",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(2518),
                             Descricao = "Acesso por seis meses",
                             Nome = "Semestral"
                         },
                         new
                         {
-                            Id = "e645d5f5-8fa6-430e-9f05-ffabedf5c64d",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1446),
+                            Id = "a1a3ed14-6bcc-4d93-b870-81896ee6d20d",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(2519),
                             Descricao = "Acesso por um ano",
                             Nome = "Anual"
                         },
                         new
                         {
-                            Id = "3f81495b-b0fb-4356-9b37-56001d9f41cf",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(1447),
+                            Id = "2aae6714-db78-48de-8f02-0b306d4e9183",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(2520),
                             Descricao = "Acesso vitalício",
                             Nome = "Vitalicio"
+                        },
+                        new
+                        {
+                            Id = "0077a601-6789-461c-90fb-638fc0a89c06",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(2521),
+                            Descricao = "Acesso para testar",
+                            Nome = "Semana"
                         });
                 });
 
@@ -152,15 +159,15 @@ namespace RpcCalc.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d26b4af8-bc0b-4e3c-bc1f-96ccd6bb9f96",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(6179),
+                            Id = "d119a0b0-2c19-4a34-83b8-511f3fc9a3df",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(6547),
                             Descricao = "Administrador",
                             Nome = "Admin"
                         },
                         new
                         {
-                            Id = "25b8b123-8e19-44e7-8012-1f9bd866ca88",
-                            DataCriacao = new DateTime(2023, 12, 16, 0, 29, 41, 423, DateTimeKind.Local).AddTicks(6188),
+                            Id = "3db764d7-bb91-4723-8c27-147eff07302d",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(6558),
                             Descricao = "Cliente RpcCalc",
                             Nome = "Cliente"
                         });
@@ -241,7 +248,6 @@ namespace RpcCalc.Infra.Migrations
                         .HasColumnType("varchar(36)");
 
                     b.Property<string>("PermissaoId")
-                        .IsRequired()
                         .HasColumnType("varchar(36)");
 
                     b.Property<string>("UsuarioId")
@@ -307,8 +313,7 @@ namespace RpcCalc.Infra.Migrations
 
                     b.HasOne("RpcCalc.Domain.Entities.PermissaoEntity", "Permissao")
                         .WithMany("UsuariosPerfis")
-                        .HasForeignKey("PermissaoId")
-                        .IsRequired();
+                        .HasForeignKey("PermissaoId");
 
                     b.HasOne("RpcCalc.Domain.Entities.UsuarioEntity", "Usuario")
                         .WithMany("UsuarioPerfis")

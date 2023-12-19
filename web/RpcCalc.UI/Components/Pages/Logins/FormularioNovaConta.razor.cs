@@ -3,22 +3,21 @@ using RpcCalc.UI.Interop.Authentication;
 
 namespace RpcCalc.UI.Components.Pages.Logins
 {
-    public partial class Formulario
+    public partial class FormularioNovaConta
     {
+
         [Inject]
         private NavigationManager Navigation { get; set; } = null!;
 
-        [Parameter]
-        public string? _mensagem { get; set; }
-
         [EditorRequired]
         [Parameter]
-        public LoginViewModel Model { get; set; } = null!;
+        public NovaContaViewModel Model { get; set; } = null!;
 
         [EditorRequired]
         [Parameter]
         public EventCallback OnValidateSubmit { get; set; }
 
-        protected void GoToLNovaConta() => Navigation.NavigateTo("/novaconta");
+        protected void GoToLogin() => Navigation.NavigateTo("/");
+      
     }
 }

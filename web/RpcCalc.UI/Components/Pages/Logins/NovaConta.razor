@@ -1,0 +1,16 @@
+﻿@layout LoginLayout
+@page "/novaconta"
+@rendermode InteractiveServer
+
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <div class="card-body p-md-5 mx-md-4">
+            <div class="text-center pt-1 mb-3 pb-1">
+                <i class="fa-solid fa-user-plus fa-beat fa-2xl" style="color:blueviolet"></i>
+            </div>
+            <FormularioNovaConta Model="Model" OnValidateSubmit="Salvar" />
+
+        </div>
+    </div>
+</div>
