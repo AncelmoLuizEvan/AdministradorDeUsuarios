@@ -20,13 +20,18 @@ namespace RpcCalc.UI.Components.Pages.Logins
 
         private async Task Salvar()
         {
+            if ((Model.Num1 + Model.Num2) != int.Parse(Model.Resultado))
+            {
+                Model._mensagem = "A soma dos valores não confere!";
+                return;
+            }
 
             var result = await Service.Gravar(Model);
 
             if (result is not null)
                 Navigation.NavigateTo("/");
             else
-                Model._mensagemPerfil = "Ocorreu um erro na API, a conta não foi criada";
+                Model._mensagem = "Ocorreu um erro na API, a conta não foi criada";
 
         }
     }
