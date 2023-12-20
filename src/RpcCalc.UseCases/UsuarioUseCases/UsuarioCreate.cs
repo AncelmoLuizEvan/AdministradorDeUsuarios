@@ -34,6 +34,11 @@ namespace RpcCalc.UseCases.UsuarioUseCases
         {
             try
             {
+                var emailJaCadastrado = await _repositoryReadOnly.ObterPorLogin(viewModel.Email);
+
+                if (emailJaCadastrado is not null)
+                    return null;
+
                 _unitOfWork.BeginTransaction();
 
                 var senha = viewModel.CnpjCpf.Replace(".", "").Replace("-", "");

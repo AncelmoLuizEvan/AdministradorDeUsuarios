@@ -7,6 +7,7 @@ namespace RpcCalc.UI.Interop.Authentication
     {
         [Required(ErrorMessage = "O CPF é obrigatório")]
         [StringLength(14, MinimumLength = 11, ErrorMessage = "O campo deve conter entre 11 e 14 números")]
+        [RegularExpression(@"([0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})", ErrorMessage = "Número CPF incorreto!")]
         public string CnpjCpf { get; set; } = null!;
 
         [Required(ErrorMessage = "O Nome é obrigatório")]
@@ -16,6 +17,7 @@ namespace RpcCalc.UI.Interop.Authentication
         [EmailAddress(ErrorMessage = "Informe um e-mail correto")]
         public string Email { get; set; } = null!;
 
+        [RegularExpression(@"\(\d{2}\)\d{4,5}\-\d{4}", ErrorMessage = "Número de telefone incorreto!")]
         public string? Celular { get; set; }
 
         [JsonIgnore]
