@@ -17,19 +17,20 @@
                     </div>
                     <div class="mb-3">
                         <label for="cnpjcpf" class="form-label"><em>*</em>CPF</label>
-                        <InputText class="form-control" @bind-Value="@Model.CnpjCpf"></InputText>
+                        <InputText class="form-control" @bind-Value="@Model.CnpjCpf" placeholder="000.000.000-00"></InputText>
                         <ValidationMessage For="@(() => Model.CnpjCpf)" />
                     </div>
                     <div class="mb-3">
                         <label for="celular" class="form-label">Telefone Celular</label>
-                        <InputText class="form-control" @bind-Value="@Model.Celular"></InputText>
+                        <InputText class="form-control" @bind-Value="@Model.Celular" placeholder="(00)00000-0000"></InputText>
+                        <ValidationMessage For="@(() => Model.Celular)" />
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label"><em>*</em>Email</label>
                         <InputText class="form-control" @bind-Value="@Model.Email"></InputText>
                         <ValidationMessage For="@(() => Model.Email)" />
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-2">
                             <a @onclick="@GoToUsuarios" class="btn btn-outline-primary">Voltar</a>
                         </div>
@@ -39,12 +40,12 @@
                     </div>
                 </EditForm>
 
-                @if (!string.IsNullOrEmpty(Model._mensagemPerfil))
+                @if (!string.IsNullOrEmpty(Model._mensagem))
                 {
                     <div class="row">
                         <div class="col">
                             <div class="alert alert-danger" role="alert">
-                                @Model._mensagemPerfil
+                                @Model._mensagem
                             </div>
                         </div>
                     </div>

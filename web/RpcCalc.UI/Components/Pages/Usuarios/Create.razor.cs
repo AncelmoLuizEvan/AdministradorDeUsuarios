@@ -26,7 +26,7 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
                 if (result is not null)
                     Navigation.NavigateTo("/usuario/list");
                 else
-                    Usuario._mensagemPerfil = "Ocorreu um erro na API, o usuário não foi adicionado";
+                    Usuario._mensagem = "Email já cadastrado";
             }
         }
 

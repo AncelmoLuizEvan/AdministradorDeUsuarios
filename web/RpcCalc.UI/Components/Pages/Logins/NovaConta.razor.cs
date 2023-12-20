@@ -31,7 +31,7 @@ namespace RpcCalc.UI.Components.Pages.Logins
             if (result is not null)
                 Navigation.NavigateTo("/");
             else
-                Model._mensagem = "Ocorreu um erro na API, a conta não foi criada";
+                Model._mensagem = "E-mail já cadastrado. Informe outro e-mail";
 
         }
     }
