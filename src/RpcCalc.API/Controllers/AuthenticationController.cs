@@ -50,6 +50,9 @@ namespace RpcCalc.API.Controllers
 
             var result = await useCase.Execute(viewModel);
 
+            if (result == null)
+               return  StatusCode(400, "Este E-mail já está cadastrado");
+            
             return Ok(result);
         }
     }
