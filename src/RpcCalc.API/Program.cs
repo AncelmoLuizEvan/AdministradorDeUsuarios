@@ -1,11 +1,17 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Net.Http.Headers;
 using RpcCalc.API.Configuration;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-var configuration = builder.Configuration;
+
+var hostEnvironment = builder.Environment;
+
+builder.Configuration
+    .SetBasePath(hostEnvironment.ContentRootPath)
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
 
 
 builder.Services.AddControllers();
@@ -13,8 +19,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 
-builder.Services.AddDataBaseConfiguration(configuration);
-builder.Services.AddRegisterDependencies(configuration);
+builder.Services.AddDataBaseConfiguration(builder.Configuration);
+builder.Services.AddRegisterDependencies(builder.Configuration);
 
 var key = Encoding.ASCII.GetBytes(AuthConfiguration.JwtKey);
 builder.Services.AddAuthentication(x =>
@@ -40,12 +46,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(policy =>
-    policy.WithOrigins("https://localhost:7223", "http://localhost:5111")
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .WithHeaders(HeaderNames.ContentType)
-);
+app.UseApiCorsConfiguration(builder.Configuration);
 
 app.UseHttpsRedirection();
 
