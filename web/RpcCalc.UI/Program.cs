@@ -1,5 +1,6 @@
 using RpcCalc.UI.CacheServices;
 using RpcCalc.UI.Components;
+using RpcCalc.UI.Configuration;
 using RpcCalc.UI.Services.Authentication;
 using RpcCalc.UI.Services.Caches;
 using RpcCalc.UI.Services.Perfis;
@@ -12,12 +13,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-var baseUrl = "https://localhost:7154/";
+var hostEnvironment = builder.Environment;
 
-builder.Services.AddHttpClient("API", httpClient =>
-{
-    httpClient.BaseAddress = new Uri(baseUrl);
-});
+builder.Configuration
+    .SetBasePath(hostEnvironment.ContentRootPath)
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
+builder.Services.AddAppConfiguration(builder.Configuration);
 
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
