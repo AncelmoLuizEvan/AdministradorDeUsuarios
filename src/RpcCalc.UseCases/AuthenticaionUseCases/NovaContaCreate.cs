@@ -18,6 +18,7 @@ namespace RpcCalc.UseCases.AuthenticaionUseCases
         private readonly IUsuarioRoleRepository _usuarioRoleRepository;
         private readonly IPerfilRepositoryReadOnly _perfilRepositoryReadOnly;
         private readonly IRoleRepositoryReadOnly _roleRepositoryReadOnly;
+        private readonly IPermissaoRepositoryReadOnly _permissaoRepositoryReadOnly;
 
         public NovaContaCreate(IUnitOfWork unitOfWork,
             IUsuarioRepository repository,
@@ -25,7 +26,8 @@ namespace RpcCalc.UseCases.AuthenticaionUseCases
             IUsuarioPerfilRepository repositoryUsuarioPerfil,
             IUsuarioRoleRepository usuarioRoleRepository,
             IPerfilRepositoryReadOnly perfilRepositoryReadOnly,
-            IRoleRepositoryReadOnly roleRepositoryReadOnly)
+            IRoleRepositoryReadOnly roleRepositoryReadOnly,
+            IPermissaoRepositoryReadOnly permissaoRepositoryReadOnly)
         {
             _unitOfWork = unitOfWork;
             _repository = repository;
@@ -34,6 +36,7 @@ namespace RpcCalc.UseCases.AuthenticaionUseCases
             _usuarioRoleRepository = usuarioRoleRepository;
             _perfilRepositoryReadOnly = perfilRepositoryReadOnly;
             _roleRepositoryReadOnly = roleRepositoryReadOnly;
+            _permissaoRepositoryReadOnly = permissaoRepositoryReadOnly;
         }
 
         public async Task<NovaContaDto> Execute(NovaContaViewModel viewModel)
@@ -57,8 +60,20 @@ namespace RpcCalc.UseCases.AuthenticaionUseCases
                 var result = await _repositoryReadOnly.Capturar(entity.Id);
 
                 var perfis = await _perfilRepositoryReadOnly.Listar();
-                var perfilSemanal = perfis.FirstOrDefault(x => x.Nome.Equals("Semana"));
-                var usuarioPerfilDto = new UsuarioPerfilDto { UsuarioId = result.Id, PerfilId = perfilSemanal.Id, Perfil = "Semana" };
+                var perfilVitalicio = perfis.FirstOrDefault(x => x.Nome.Equals("Vitalicio"));
+
+                var permissao = await _permissaoRepositoryReadOnly.Listar();
+                var permissaoRpcWeb = permissao.FirstOrDefault(x => x.Sistema.Equals("RPC Web Admin"));
+
+                var usuarioPerfilDto = new UsuarioPerfilDto 
+                { 
+                    UsuarioId = result!.Id, 
+                    PerfilId = perfilVitalicio!.Id, 
+                    Perfil = perfilVitalicio.Descricao!,
+                    PermissaoId = permissaoRpcWeb!.Id,
+                    Permissao = permissaoRpcWeb.Sistema,
+                    DataInicio = DateTime.Now
+                };
 
                 await _repositoryUsuarioPerfil.Gravar(usuarioPerfilDto.DtoForEntity(usuarioPerfilDto.Perfil));
 

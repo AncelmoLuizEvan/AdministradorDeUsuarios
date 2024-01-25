@@ -19,6 +19,7 @@
         {
             Nome = nome;
             Descricao = descricao ?? string.Empty;
+            DataAtualizacao = DateTime.Now;
         }
     }
 }

@@ -53,6 +53,7 @@
             Login = login;
             Email = email;
             Celular = celular;
+            DataAtualizacao = DateTime.Now;
         }
     }
 }
