@@ -34,6 +34,17 @@ namespace RpcCalc.Infra.Mappings
             builder.HasMany(f => f.UsuariosPerfis)
                 .WithOne(p => p.Permissao)
                 .HasForeignKey(p => p.PermissaoId);
+
+            builder.HasData(PopularDadosIniciais());
+        }
+
+        private IList<PermissaoEntity> PopularDadosIniciais()
+        {
+            return new List<PermissaoEntity>
+            {
+                new PermissaoEntity("RPC Desktop", 1),
+                new PermissaoEntity("RPC Web Admin", 1)
+            };
         }
     }
 }
