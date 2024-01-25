@@ -40,6 +40,8 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             {
                 _unitOfWork.BeginTransaction();
 
+                viewModel.Login = viewModel.Email.Replace("@", "-").Replace(".", "-");
+
                 var usuario = await _repositoryReadOnly.Capturar(id);
 
                 usuario!.AtualizarDados(viewModel.CnpjCpf, viewModel.Nome, viewModel.Login, viewModel.Email, viewModel.Celular);

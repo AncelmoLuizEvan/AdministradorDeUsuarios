@@ -1,0 +1,49 @@
+﻿<EditForm Model="@Model" OnValidSubmit="OnValidateSubmit">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="nome" class="form-label"><em>*</em>Nome</label>
+        <InputText class="form-control" @bind-Value="@Model.Nome"></InputText>
+        <ValidationMessage For="@(() => Model.Nome)" />
+    </div>
+    <div class="mb-3">
+        <label for="cnpjcpf" class="form-label"><em>*</em>CPF</label>
+        <InputText @bind-Value="Model.CnpjCpf" class="form-control" placeholder="000.000.000-00"></InputText>
+        <ValidationMessage For="@(() => Model.CnpjCpf)" />
+    </div>
+    <div class="mb-3">
+        <label for="celular" class="form-label">Telefone Celular</label>
+        <InputText class="form-control" @bind-Value="@Model.Celular" placeholder="(00)00000-0000"></InputText>
+        <ValidationMessage For="@(() => Model.Celular)" />
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label"><em>*</em>Email</label>
+        <InputText class="form-control" @bind-Value="@Model.Email"></InputText>
+        <ValidationMessage For="@(() => Model.Email)" />
+    </div>
+    <div class="mb-3">
+        <label>Não sou um robô</label>
+        <label>@Model.Num1</label> +  <label>@Model.Num2</label> =
+        <InputText class="form-control col-1 " @bind-Value="@Model.Resultado"></InputText>
+    </div>
+    <div class="text-center pt-1 mb-3 pb-1">
+        <div class="row text-center pt-1 mb-3 pb-1">
+            <div class="col">
+                <button type="submit" class="btn btn-primary bg-gradient mb-3"> <i class="fa-solid fa-right-to-bracket"></i> Salvar</button>
+            </div>
+            <div class="col">
+                <a @onclick="@GoToLogin" class="btn btn-outline-primary">Voltar</a>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(Model._mensagem))
+{
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-danger" role="alert">
+                @Model._mensagem
+            </div>
+        </div>
+    </div>
+}

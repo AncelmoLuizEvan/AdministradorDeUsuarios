@@ -14,9 +14,9 @@ namespace RpcCalc.UI.Components.Layout
 
         protected override async Task OnInitializedAsync()
         {
-            var token = CacheService.GetCachedToken("_token");
+            var usuarioLogadoCached = CacheService.GetCachedToken("_token");
 
-            if (String.IsNullOrWhiteSpace(token))
+            if (usuarioLogadoCached is null)
                 Navigation.NavigateTo("/");
         }
     }

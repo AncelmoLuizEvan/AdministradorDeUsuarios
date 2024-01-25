@@ -63,7 +63,7 @@ namespace RpcCalc.UseCases.UsuarioUseCases
 
         }
 
-        public async Task<bool> Execute(Guid id, Guid idperfil, Guid idpermissao)
+        public async Task<bool> Execute(Guid id, Guid idperfil, Guid? idpermissao)
         {
             try
             {

@@ -20,7 +20,8 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             IUsuarioRepository repository,
             IUsuarioRepositoryReadOnly usuarioRepositoryReadOnly,
             IUsuarioPerfilRepository repositoryUsuarioPerfil,
-            IUsuarioRoleRepository usuarioRoleRepository)
+            IUsuarioRoleRepository usuarioRoleRepository
+           )
         {
             _unitOfWork = unitOfWork;
             _repository = repository;
@@ -33,11 +34,17 @@ namespace RpcCalc.UseCases.UsuarioUseCases
         {
             try
             {
+                var emailJaCadastrado = await _repositoryReadOnly.ObterPorLogin(viewModel.Email);
+
+                if (emailJaCadastrado is not null)
+                    return null;
+
                 _unitOfWork.BeginTransaction();
 
-                var senha = PasswordGenerator.Generate(16, false, true);
-
+                var senha = viewModel.CnpjCpf.Replace(".", "").Replace("-", "");
                 var entity = viewModel.ViewModelForEntity(PasswordHasher.Hash(senha));
+
+                viewModel.Login = viewModel.Email.Replace("@", "-").Replace(".", "-");
 
                 await _repository.Gravar(entity);
 
@@ -78,5 +85,6 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             }
 
         }
+
     }
 }

@@ -24,7 +24,7 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
             return result;
         }
 
-        public async Task<UsuarioPerfilEntity> CapiturarPermissaoDoUsuario(Guid usuarioId, Guid perfilId, Guid permissaoId)
+        public async Task<UsuarioPerfilEntity> CapiturarPermissaoDoUsuario(Guid usuarioId, Guid perfilId, Guid? permissaoId)
         {
             var result = await _context.UsuarioPerfil!
                 .FirstOrDefaultAsync(p => p.UsuarioId == usuarioId && p.PerfilId == perfilId && p.PermissaoId == permissaoId);

@@ -5,11 +5,12 @@ using RpcCalc.Domain.Interop.Usuario;
 
 namespace RpcCalc.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("gravar")]
         public async Task<IActionResult> Gravar([FromServices] IUsuarioCreate useCase, [FromBody] UsuarioViewModel viewModel)
@@ -19,9 +20,13 @@ namespace RpcCalc.API.Controllers
 
             var result = await useCase.Execute(viewModel);
 
+            if (result == null)
+                return StatusCode(400, "Este E-mail já está cadastrado");
+
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("alterar/{id}")]
         public async Task<IActionResult> Alterar([FromServices] IUsuarioUpdate useCase, [FromRoute] Guid id, [FromBody] UsuarioViewModel viewModel)
@@ -34,6 +39,7 @@ namespace RpcCalc.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("excluir/{id}")]
         public async Task<IActionResult> Excluir([FromServices] IUsuarioDelete useCase, [FromRoute] Guid id)
@@ -46,6 +52,7 @@ namespace RpcCalc.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("{idusuario}/role/{idrole}/excluirRole")]
         public async Task<IActionResult> ExcluirRole([FromServices] IUsuarioDelete useCase, [FromRoute] Guid idusuario, [FromRoute] Guid idrole)
@@ -58,6 +65,7 @@ namespace RpcCalc.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("obterTodos")]
         public async Task<IActionResult> ObterTodos([FromServices] IUsuarioSearch useCase)
         {
@@ -65,6 +73,7 @@ namespace RpcCalc.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin, Cliente")]
         [HttpGet("{id}")]
         public async Task<IActionResult> ObterPorId([FromServices] IUsuarioSearch useCase, [FromRoute] Guid id)
         {
@@ -76,6 +85,7 @@ namespace RpcCalc.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("excluir/usuario/{idusuario}/perfil/{idperfil}/permissao/{idpermissao}")]
         public async Task<IActionResult> Excluir([FromServices] IUsuarioDelete useCase, [FromRoute] Guid idusuario, [FromRoute] Guid idperfil, [FromRoute] Guid idpermissao)
@@ -84,6 +94,18 @@ namespace RpcCalc.API.Controllers
 
             if (!result)
                 return BadRequest(result);
+
+            return Ok(result);
+        }
+
+        [Authorize(Roles = "Cliente")]
+        [HttpPost("cliente")]
+        public async Task<IActionResult> ObterClientePorEmail([FromServices] IUsuarioSearch useCase, [FromBody] EmailViewModel email)
+        {
+            var result = await useCase.ObterPorEmail(email.Email);
+
+            if (result is null)
+                return NotFound();
 
             return Ok(result);
         }

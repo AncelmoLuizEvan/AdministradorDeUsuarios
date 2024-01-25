@@ -72,6 +72,46 @@ namespace RpcCalc.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Perfis", (string)null);
+<<<<<<< HEAD
+=======
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "21400ed9-544a-4938-b876-7863969fa8aa",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(2497),
+                            Descricao = "Acesso para testar o sistema",
+                            Nome = "Mensal"
+                        },
+                        new
+                        {
+                            Id = "3a03bf7e-5869-4e71-b608-ab72d3507e4b",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(2518),
+                            Descricao = "Acesso por seis meses",
+                            Nome = "Semestral"
+                        },
+                        new
+                        {
+                            Id = "a1a3ed14-6bcc-4d93-b870-81896ee6d20d",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(2519),
+                            Descricao = "Acesso por um ano",
+                            Nome = "Anual"
+                        },
+                        new
+                        {
+                            Id = "2aae6714-db78-48de-8f02-0b306d4e9183",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(2520),
+                            Descricao = "Acesso vitalício",
+                            Nome = "Vitalicio"
+                        },
+                        new
+                        {
+                            Id = "0077a601-6789-461c-90fb-638fc0a89c06",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(2521),
+                            Descricao = "Acesso para testar",
+                            Nome = "Semana"
+                        });
+>>>>>>> developer
                 });
 
             modelBuilder.Entity("RpcCalc.Domain.Entities.PermissaoEntity", b =>
@@ -121,6 +161,25 @@ namespace RpcCalc.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles", (string)null);
+<<<<<<< HEAD
+=======
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "d119a0b0-2c19-4a34-83b8-511f3fc9a3df",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(6547),
+                            Descricao = "Administrador",
+                            Nome = "Admin"
+                        },
+                        new
+                        {
+                            Id = "3db764d7-bb91-4723-8c27-147eff07302d",
+                            DataCriacao = new DateTime(2023, 12, 19, 9, 59, 56, 75, DateTimeKind.Local).AddTicks(6558),
+                            Descricao = "Cliente RpcCalc",
+                            Nome = "Cliente"
+                        });
+>>>>>>> developer
                 });
 
             modelBuilder.Entity("RpcCalc.Domain.Entities.UsuarioEntity", b =>
@@ -198,7 +257,6 @@ namespace RpcCalc.Infra.Migrations
                         .HasColumnType("varchar(36)");
 
                     b.Property<string>("PermissaoId")
-                        .IsRequired()
                         .HasColumnType("varchar(36)");
 
                     b.Property<string>("UsuarioId")
@@ -264,8 +322,7 @@ namespace RpcCalc.Infra.Migrations
 
                     b.HasOne("RpcCalc.Domain.Entities.PermissaoEntity", "Permissao")
                         .WithMany("UsuariosPerfis")
-                        .HasForeignKey("PermissaoId")
-                        .IsRequired();
+                        .HasForeignKey("PermissaoId");
 
                     b.HasOne("RpcCalc.Domain.Entities.UsuarioEntity", "Usuario")
                         .WithMany("UsuarioPerfis")
