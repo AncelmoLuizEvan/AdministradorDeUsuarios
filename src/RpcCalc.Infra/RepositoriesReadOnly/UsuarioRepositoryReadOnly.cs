@@ -32,7 +32,7 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
                     .ThenInclude(x => x.Role)
                 .Include(u => u.UsuarioPerfis)
                     .ThenInclude(x => x.Permissao)
-                .FirstOrDefaultAsync(u => u.Email == email);
+                .FirstOrDefaultAsync(u => u.Email == email && u.Inativo == 0);
 
             return result;
         }
