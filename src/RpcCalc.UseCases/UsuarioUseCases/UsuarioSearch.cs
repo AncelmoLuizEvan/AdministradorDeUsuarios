@@ -54,11 +54,15 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             if (!PasswordHasher.Verify(result.Senha, senha))
                 throw new ValidacaoLoginExcption("Usuário não localizado ou Senha inválida");
 
-            var dataFinalAcesso = result.UsuarioPerfis.FirstOrDefault(x => x.Permissao.Sistema.Equals(sistema))!.DataFinal;
+            var temPerfil = result.UsuarioPerfis.FirstOrDefault(x => x.Permissao.Sistema.Equals(sistema));
 
-            if (dataFinalAcesso < DateTime.Now)
+            if (temPerfil is null)
+                throw new ValidacaoLoginExcption("Usuário sem perfil para esse sistema");
+
+            var dataFinalAcesso = temPerfil.DataFinal;
+
+            if (dataFinalAcesso < DateTime.Now && dataFinalAcesso is not null)
                 throw new ValidacaoLoginExcption("Permissão de acesso expirada! Entre em contado com o administrador do sistema");
-
             if (result is not null)
                 return result.EntityForLoginDto();
 
