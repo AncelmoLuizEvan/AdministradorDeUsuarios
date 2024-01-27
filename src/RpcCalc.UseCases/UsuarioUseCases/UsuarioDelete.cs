@@ -1,7 +1,9 @@
-﻿using RpcCalc.Domain.Interfaces;
+﻿using RpcCalc.Domain.Entities;
+using RpcCalc.Domain.Interfaces;
 using RpcCalc.Domain.Interfaces.Repositories;
 using RpcCalc.Domain.Interfaces.RepositoriesReadOnly;
 using RpcCalc.Domain.Interfaces.UseCases.UsuarioUseCase;
+using RpcCalc.Domain.Interop.Usuario;
 
 namespace RpcCalc.UseCases.UsuarioUseCases
 {
@@ -14,7 +16,7 @@ namespace RpcCalc.UseCases.UsuarioUseCases
         private readonly IUsuarioPerfilRepository _usuarioPerfilRepository;
         private readonly IUsuarioRoleRepository _usuarioRoleRepository;
         private readonly IUsuarioRoleRepositoryReadOnly _usuarioRoleRepositoryReadOnly;
-
+        private readonly IMotivoInativacaoRepository _motivoInativacaoRepository;
 
         public UsuarioDelete(IUnitOfWork unitOfWork,
             IUsuarioRepository repository,
@@ -22,7 +24,8 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             IUsuarioPerfilRepositoryReadOnly usuarioPerfilRepositoryReadOnly,
             IUsuarioPerfilRepository usuarioPerfilRepository,
             IUsuarioRoleRepository usuarioRoleRepository,
-            IUsuarioRoleRepositoryReadOnly usuarioRoleRepositoryReadOnly)
+            IUsuarioRoleRepositoryReadOnly usuarioRoleRepositoryReadOnly,
+            IMotivoInativacaoRepository motivoInativacaoRepository)
         {
             _unitOfWork = unitOfWork;
             _repository = repository;
@@ -31,23 +34,32 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             _usuarioPerfilRepository = usuarioPerfilRepository;
             _usuarioRoleRepository = usuarioRoleRepository;
             _usuarioRoleRepositoryReadOnly = usuarioRoleRepositoryReadOnly;
+            _motivoInativacaoRepository = motivoInativacaoRepository;
         }
 
-        public async Task<bool> Execute(Guid id)
+        public async Task<bool> Execute(UsuarioInativacaoViewModel viewModel)
         {
+            const int Inativar = 1;
+            const int Ativar = 0;
+
             try
             {
                 _unitOfWork.BeginTransaction();
 
-                var result = await _repositoryReadOnly.Capturar(id);
-
-                foreach (var item in result!.UsuarioPerfis)
-                {
-                    await _usuarioPerfilRepository.Excluir(item);
-                }
+                var result = await _repositoryReadOnly.Capturar(viewModel.UsuarioId);
 
                 if (result is not null)
-                    await _repository.Excluir(result);
+                {
+                    if (viewModel.Inativo)
+                        result.AtivarInativar(Ativar);
+                    else
+                        result.AtivarInativar(Inativar);
+
+                    await _repository.Alterar(result);
+
+                    var motivo = new MotivoInativacaoEntity(viewModel.Motivo, viewModel.UsuarioId);
+                    await _motivoInativacaoRepository.Gravar(motivo);
+                }
 
                 _unitOfWork.Commit();
 

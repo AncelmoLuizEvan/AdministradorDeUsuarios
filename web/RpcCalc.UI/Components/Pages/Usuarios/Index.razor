@@ -37,6 +37,7 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Login</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Status</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -47,6 +48,16 @@
                             <td>@item.Nome</td>
                             <td>@item.Login</td>
                             <td>@item.Email</td>
+                            <td>
+                                @if (item.Inativo == true)
+                                {
+                                    <button type="button" class="btn btn-outline-danger" disabled>Inativo</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-primary" disabled>Ativo</button>
+                                }
+                            </td>
                             <td>
                                 <a href="@($"usuario/details/{item.Id}")" class="btn btn-outline-primary">Detalhar</a>
                             </td>

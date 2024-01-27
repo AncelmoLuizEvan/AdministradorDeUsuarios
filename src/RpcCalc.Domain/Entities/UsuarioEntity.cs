@@ -55,5 +55,10 @@
             Celular = celular;
             DataAtualizacao = DateTime.Now;
         }
+
+        public void AtivarInativar(int ativarInativar)
+        {
+            Inativo = ativarInativar;
+        }
     }
 }

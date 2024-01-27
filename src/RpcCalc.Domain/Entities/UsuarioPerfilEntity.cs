@@ -40,7 +40,7 @@
                     break;
                 case "Vitalicio":
                     DataInicio = DateTime.Now;
-                    DataFinal = DateTime.Now.AddHours(30);
+                    DataFinal = DateTime.Now.AddYears(30);
                     break;
                 case "Mensal":
                     DataInicio = DateTime.Now;

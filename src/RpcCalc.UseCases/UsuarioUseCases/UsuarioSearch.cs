@@ -2,6 +2,7 @@
 using RpcCalc.Domain.Interfaces.UseCases.UsuarioUseCase;
 using RpcCalc.Domain.Interop.Usuario;
 using RpcCalc.Domain.Mappers;
+using RpcCalc.UseCases.UsuarioUseCases.Helpers;
 using SecureIdentity.Password;
 
 namespace RpcCalc.UseCases.UsuarioUseCases
@@ -43,21 +44,25 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             return Enumerable.Empty<UsuarioDto>();
         }
 
-        public async Task<LoginDto?> ValidarLogin(string email, string senha)
+        public async Task<LoginDto?> ValidarLogin(string email, string senha, string sistema)
         {
             var result = await _repositoryReadOnly.ObterPorLogin(email);
 
             if (result == null)
-                return null;
+                throw new ValidacaoLoginExcption("Usuário não localizado ou Senha inválida");
 
             if (!PasswordHasher.Verify(result.Senha, senha))
-                return null;
+                throw new ValidacaoLoginExcption("Usuário não localizado ou Senha inválida");
+
+            var dataFinalAcesso = result.UsuarioPerfis.FirstOrDefault(x => x.Permissao.Sistema.Equals(sistema))!.DataFinal;
+
+            if (dataFinalAcesso < DateTime.Now)
+                throw new ValidacaoLoginExcption("Permissão de acesso expirada! Entre em contado com o administrador do sistema");
 
             if (result is not null)
                 return result.EntityForLoginDto();
 
             return null;
-
         }
 
         public async Task<UsuarioDto?> ObterPorEmail(string email)
