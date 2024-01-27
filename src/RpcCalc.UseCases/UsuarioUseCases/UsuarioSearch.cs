@@ -49,7 +49,7 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             var result = await _repositoryReadOnly.ObterPorLogin(email);
 
             if (result == null)
-                throw new ValidacaoLoginExcption("Usuário não localizado ou Senha inválida");
+                throw new ValidacaoLoginExcption("Usuário não localizado, senha inválida ou Inativo");
 
             if (!PasswordHasher.Verify(result.Senha, senha))
                 throw new ValidacaoLoginExcption("Usuário não localizado ou Senha inválida");
