@@ -65,17 +65,18 @@ namespace RpcCalc.UseCases.AuthenticaionUseCases
                 var permissao = await _permissaoRepositoryReadOnly.Listar();
                 var permissaoRpcWeb = permissao.FirstOrDefault(x => x.Sistema.Equals("RPC Web Admin"));
 
-                var usuarioPerfilDto = new UsuarioPerfilDto 
-                { 
-                    UsuarioId = result!.Id, 
-                    PerfilId = perfilVitalicio!.Id, 
-                    Perfil = perfilVitalicio.Descricao!,
+                var usuarioPerfilDto = new UsuarioPerfilDto
+                {
+                    UsuarioId = result!.Id,
+                    PerfilId = perfilVitalicio!.Id,
+                    Perfil = perfilVitalicio.Nome!,
                     PermissaoId = permissaoRpcWeb!.Id,
-                    Permissao = permissaoRpcWeb.Sistema,
-                    DataInicio = DateTime.Now
+                    Permissao = permissaoRpcWeb.Sistema
                 };
 
-                await _repositoryUsuarioPerfil.Gravar(usuarioPerfilDto.DtoForEntity(usuarioPerfilDto.Perfil));
+                var usuarioPerfilEntity = usuarioPerfilDto.DtoForEntity(usuarioPerfilDto.Perfil);
+
+                await _repositoryUsuarioPerfil.Gravar(usuarioPerfilEntity);
 
                 var roles = await _roleRepositoryReadOnly.Listar();
 

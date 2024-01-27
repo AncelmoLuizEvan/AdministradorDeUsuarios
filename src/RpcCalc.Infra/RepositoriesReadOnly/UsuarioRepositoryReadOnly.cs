@@ -30,6 +30,8 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
                 .AsNoTracking()
                 .Include(u => u.Roles)
                     .ThenInclude(x => x.Role)
+                .Include(u => u.UsuarioPerfis)
+                    .ThenInclude(x => x.Permissao)
                 .FirstOrDefaultAsync(u => u.Email == email);
 
             return result;

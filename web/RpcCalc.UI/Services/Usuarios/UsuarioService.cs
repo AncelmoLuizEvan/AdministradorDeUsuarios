@@ -1,6 +1,5 @@
 ﻿using RpcCalc.UI.Interop.Usuarios;
 using RpcCalc.UI.Services.Caches;
-using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace RpcCalc.UI.Services.Usuarios
@@ -58,16 +57,18 @@ namespace RpcCalc.UI.Services.Usuarios
             }
         }
 
-        public async Task<bool> Excluir(Guid id)
+        public async Task<string> AlterarStatus(Guid id, UsuarioInativacaoViewModel viewModel)
         {
             try
             {
                 var usuarioLogadoCached = _cacheService.GetCachedToken("_token");
                 var httpClient = _httpClientFactory.CreateClient("API");
                 httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", usuarioLogadoCached!.Token);
-                var response = await httpClient.DeleteFromJsonAsync<bool>($"api/Usuario/excluir/{id}");
+                var response = await httpClient.PutAsJsonAsync($"api/Usuario/alterarstatus/{id}", viewModel);
 
-                return response;
+                var result = await response.Content.ReadAsStringAsync();
+
+                return result;
             }
             catch (Exception ex)
             {

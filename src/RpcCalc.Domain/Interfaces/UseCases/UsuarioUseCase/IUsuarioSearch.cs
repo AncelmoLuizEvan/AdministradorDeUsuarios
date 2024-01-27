@@ -6,7 +6,7 @@ namespace RpcCalc.Domain.Interfaces.UseCases.UsuarioUseCase
     {
         Task<IEnumerable<UsuarioDto>?> Listar();
         Task<UsuarioDto?> Capturar(Guid id);
-        Task<LoginDto?> ValidarLogin(string email, string senha);
+        Task<LoginDto?> ValidarLogin(string email, string senha, string sistema);
         Task<UsuarioDto?> ObterPorEmail(string email);
     }
 }
