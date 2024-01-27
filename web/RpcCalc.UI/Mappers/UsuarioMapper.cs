@@ -26,7 +26,18 @@ namespace RpcCalc.UI.Mappers
                 Email = dto.Email!,
                 Celular = dto.Celular!,
                 UsuarioPerfis = dto.UsuarioPerfis,
-                Roles = dto.Roles
+                Roles = dto.Roles,
+                Inativo = dto.Inativo
+            };
+        }
+
+        public static UsuarioInativacaoViewModel DtoForUsuarioInativacaoViewModel(this UsuarioDto dto)
+        {
+            return new UsuarioInativacaoViewModel()
+            {
+                Nome = dto.Nome!,
+                UsuarioId = dto.Id,
+                Inativo = dto.Inativo
             };
         }
     }

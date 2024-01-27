@@ -10,5 +10,7 @@ namespace RpcCalc.UI.Interop.Authentication
 
         [Required(ErrorMessage = "A senha é obrigatória")]
         public string Senha { get; set; }
+
+        public string Sistema { get; set; } = "RPC Web Admin";
     }
 }

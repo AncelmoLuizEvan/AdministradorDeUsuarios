@@ -33,18 +33,12 @@ namespace RpcCalc.UI.Components.Pages.Usuarios
             }
         }
 
-        protected async Task Delete()
+        protected void AlterarStatus()
         {
             if (!string.IsNullOrEmpty(Id))
             {
                 var usuarioId = Guid.Parse(Id);
-                var result = await Service.Excluir(usuarioId);
-
-                if (result)
-                    Navigation.NavigateTo("/usuario/list");
-                else
-                    _mensagem = "Ocorreu um erro, o usuário não foi excluído. ";
-
+                Navigation.NavigateTo($"/usuario/updatestatus/{usuarioId}");
             }
         }
 

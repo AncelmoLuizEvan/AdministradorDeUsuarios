@@ -1,0 +1,58 @@
+﻿@page "/usuario/updatestatus/{Id}"
+@rendermode InteractiveServer
+
+<div class="row">
+    <div class="col-10">
+        <div class="card">
+            <div class="card-header">
+                Informar motivo da inativação ou ativação
+            </div>
+            <div class="card-body">
+                <EditForm Model="@Model" OnValidSubmit="OnValidateSubmit" OnSubmit="Save">
+                    <DataAnnotationsValidator />
+                    <div class="mb-3">
+                        @if (Model.Inativo == true)
+                        {
+                            <div class="alert alert-info" role="alert">
+                               * Usuário está Inativo. Será Ativado.
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning" role="alert">
+                               ** Usuário está Ativo. Será Inativado
+                            </div>
+                        }
+                    </div>
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <InputText class="form-control" @bind-Value="@Model.Nome" disabled="true"></InputText>
+                        <ValidationMessage For="@(() => Model.Motivo)" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="motivo" class="form-label"><em>*</em>Motivo da Inativação</label>
+                        <InputTextArea class="form-control" @bind-Value="@Model.Motivo"></InputTextArea>
+                        <ValidationMessage For="@(() => Model.Motivo)" />
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <button type="submit" class="btn btn-outline-success">Salvar</button>
+                        </div>
+                    </div>
+                </EditForm>
+                @if (!string.IsNullOrEmpty(Model._mensagem))
+                {
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-danger" role="alert">
+                                @Model._mensagem
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

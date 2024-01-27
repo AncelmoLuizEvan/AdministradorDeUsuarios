@@ -54,7 +54,14 @@
                         <a @onclick="@GoToUpdate" class="btn btn-info">Alterar</a>
                     </div>
                     <div class="col-2">
-                        <a @onclick="@Delete" class="btn btn-danger">Excluir</a>
+                        @if (Usuario.Inativo == true)
+                        {
+                            <a @onclick="@AlterarStatus" class="btn btn-primary">Ativar</a>
+                        }
+                        else
+                        {
+                            <a @onclick="@AlterarStatus" class="btn btn-danger">Desativar</a>
+                        }
                     </div>
                 </div>
                 <div class="row">

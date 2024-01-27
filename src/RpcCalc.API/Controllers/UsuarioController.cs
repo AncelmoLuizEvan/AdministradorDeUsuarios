@@ -40,11 +40,14 @@ namespace RpcCalc.API.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete]
-        [Route("excluir/{id}")]
-        public async Task<IActionResult> Excluir([FromServices] IUsuarioDelete useCase, [FromRoute] Guid id)
+        [HttpPut]
+        [Route("alterarstatus/{id}")]
+        public async Task<IActionResult> AlterarStatus([FromServices] IUsuarioDelete useCase, [FromRoute] Guid id, [FromBody] UsuarioInativacaoViewModel viewModel)
         {
-            var result = await useCase.Execute(id);
+            if (id != viewModel.UsuarioId)
+                return BadRequest("Ids não confere!");
+
+            var result = await useCase.Execute(viewModel);
 
             if (!result)
                 return BadRequest(result);

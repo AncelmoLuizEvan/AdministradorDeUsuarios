@@ -23,6 +23,8 @@ namespace RpcCalc.UI.Interop.Usuarios
         [RegularExpression(@"\(\d{2}\)\d{4,5}\-\d{4}", ErrorMessage = "Número de telefone incorreto!")]
         public string? Celular { get; set; }
 
+        public bool Inativo { get; set; }
+
         public List<UsuarioRoleDto> Roles { get; set; } = new List<UsuarioRoleDto>();
 
         public List<UsuarioPerfilDto> UsuarioPerfis { get; set; } = new List<UsuarioPerfilDto>();
