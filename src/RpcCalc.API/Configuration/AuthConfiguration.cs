@@ -2,6 +2,6 @@
 {
     public static class AuthConfiguration
     {
-        public static string JwtKey { get; set; } = "A8298B879736446FB777CF7912DB0E22";
+        public static string JwtKey { get; set; } = "B8298B879736446FB777CF7912DB0E22";
     }
 }
