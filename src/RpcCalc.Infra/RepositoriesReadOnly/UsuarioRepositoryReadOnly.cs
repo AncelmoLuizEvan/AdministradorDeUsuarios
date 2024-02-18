@@ -36,5 +36,14 @@ namespace RpcCalc.Infra.RepositoriesReadOnly
 
             return result;
         }
+
+        public async Task<UsuarioEntity?> ObterUsuarioTrocarStatus(Guid id)
+        {
+            var result = await _context.Usuario!
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            return result;
+        }
     }
 }
