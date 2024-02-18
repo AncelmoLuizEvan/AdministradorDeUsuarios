@@ -46,7 +46,7 @@ namespace RpcCalc.UseCases.UsuarioUseCases
             {
                 _unitOfWork.BeginTransaction();
 
-                var result = await _repositoryReadOnly.Capturar(viewModel.UsuarioId);
+                var result = await _repositoryReadOnly.ObterUsuarioTrocarStatus(viewModel.UsuarioId);
 
                 if (result is not null)
                 {
